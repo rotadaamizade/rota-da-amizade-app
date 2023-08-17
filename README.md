@@ -15,3 +15,13 @@ O aplicativo Rota da Amizade é um guia de bolso para os turistas que visitam a 
 | ![IFC - Campus Videira](util/images/ifc.png) | ![Rota da Amizade Convention & Visitors Boreau](util/images/rota.png) | ![Fábrica de Software](util/images/fabrica.jpeg) |
 
 ## Tecnologias Utilizadas
+
+- [Vite](https://vitejs.dev/)
+- [Vue.js](https://vuejs.org/)
+- [Firebase](https://firebase.google.com/)
+- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/fabricioifc/rota-da-amizade-app)
+- [Visual Studio Code](https://code.visualstudio.com/)
