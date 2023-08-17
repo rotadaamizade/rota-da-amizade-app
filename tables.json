@@ -1,0 +1,429 @@
+{
+  "associados": [
+    {
+      "id": 0,
+      "nome": "Padaria queijo bom",
+      "municipio": "Videira",
+      "localizacao": "Rua das flores",
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "funcionamento": [
+        {
+            "dia" : "Segunda-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                },
+                {
+                    "abre": "13:00",
+                    "fecha": "23:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Terça-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                },
+                {
+                    "abre": "13:00",
+                    "fecha": "23:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Quarta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                },
+                {
+                    "abre": "13:00",
+                    "fecha": "23:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Quinta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                },
+                {
+                    "abre": "13:00",
+                    "fecha": "23:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Sexta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                },
+                {
+                    "abre": "13:00",
+                    "fecha": "23:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Sábado",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "11:45"
+                }
+            ]
+        },
+        {
+            "dia" : "Domingo",
+            "horarios" : []
+        }
+      ],
+      "redes" : [
+        {
+            "tipo": "Instagram",
+            "url" : "instagram.com/padariaqueijobom"
+        },
+        {
+            "tipo": "WhatsApp",
+            "url": "whatsapp.web/padariaqueijobom"
+        }
+      ],
+      "eventos_id" : [
+        "fassdfasfa"
+      ]
+    },
+        {
+      "id": 1,
+      "nome": "João Eventos",
+      "municipio": "Joaçaba",
+      "localizacao": "Rua Adolfo Konder",
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com",
+        "img4.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "funcionamento": [
+        {
+            "dia" : "Segunda-Feira",
+            "horarios" : 
+            [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Terça-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Quarta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Quinta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Sexta-Feira",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Sábado",
+            "horarios" : 
+                [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        },
+        {
+            "dia" : "Domingo",
+            "horarios" : [
+                {
+                    "abre": "07:00",
+                    "fecha": "23:0"
+                }
+            ]
+        }
+      ],
+      "redes" : [
+        {
+            "tipo": "Instagram",
+            "url" : "instagram.com/joaoeventos"
+        },
+        {
+            "tipo": "WhatsApp",
+            "url": "whatsapp.web/joaoeventos"
+        },
+        {
+            "tipo": "Ingressos",
+            "url": "ingressos.com/joaoeventos"
+        },
+        {
+            "tipo": "Site",
+            "url": "whatsapp.web/joaoeventos"
+        }
+      ],
+      "eventos_id" : [
+        "dafdasfds",
+        "fgddfserfdgsd"
+      ]
+    }
+  ],
+    "eventos_associados": [
+    {
+      "id": "fassdfasfa",
+      "nome": "Degustação de queijos",
+      "associado": "Padaria queijo bom",
+      "id_associado": 0,
+      "categoria": "gastronomia",
+      "municipio": "Videira",
+      "localizacao": "Rua das flores",
+      "dias": [
+        "10/10/2023",
+        "11/10/2023",
+        "12/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "19:00",
+        "fim": "23:00"
+      }
+    },
+    {
+      "id": "dafdasfds",
+      "nome": "Show Luan Santana",
+      "associado": "joão eventos",
+      "id_associado": 1,
+      "categoria": "shows e eventos",
+      "municipio": "Joaçaba",
+      "localizacao": "Rua da pedra verde",
+      "dias": [
+        "10/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "22:00",
+        "fim": "00:00"
+      }
+    },
+    {
+      "id": "fgddfserfdgsd",
+      "nome": "Show Gustavo Lima",
+      "associado": "joão eventos",
+      "id_associado": 1,
+      "categoria": "shows e eventos",
+      "municipio": "Joaçaba",
+      "localizacao": "Rua rio niteroi",
+      "dias": [
+        "04/11/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img2.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "22:00",
+        "fim": "00:00"
+      }
+    }
+  ],
+    "municipios": [
+    {
+      "id": 123,
+      "nome": "Videira",
+      "geolocalizacao": 123413123,
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "redes" : [
+        {
+            "tipo": "Instagram",
+            "url" : "instagram.com/videira"
+        },
+        {
+            "tipo": "Site",
+            "url": "videira.gov.br"
+        }
+      ],
+      "eventos_id" : [
+        "dasfaeadgdsgfdsgfsd"
+      ],
+      "atrativos_id" : [
+        "dgfsfgafsasfd",
+        "rasggdhdg"
+      ]
+    },
+        {
+      "id": 31231,
+      "nome": "Fraiburgo",
+      "geolocalizacao": 41413234123412,
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "redes" : [
+        {
+            "tipo": "Instagram",
+            "url" : "instagram.com/fraiburgo"
+        },
+        {
+            "tipo": "Site",
+            "url": "fraiburgo.gov.br"
+        }
+      ],
+      "eventos_id" : [
+        "fadfafafafa"
+      ],
+      "atrativos_id" : [
+        "fadsfghfghfghf"
+      ]
+    }
+  ],    
+    "eventos_municipios": [
+    {
+      "id": "dasfaeadgdsgfdsgfsd",
+      "nome": "Show de fogos",
+      "id_municipio": 123,
+      "municipio": "Videira",
+      "localizacao": "Rua da claudio brandao",
+      "dias": [
+        "10/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "19:00",
+        "fim": "23:00"
+      }
+    },
+    {
+      "id": "fadfafafafa",
+      "nome": "Show Corpo e Alma",
+      "id_municipio": 31231,
+      "municipio": "Fraiburgo",
+      "localizacao": "Rua da pedra amarela",
+      "dias": [
+        "10/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "22:00",
+        "fim": "00:00"
+      }
+    }
+  ],
+    "atrativos_municipios": [
+    {
+      "id": "rasggdhdg",
+      "nome": "Estátua são pedro",
+      "id_municipio": 123,
+      "municipio": "Videira",
+      "localizacao": "Rua da avelino conte brandao",
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    },
+    {
+      "id": "dgfsfgafsasfd",
+      "nome": "Cachoeria salto",
+      "id_municipio": 123,
+      "municipio": "Videira",
+      "localizacao": "Rua da sergio chulapa",
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    },
+        {
+      "id": "fadsfghfghfghf",
+      "nome": "parque são jroge",
+      "id_municipio": 31231,
+      "municipio": "Fraiburgo",
+      "localizacao": "Rua ronaldo fenomeno",
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    }
+  ]
+}
