@@ -17,7 +17,6 @@ O aplicativo Rota da Amizade é um guia de bolso para os turistas que visitam a 
 ## Tecnologias Utilizadas
 
 - [Vite](https://vitejs.dev/)
-- [Vue.js](https://vuejs.org/)
 - [Firebase](https://firebase.google.com/)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
