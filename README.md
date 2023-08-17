@@ -10,7 +10,8 @@ O aplicativo Rota da Amizade é um guia de bolso para os turistas que visitam a 
 - [IFC - Campus Videira](https://videira.ifc.edu.br/)
 - [Fábrica de Software](https://fabricadesoftware.ifc.edu.br/)
 
-
 | | | |
-| ----------------------------------- | ----------------------------------- | ------------------------------------------- |
+| --- | --- | --- |
 | ![IFC - Campus Videira](util/images/ifc.png) | ![Rota da Amizade Convention & Visitors Boreau](util/images/rota.png) | ![Fábrica de Software](util/images/fabrica.jpeg) |
+
+## Tecnologias Utilizadas
