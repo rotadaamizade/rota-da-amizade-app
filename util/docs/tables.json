@@ -5,6 +5,10 @@
       "nome": "Padaria queijo bom",
       "municipio": "Videira",
       "localizacao": "Rua das flores",
+      "categorias": {
+        "categorias_principais" : ["Onde Comer"],
+        "subcategorias" : []
+      },
       "img_url": [
         "img.com",
         "img2.com",
@@ -111,11 +115,15 @@
         "fassdfasfa"
       ]
     },
-        {
+    {
       "id": 1,
       "nome": "João Eventos",
       "municipio": "Joaçaba",
       "localizacao": "Rua Adolfo Konder",
+      "categorias": {
+        "categorias_principais" : ["Eventos"],
+        "subcategorias" : []
+      },
       "img_url": [
         "img.com",
         "img2.com",
@@ -218,75 +226,6 @@
       ]
     }
   ],
-    "eventos_associados": [
-    {
-      "id": "fassdfasfa",
-      "nome": "Degustação de queijos",
-      "associado": "Padaria queijo bom",
-      "id_associado": 0,
-      "categoria": "gastronomia",
-      "municipio": "Videira",
-      "localizacao": "Rua das flores",
-      "dias": [
-        "10/10/2023",
-        "11/10/2023",
-        "12/10/2023"
-      ],
-      "img_url": [
-        "img.com",
-        "img2.com",
-        "img3.com"
-      ],
-      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      "horas": {
-        "inicio": "19:00",
-        "fim": "23:00"
-      }
-    },
-    {
-      "id": "dafdasfds",
-      "nome": "Show Luan Santana",
-      "associado": "joão eventos",
-      "id_associado": 1,
-      "categoria": "shows e eventos",
-      "municipio": "Joaçaba",
-      "localizacao": "Rua da pedra verde",
-      "dias": [
-        "10/10/2023"
-      ],
-      "img_url": [
-        "img.com",
-        "img2.com"
-      ],
-      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      "horas": {
-        "inicio": "22:00",
-        "fim": "00:00"
-      }
-    },
-    {
-      "id": "fgddfserfdgsd",
-      "nome": "Show Gustavo Lima",
-      "associado": "joão eventos",
-      "id_associado": 1,
-      "categoria": "shows e eventos",
-      "municipio": "Joaçaba",
-      "localizacao": "Rua rio niteroi",
-      "dias": [
-        "04/11/2023"
-      ],
-      "img_url": [
-        "img.com",
-        "img2.com",
-        "img2.com"
-      ],
-      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      "horas": {
-        "inicio": "22:00",
-        "fim": "00:00"
-      }
-    }
-  ],
     "municipios": [
     {
       "id": 123,
@@ -343,12 +282,84 @@
         "fadsfghfghfghf"
       ]
     }
-  ],    
-    "eventos_municipios": [
+  ],
+  "eventos": [
+    {
+      "id": "fassdfasfa",
+      "nome": "Degustação de queijos",
+      "associado": "Padaria queijo bom",
+      "id_terceiro": 0,
+      "tipo" : "associado",
+      "categoria": "gastronomia",
+      "municipio": "Videira",
+      "localizacao": "Rua das flores",
+      "dias": [
+        "10/10/2023",
+        "11/10/2023",
+        "12/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img3.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "19:00",
+        "fim": "23:00"
+      }
+    },
+    {
+      "id": "dafdasfds",
+      "nome": "Show Luan Santana",
+      "associado": "joão eventos",
+      "id_terceiro": 1,
+      "tipo": "associado",
+      "categoria": "shows e eventos",
+      "municipio": "Joaçaba",
+      "localizacao": "Rua da pedra verde",
+      "dias": [
+        "10/10/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "22:00",
+        "fim": "00:00"
+      }
+    },
+    {
+      "id": "fgddfserfdgsd",
+      "nome": "Show Gustavo Lima",
+      "associado": "joão eventos",
+      "id_terceiro": 1,
+      "tipo": "associado",
+      "categoria": "shows e eventos",
+      "municipio": "Joaçaba",
+      "localizacao": "Rua rio niteroi",
+      "dias": [
+        "04/11/2023"
+      ],
+      "img_url": [
+        "img.com",
+        "img2.com",
+        "img2.com"
+      ],
+      "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      "horas": {
+        "inicio": "22:00",
+        "fim": "00:00"
+      }
+    },
     {
       "id": "dasfaeadgdsgfdsgfsd",
       "nome": "Show de fogos",
-      "id_municipio": 123,
+      "id_terceiro": 123,
+      "tipo": "municipio",
+      "categoria" : "shows e eventos",
       "municipio": "Videira",
       "localizacao": "Rua da claudio brandao",
       "dias": [
@@ -368,7 +379,9 @@
     {
       "id": "fadfafafafa",
       "nome": "Show Corpo e Alma",
-      "id_municipio": 31231,
+      "id_terceiro": 31231,
+      "tipo": "municipio",
+      "categoria" : "shows e eventos",
       "municipio": "Fraiburgo",
       "localizacao": "Rua da pedra amarela",
       "dias": [
@@ -385,10 +398,11 @@
       }
     }
   ],
-    "atrativos_municipios": [
+  "atrativos_municipios": [
     {
       "id": "rasggdhdg",
       "nome": "Estátua são pedro",
+      "categorias": ["Estátuas"],
       "id_municipio": 123,
       "municipio": "Videira",
       "localizacao": "Rua da avelino conte brandao",
@@ -402,6 +416,7 @@
     {
       "id": "dgfsfgafsasfd",
       "nome": "Cachoeria salto",
+      "categorias": ["cachoeiras"],
       "id_municipio": 123,
       "municipio": "Videira",
       "localizacao": "Rua da sergio chulapa",
@@ -415,6 +430,7 @@
         {
       "id": "fadsfghfghfghf",
       "nome": "parque são jroge",
+      "categorias": ["parques"],
       "id_municipio": 31231,
       "municipio": "Fraiburgo",
       "localizacao": "Rua ronaldo fenomeno",
