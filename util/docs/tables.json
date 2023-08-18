@@ -425,5 +425,22 @@
       ],
       "descricão": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
     }
+  ],
+  "categorias": [
+    {
+      "id": 0,
+      "nome": "Onde Comer",
+      "icone": "Videira",
+      "sub_categorias": [
+        {
+          "nome": "Restaurante",
+          "icone": "icone"
+        },
+        {
+          "nome": "Sushi",
+          "icone": "icone"
+        }
+      ]
+    }
   ]
 }
