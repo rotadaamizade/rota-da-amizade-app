@@ -1,0 +1,68 @@
+main {
+    background-color: rgb(252, 252, 252);
+}
+
+main h1 {
+    margin: 0;
+}
+
+main section#quemSomos > div {
+    padding: 1rem 0 1rem 3rem;
+    background-image: url('./videiraMunicipio.jpg');    
+    background-position: center;
+    background-size: cover;
+    
+}
+
+main section#quemSomos div div#informacao {
+    padding: 1rem 0.5rem 1rem 3rem;
+    background-color: #d7d7d7c4;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: #373737;
+    font-weight: 600;
+}
+
+main section#quemSomos div div#informacao h2{
+    padding-top: 1rem ;
+    border-top: solid 2px #373737;
+}
+
+main section#municipios div.card {
+    position: relative;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+    margin: 1rem 2rem;
+    max-width: 200px;
+    width: 100%;
+    transition: all 0.3s ease-out;
+}
+
+main section#municipios div.card div.card-img-ovelay {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #8eb300;
+    padding: 0.5rem ;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #e3e3e3;
+    font-size: large;
+
+    /* 
+    position: absolute;
+    right: 0;
+    border-radius: 5px;
+    color: #dfdfdf;
+    font-size: large;
+    */
+}
+
+main section#municipios div.card div.card-img-ovelay h3 {
+    margin: 0;
+}
+main section#municipios div.card img.card-img{
+    width: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,116 @@
+header {
+    border-bottom: solid 1px #c6c6c6;
+    padding: 1rem 0;
+}
+
+header div#options {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+}
+
+header div#options :first-child {
+    margin-left: 0;
+} 
+
+header div#options ul > * {
+    margin-left: 2rem;
+    padding: 0 0.5rem;
+}
+
+header div#options img{
+    height: 100%;
+    max-height: 50px;
+}
+
+header div#options div#dropdown-icon {
+    display: none;
+}
+
+header div#options div#dropdown-icon button {
+    background: none;
+    border: none;
+}
+
+header div#options a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    transition: color 1s ease-out;
+}
+
+header div#options a:hover {
+    color: #98b126;
+    transition: color .3s ease;
+}
+
+header div#options a#app {
+    border: solid 3px #98b126;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-left: auto;
+}
+
+header div#options a#app:hover {
+    color: #e30613;
+    transition: color .3s ease;
+}
+
+header div#options-mobile {
+    width: 100%;
+}
+
+header div#options-mobile ul {
+    list-style: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1rem 2rem;
+    width: auto;
+    z-index: 1;
+}
+
+header div#options-mobile ul.show {
+    display: inline-block;
+}
+
+header div#options-mobile ul.hide {
+    display: none;
+}
+
+header div#options-mobile ul#dropdown-menu-mobile li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    header div#options {
+        justify-content: space-around;
+    }
+
+    header div#options a#icon {
+        order: 1;
+    }
+
+    header div#options img#rotaEscrita {
+        display: none;
+    }
+
+    header div#options ul#dropdown-menu {
+        display: none;
+        
+    }
+    
+    header div#options div#dropdown-icon {
+        display: block;
+        order: 3;
+    }
+
+    header div#options a#app {
+        margin-left: 0;
+        order: 2;
+    }
+}
