@@ -29,7 +29,6 @@ main section#quemSomos div div#informacao h2{
 }
 
 main section#municipios div.card {
-    position: relative;
     display: flex;
     border-radius: 5px;
     box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
@@ -40,9 +39,7 @@ main section#municipios div.card {
 }
 
 main section#municipios div.card div.card-img-ovelay {
-    position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     background-color: #8eb300;
     padding: 0.5rem ;
     border-bottom-left-radius: 5px;
@@ -65,4 +62,10 @@ main section#municipios div.card div.card-img-ovelay h3 {
 main section#municipios div.card img.card-img{
     width: 100%;
     object-fit: cover;
+}
+
+@media (max-width: 991px) {
+    main section#quemSomos {
+        padding-top: 92px;
+    }
 }

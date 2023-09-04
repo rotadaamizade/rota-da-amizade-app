@@ -1,116 +1,142 @@
 header {
-    border-bottom: solid 1px #c6c6c6;
+    background-color: #ffffff;
+    height: 60px;
     padding: 1rem 0;
+    border-bottom: solid 1px #c6c6c6;
 }
 
 header div#options {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    
-}
-
-header div#options :first-child {
-    margin-left: 0;
-} 
-
-header div#options ul > * {
-    margin-left: 2rem;
-    padding: 0 0.5rem;
-}
-
-header div#options img{
     height: 100%;
-    max-height: 50px;
+    z-index: 2;
 }
 
-header div#options div#dropdown-icon {
-    display: none;
+header a#icon {
+    display: flex;
+    align-items: center;
 }
 
-header div#options div#dropdown-icon button {
-    background: none;
-    border: none;
+header a#icon img {
+    max-width: 150px;
+}
+
+header a#icon img#rotaDesenho {
+    max-height: 50px;   
 }
 
 header div#options a {
     text-decoration: none;
-    font-weight: bold;
-    color: black;
+    color: #000000;
+    margin-left: 1rem;
     transition: color 1s ease-out;
 }
 
-header div#options a:hover {
+header div#options a:hover, header div#dropdown-menu a:hover {
     color: #98b126;
     transition: color .3s ease;
 }
 
-header div#options a#app {
+header div#options > a#baixarApp {
     border: solid 3px #98b126;
     border-radius: 5px;
     padding: 0.5rem 1rem;
     margin-left: auto;
 }
 
-header div#options a#app:hover {
+header div#options > a#baixarApp:hover {
     color: #e30613;
     transition: color .3s ease;
 }
 
-header div#options-mobile {
-    width: 100%;
-}
+/* mobile */
 
-header div#options-mobile ul {
-    list-style: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1rem 2rem;
-    width: auto;
-    z-index: 1;
-}
-
-header div#options-mobile ul.show {
-    display: inline-block;
-}
-
-header div#options-mobile ul.hide {
+header div#options div#dropdown-icon {
     display: none;
+    margin-left: auto;
+    margin-right: 1rem;
 }
 
-header div#options-mobile ul#dropdown-menu-mobile li a {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
+header div#options div#dropdown-icon button {
+    background: none;
+    border: solid 1px #c6c6c6;
+    border-radius: 5px;
+}
+
+header div#options div#dropdown-icon button svg {
+    width: auto;
+    width: 3em;
+}
+
+header div#dropdown-menu {
+    position: fixed;
     width: 100%;
+    height: 100%;
+    background-color: #f8f8f8;
+}
+
+header div.show {
+    border-top: solid 1px #c6c6c6;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(10px);
+    transition: .2s
+}
+
+header div.hide {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: .2s
+}
+
+header div#dropdown-menu ul {
+    list-style: none;
+}
+
+header div#dropdown-menu hr {
+    background-color: #c6c6c6;
+    border: 0;
+    height: 1px;
+    width: 85%;
+    margin: 0 auto;
+}
+
+header div#dropdown-menu ul li {
+    margin-bottom: .5rem;
+}
+
+header div#dropdown-menu ul li a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #000000;
+    transition: color 1s ease-out;
+}
+
+@media (min-width: 992px) {
+    header div#dropdown-menu {
+        display: none;
+    }
 }
 
 @media (max-width: 991px) {
-    header div#options {
-        justify-content: space-around;
-    }
-
-    header div#options a#icon {
-        order: 1;
-    }
-
-    header div#options img#rotaEscrita {
+    /* retirar elementos do desktop */
+    header div#options ul, a#baixarApp, a#icon  {
         display: none;
     }
-
-    header div#options ul#dropdown-menu {
-        display: none;
-        
+    /* mostrar elementos do mobile */
+    header{
+        position: fixed;
+        width: 100%;
     }
-    
+
     header div#options div#dropdown-icon {
-        display: block;
-        order: 3;
+        display: flex;
     }
+}
 
-    header div#options a#app {
-        margin-left: 0;
-        order: 2;
+@media (max-width: 375px) {
+    header div#options img#rotaEscrita  {
+        display: none;
     }
 }
