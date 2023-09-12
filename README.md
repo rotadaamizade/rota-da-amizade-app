@@ -24,3 +24,5 @@ O aplicativo Rota da Amizade é um guia de bolso para os turistas que visitam a 
 - [Git](https://git-scm.com/)
 - [GitHub](https://github.com/fabricioifc/rota-da-amizade-app)
 - [Visual Studio Code](https://code.visualstudio.com/)
+
+teste
