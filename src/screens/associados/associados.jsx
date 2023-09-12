@@ -70,6 +70,7 @@ function Associados(){
     ]
     const cards = [
         {
+            id: 0,
             name: 'Hotel San Ghermann',
             city: 'Arroio Trinta ',
             category: 'Onde Dormir',
@@ -80,6 +81,7 @@ function Associados(){
             type: 'associado'
         },
         {
+            id: 1,
             name: 'Cachoeira do Salto',
             city: 'Salto Veloso',
             category: 'Onde Comer',
@@ -90,6 +92,7 @@ function Associados(){
             type: 'associado'
         },
         {
+            id: 2,
             name: 'Hotel San Ghermann',
             city: 'Arroio Trinta ',
             category: 'Onde Dormir',
@@ -100,6 +103,7 @@ function Associados(){
             type: 'associado'
         },
         {
+            id: 3,
             name: 'Cachoeira do Salto',
             city: 'Salto Veloso',
             category: 'Onde Comer',
@@ -110,6 +114,7 @@ function Associados(){
             type: 'associado'
         },
         {
+            id: 4,
             name: 'Hotel San Ghermann',
             city: 'Arroio Trinta ',
             category: 'Onde Dormir',
@@ -120,6 +125,7 @@ function Associados(){
             type: 'associado'
         },
         {
+            id: 5,
             name: 'Cachoeira do Salto',
             city: 'Salto Veloso',
             category: 'Onde Comer',
@@ -187,6 +193,7 @@ function Associados(){
                                 img={card.img}
                                 type={card.type}
                                 dates={card.dates != undefined ? card.dates : null}
+                                id={card.id}
                             />
                         ))
                     }

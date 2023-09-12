@@ -1,0 +1,15 @@
+.all-content-page{
+    width: 200%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    transition: .3s;
+    transform: translateX(0%);
+}
+
+.content-1, .content-2{
+    width: 100%;
+    height: calc(100% - 158px);
+    padding: 10px 25px 25px 25px;
+    overflow: scroll;
+}

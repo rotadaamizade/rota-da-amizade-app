@@ -1,21 +1,38 @@
-import './evento.css'
+import './associado.css'
 import { useContext, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
-import HeaderEvento from "../../components/headerEvento/headerEvento";
+import SliderMenu from "../../components/sliderMenu/sliderMenu";
 import Card from '../../components/card/card';
+import HeaderAssociado from '../../components/headerAssociado/headerAssociado';
 
-function Evento() {
+function Associado() {
     const { id } = useParams();
     const { navbarState, setNavbarState } = useContext(UserContext)
+    const menus = ['Informações', 'Eventos']
+    const [menuActive, setMenuActive] = useState(menus[0])
 
     const content = useRef(null);
 
     useEffect(() => {
-        if (navbarState !== 'eventos') {
-            setNavbarState('eventos')
+        if (navbarState !== 'associados') {
+            setNavbarState('associados')
         }
     }, [])
+
+    useEffect(() => {
+        if (menuActive === menus[0]) {
+            if (content.current) {
+
+                content.current.style.transform = 'translateX(0)';
+            }
+        } else if (menuActive === menus[1]) {
+            if (content.current) {
+                
+                content.current.style.transform = 'translateX(-50%)';
+            }
+        }
+    }, [menuActive])
 
     const cards = [
         {
@@ -151,11 +168,32 @@ function Evento() {
 
     return (
         <>
-            <HeaderEvento />
-            <section className="section-4">
-                <div className='event-title'>
-                    Informações
-                    <div>
+            <HeaderAssociado/>
+            <section className="section-3">
+                <SliderMenu
+                    menus={menus}
+                    menuActive={menuActive}
+                    setMenuActive={setMenuActive}
+                />
+                <div ref={content} className="all-content-page">
+                <div>
+                    
+                </div>
+                    <div className="content-1"></div>
+                    <div className="content-2">{
+                    cards.map((card, index) => (
+                        <Card
+                            key={index}
+                            name={card.name}
+                            city={card.city}
+                            svg={card.categorySvg}
+                            img={card.img}
+                            type={card.type}
+                            dates={card.dates != undefined ? card.dates : null}
+                            id={card.id}
+                        />
+                    ))
+                    }
 
                     </div>
                 </div>
@@ -164,4 +202,4 @@ function Evento() {
     )
 }
 
-export default Evento;
+export default Associado

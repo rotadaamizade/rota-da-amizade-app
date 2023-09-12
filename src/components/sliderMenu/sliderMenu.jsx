@@ -9,7 +9,7 @@ function SliderMenu(props){
             <div className="slider-menu">
                 {
                     props.menus.map((menu, index) => (
-                        <div className={props.menuActive == menu ? 'menu-active' : 'menu-disable'} onClick={
+                        <div key={index} className={props.menuActive == menu ? 'menu-active' : 'menu-disable'} onClick={
                             () => {props.setMenuActive(menu)}
                         }>
                             {menu}
