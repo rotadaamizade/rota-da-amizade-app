@@ -1,0 +1,49 @@
+.slider-menu-container{
+    padding: 25px 25px 0 25px;
+}
+
+.slider-menu{
+    display: flex;
+    margin-top: 5px;
+}
+
+.slider-menu div{
+    width: 50%;
+    text-align: center;
+    padding-bottom: 7px;
+    transition: 2s;
+    text-align: center;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 110.9%; /* 15.526px */
+    letter-spacing: 0.07px;
+    transition: .3s;
+}
+
+.slider-bottom {
+    width: 50%;
+    height: 4px;
+    background-color: #78900E;
+    margin-top: 4px;
+    transition: transform 0.2s ease; /* Transição suave para a propriedade transform */
+    border-radius: 10px;
+}
+
+.menu-active-left  {
+    transform: translateX(0);
+}
+
+.menu-active-right {
+    transform: translateX(100%);
+}
+
+.menu-active{
+    font-weight: 700;
+    color: #78900E;
+}
+
+.menu-disable{
+    color: #BFBFBF;
+    font-weight: 600;
+}
