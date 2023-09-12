@@ -1,0 +1,26 @@
+.title-div{
+    margin-bottom: 14px;
+}
+
+.text-1{
+    color: #000;
+    font-family: Raleway;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.11px;
+    margin: 0;
+}
+
+.text-2{
+    color: #000;
+    font-family: Raleway;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.16px;
+    margin: 0;
+    line-height: 33px;
+}

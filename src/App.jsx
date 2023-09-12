@@ -10,11 +10,13 @@ import Associados from './screens/associados/associados';
 import Eventos from './screens/eventos/eventos';
 import Municipios from './screens/municipios/municipios';
 import Atrativos from './screens/atrativos/atrativos';
+import Evento from './screens/evento/evento';
 
 function App() {
 
   return (
     <div className="App">
+      
     <BrowserRouter>
     <UserProvider>
       <Navbar/>
@@ -26,6 +28,7 @@ function App() {
         <Route path='/eventos' element={<Eventos/>}/>
         <Route path='/municipios' element={<Municipios/>}/>
         <Route path='/atrativos' element={<Atrativos/>}/>
+        <Route path='/evento/:id' element={<Evento/>}/>
       </Routes>
       </main>
     </UserProvider>
