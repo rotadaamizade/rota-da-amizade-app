@@ -1,0 +1,22 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+    .container {
+        width: auto;
+        max-width: 990px;
+    }
+}
