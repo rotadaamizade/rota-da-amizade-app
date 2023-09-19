@@ -14,7 +14,7 @@
     transition: 2s;
     text-align: center;
     font-family: Raleway;
-    font-size: 16px;
+    font-size: 15px;
     font-style: normal;
     line-height: 110.9%; /* 15.526px */
     letter-spacing: 0.07px;
@@ -23,11 +23,10 @@
 
 .slider-bottom {
     width: 50%;
-    height: 4px;
+    height: 3px;
     background-color: #78900E;
     margin-top: 4px;
-    transition: transform 0.2s ease; /* Transição suave para a propriedade transform */
-    border-radius: 10px;
+    transition: transform 0.2s ease;
 }
 
 .menu-active-left  {

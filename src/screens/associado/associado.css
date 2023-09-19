@@ -13,3 +13,90 @@
     padding: 10px 25px 25px 25px;
     overflow: scroll;
 }
+
+.content-1{
+    padding-top: 0;
+}
+
+.title-associado:first-child{
+    margin-top: 23px;
+}
+
+.title-associado{
+    color: #2D2C2C;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 91.9%; /* 13.785px */
+    letter-spacing: 0.075px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding-bottom: 11px;
+    margin-bottom: 11px;
+    margin-top: 29px;
+}
+
+.open-button{
+    border-radius: 6px;
+    background: #008CA6;
+    padding: 7px;
+    align-items: center;
+    display: inline-block;
+}
+
+.open-button div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-button p, .category-button p  {
+    color: #FFF;
+    font-size: 12.4px;
+    font-style: normal;
+    display: inline;
+    font-weight: 700;
+    line-height: 91.9%; /* 9.558px */
+    letter-spacing: 0.052px;
+    margin: 0;
+    margin-left: 5px;
+    padding-right: 4px;
+}
+
+.category-button{
+    border-radius: 6px;
+    padding: 6px 8px 8px 7px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.redes-div{
+    margin-top: 29px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    border-top: 1px solid rgb(224, 224, 224);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.redes-div div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    font-size: 15px;
+    width: calc(50% - 6px);
+    padding: 8px 0;
+}
+
+.redes-button-1{
+    color: #1B8296;
+    font-weight: 700;
+    border: 2px solid #008CA6;
+}
+
+.redes-button-2{
+    color: #ffffff;
+    background-color: #008CA6;
+    font-weight: 700;
+}
