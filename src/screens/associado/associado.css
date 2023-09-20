@@ -100,3 +100,62 @@
     background-color: #008CA6;
     font-weight: 700;
 }
+
+.sobre-nos{
+    color: #5a5a5a;
+    text-align: justify;
+    font-family: Raleway;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 15.6px */
+    letter-spacing: -0.12px;
+}
+
+.redes-popup{
+    border-radius: 10px;
+    position: fixed;
+    background-color: #ffffff;
+    opacity: 0;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .4s ease;
+    min-width: 250px;
+    width: calc(100% - 70px);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-buttons{
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.close-button-container{
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgb(224, 224, 224);
+}
+
+.close-button{
+    width: 100%;
+    color: #1B8296;
+    font-weight: 700;
+    border: 2px solid #6297a0;
+    height: 37px;
+}
+
+.rede-button{
+    width: 100%;
+    color: white;
+    font-weight: 700;
+    height: 37px;
+    background-color: #008CA6;
+    margin-bottom: 10px;
+}

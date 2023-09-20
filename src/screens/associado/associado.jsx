@@ -175,8 +175,88 @@ function Associado() {
         'https://media.istockphoto.com/id/1301017778/pt/foto/three-glasses-of-white-rose-and-red-wine-on-a-wooden-barrel.jpg?s=612x612&w=0&k=20&c=wn_Zad_udltkpd8tD_-hI7EeQ1EHrtyV2C_hU3m_uTE='
     ]
 
+    const redes = [
+        {name: 'Instagram', color: '#FD1D1D'},
+        {name: 'Facebook', color: '#4267B2'},
+        {name: 'Twitter', color: '#1DA1F2'},
+        {name: 'WebSite', color: '#000'},
+    ]
+
+    const contatos = [
+        {name: 'WhatsApp', color: '#25D366'},
+        {name: 'Email', color: '#000'},
+        {name: 'Telefone', color: '#4267B2'}
+    ]
+
+    const background = useRef();
+    const redespopup = useRef();
+    const contatopopup = useRef()
+
+    const closePopup = (type) => {
+        background.current.style.opacity = '0';
+        
+
+        if(type == 'contato'){
+            contatopopup.current.style.opacity = '0';
+        } else {
+            redespopup.current.style.opacity = '0';
+        }
+
+        setTimeout(() => {
+            background.current.style.zIndex = '-1';
+           
+            if(type == 'contato'){
+                contatopopup.current.style.zIndex = '-1'; 
+            } else {
+                redespopup.current.style.zIndex = '-1'; 
+            }
+        }, 200);
+    };
+  
+    const openPopup = (type) => {
+
+        background.current.style.zIndex = '3';
+        background.current.style.opacity = '100%';
+
+        if(type == 'contato'){
+            contatopopup.current.style.opacity = '100%';
+            contatopopup.current.style.zIndex = '4';
+        } else {
+            redespopup.current.style.opacity = '100%';
+            redespopup.current.style.zIndex = '4';
+        }
+    };
+
     return (
         <>
+            <div onClick={() => {
+                closePopup('contato')
+                closePopup('redes')
+            }} ref={background} className='popup-background'></div>
+            <div ref={redespopup} className='redes-popup' >
+                <div>
+                    {
+                        redes.map((rede, index) => (
+                            <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                        ))
+                    }
+                    <div className='close-button-container'>
+                        <div onClick={() => closePopup('redes')} className='close-button popup-buttons'>Fechar</div>
+                    </div>
+                </div>
+            </div>
+            <div ref={contatopopup} className='redes-popup' >
+                <div>
+                    {
+                        contatos.map((contato, index) => (
+                            <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                        ))
+                    }
+                    <div className='close-button-container'>
+                        <div onClick={() => closePopup('contato')} className='close-button popup-buttons'>Fechar</div>
+                    </div>
+                </div>
+            </div>
             <HeaderAssociado/>
             <section className="section-3">
                 <SliderMenu
@@ -209,16 +289,17 @@ function Associado() {
                         <ImgCarousel
                             imgArray={imgs}
                         />
-                        <div className='redes-div'>
-                            <div className='redes-button-1'>Contato</div>
-                            <div className='redes-button-2'>Redes Sociais</div>
-                        </div>
+
                         <h2 className='title-associado'>Localização</h2>
                         <LocalizationCard/>
                         <h2 className='title-associado'>Sobre Nós</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
+                        <p className='sobre-nos'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis asperiores sint aliquam optio reiciendis molestias, cumque incidunt eos aut odit consequuntur a nisi sapiente rerum possimus neque expedita at adipisci? Lorem  dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
+                        <div className='redes-div'>
+                            <div onClick={() => openPopup('contato')} className='redes-button-1'>Contato</div>
+                            <div onClick={() => openPopup('redes')} className='redes-button-2'>Redes Sociais</div>
+                        </div>
                     </div>
-                    <div className="content-2">{
+                    <div className="content-2">{ 
                     cards.map((card, index) => (
                         <Card
                             key={index}
