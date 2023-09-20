@@ -216,6 +216,7 @@ function Associado() {
                         <h2 className='title-associado'>Localização</h2>
                         <LocalizationCard/>
                         <h2 className='title-associado'>Sobre Nós</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
                     </div>
                     <div className="content-2">{
                     cards.map((card, index) => (
