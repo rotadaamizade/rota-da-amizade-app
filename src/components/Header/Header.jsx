@@ -2,9 +2,29 @@ import rotaDesenho from "./rota-da-amizade-desenho.png";
 import rotaEscrita from "./rota-da-amizade-escrita.png";
 import "./Header.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const linkHome = () => {
+    if (isOpen) setIsOpen(!isOpen);
+    navigate("");
+  };
+  const linkAboutUs = () => {
+    setIsOpen(!isOpen)
+    navigate("/sobre");
+  };
+  const linkCities = () => {
+    setIsOpen(!isOpen)
+    navigate("/cidades");
+  };
+  const linkAssociates = () => {
+    setIsOpen(!isOpen)
+    navigate("/associados");
+  };
 
   const dropdownMenuIcon = (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +56,7 @@ function Header() {
   return (
     <header>
       <div id="options" className="container">
-        <a href="#" id="icon">
+        <a onClick={linkHome} id="icon">
           <img
             src={rotaDesenho}
             alt="Logo da rota da amizade"
@@ -46,9 +66,9 @@ function Header() {
           <img src={rotaEscrita} alt="nome Rota da amizade" id="rotaEscrita" />
         </a>
         <ul>
-          <a href="#quemSomos">Quem somos</a>
-          <a href="#cidades">Municipios</a>
-          <a href="#associados">Associados</a>
+          <a onClick={linkAboutUs}>Quem somos</a>
+          <a onClick={linkCities}>Municipios</a>
+          <a onClick={linkAssociates}>Associados</a>
           <a href="#contact">Contato</a>
         </ul>
         <a href="#" id="baixarApp">
@@ -70,34 +90,13 @@ function Header() {
       >
         <ul id="dropdown-menu-mobile">
           <li>
-            <a
-              href="#quemSomos"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              Quem somos
-            </a>
+            <a onClick={linkAboutUs}>Quem somos</a>
           </li>
           <li>
-            <a
-              href="#cidades"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              Municipios
-            </a>
+            <a onClick={linkCities}>Municipios</a>
           </li>
           <li>
-            <a
-              href="#associados"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              Associados
-            </a>
+            <a onClick={linkAssociates}>Associados</a>
           </li>
           <li>
             <a

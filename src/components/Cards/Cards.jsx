@@ -4,7 +4,7 @@ function Cards(props) {
   return (
     <div className="card">
       <a href="#">
-        <div id="imagemContainer">
+        <div className="cardContainer">
           <img
             src={`./${props.path}/${props.objeto.imagem}`}
             alt={`imagem de ${props.objeto.nome}`}

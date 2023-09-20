@@ -26,7 +26,7 @@ div.cardGroup div.sombra:hover {
     transition: .2s;
 }
 
-div.cardGroup div#imagemContainer img {
+div.cardGroup div.cardContainer img {
     position: absolute;
     width: 100%;
     height: 100%;

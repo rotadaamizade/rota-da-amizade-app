@@ -1,14 +1,18 @@
 [
     {
-        "img": "videira.jpg"
+        "img": "videira.jpg",
+        "city": "Videira"
     },
     {
-        "img": "arroioTrinta.jpg"
+        "img": "arroioTrinta.jpg",
+        "city": "Arroio Trinta"
     },
     {
-        "img": "tangara.jpg"
+        "img": "tangara.jpg",
+        "city": "Tangará"
     },
     {
-        "img": "iomere.jpg"
+        "img": "iomere.jpg",
+        "city": "Iomere"
    }
 ]

@@ -72,6 +72,10 @@ footer div#contact div.redFilter:hover {
     transition: filter .3s ease;
 }
 
+footer div#contact > div {
+    align-items: end;
+}
+
 footer div#subContact {
     background-color: #dfdfdf;
     text-align: center;
@@ -84,10 +88,13 @@ footer div#subContact {
         padding: 1rem 1.5rem;
     }
 
+    footer div#rotaIcon {
+        justify-content: center;
+    }
+
     footer div#contact {
         display: inline;
         justify-content: left;
-
     }
 
     footer div#contact>div {
@@ -98,4 +105,5 @@ footer div#subContact {
     footer div#contact>div:last-child {
         border-bottom: none;
     }
+
 }

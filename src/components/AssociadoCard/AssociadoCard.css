@@ -1,11 +1,11 @@
-div.cardGroup div.cardOverlay h3{
-    text-align: center;
-    margin-top: auto;
-    font-weight: bold;
+div.cardGroup div.cardOverlay h3 {
+  text-align: center;
+  margin-top: auto;
+  font-weight: bold;
 }
 
-div.cardGroup div.cardOverlay h4{
-    text-align: center;
-    margin-top: auto;
-    font-weight: 100;
+div.cardGroup div.cardOverlay h4 {
+  text-align: center;
+  margin-top: auto;
+  font-weight: 100;
 }

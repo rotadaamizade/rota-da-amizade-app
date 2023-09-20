@@ -10,14 +10,12 @@ function Footer() {
   return (
     <footer>
       <div id="paddingAll">
-        <div id="rotaIcon" className="container">
-          <a href="#options">
-            <img src={RotaAmizadeIcon} alt="" id="rotaDesenho" />
-            <img src={RotaAmizadeName} alt="" />
-          </a>
-        </div>
         <div id="contact" className="container">
           <div>
+            <div id="rotaIcon" className="container">
+              <img src={RotaAmizadeIcon} alt="" id="rotaDesenho" />
+              <img src={RotaAmizadeName} alt="" />
+            </div>
             <p className="tittleContact">
               <b>Contato</b>
             </p>
@@ -90,13 +88,13 @@ function Footer() {
           </div>
         </div>
       </div>
-        <div id="subContact">
-          <div className="container">
-            <p>
-              <b>© Rota da Amizade. Todos os Direitos Reservados. 2023</b>
-            </p>
-          </div>
+      <div id="subContact">
+        <div className="container">
+          <p>
+            <b>© Rota da Amizade. Todos os Direitos Reservados. 2023</b>
+          </p>
         </div>
+      </div>
     </footer>
   );
 }
