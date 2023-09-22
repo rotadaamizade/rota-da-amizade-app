@@ -41,6 +41,16 @@ header div#dropdown-menu a:hover {
   cursor: pointer;
 }
 
+header div#options a.activeLink {
+  color: #e30613;
+  transition: color 0.3s ease;
+}
+
+header div#options a.activeLink:hover {
+  color: #98b126;
+  transition: color 1s ease-out;
+}
+
 header div#options > a#baixarApp {
   border: solid 3px #98b126;
   border-radius: 5px;

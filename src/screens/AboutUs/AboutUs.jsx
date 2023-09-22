@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./AboutUs.css";
 import axios from "axios";
+import ShortDescribeAboutUs from "../../components/ShortDescribeAboutUs/ShortDescribeAboutUs";
 
 function AboutUs() {
   const [imgCapa, setImgCapa] = useState([]);
@@ -12,56 +13,7 @@ function AboutUs() {
 
   return (
     <>
-      <section id="aboutUs">
-        <div className="container">
-          {/* 
-        <div id="textLeft">
-          <div>
-            <h1>ROTA DA AMIZADE</h1>
-            <p>
-              Somos uma associação de turismo sem fins econômicos que através da
-              divulgação dos municípios e dos seus associados busca promover e
-              desenvolver o turismo na região do Vale dos Imigrantes.
-            </p>
-          </div>
-        </div>
-        <div id="imageRight">
-          <div id="imageWrapper">
-            <img
-              src={`Capas/${imgCapa.img}`}
-              alt="Houveram problemas ao exibir a imagem"
-            />
-          </div>
-        </div>
-         */}
-          <div id="textMiddle">
-            <h1>ROTA DA AMIZADE</h1>
-            <p>
-              Somos uma associação de turismo sem fins econômicos que através da
-              divulgação dos municípios e dos seus associados busca promover e
-              desenvolver o turismo na região do Vale dos Imigrantes.
-            </p>
-          </div>
-        </div>
-      </section>
-      {/* 
-      <section id="aboutUsImage">
-        <div id="imageWrapper">
-          <img
-            src={`Capas/${imgCapa.img}`}
-            alt="Houveram problemas ao exibir a imagem"
-          />
-        </div>
-
-        <div id="imageShadowBottom" />
-        <div id="imageTextOverlay">
-          <div id="textOverlayMark">
-            <h2>{imgCapa.city}</h2>
-          </div>
-        </div>
-        
-      </section>
-       */}
+      <ShortDescribeAboutUs />
       <section id="ourValues">
         <div className="container" id="valuesWrapper">
           <div>

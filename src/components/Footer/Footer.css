@@ -1,4 +1,4 @@
-footer {
+rotaIconfooter {
     /* background-color: #dbdbdb; */
     background-color: #efefef;
 }
@@ -9,7 +9,7 @@ footer div#paddingAll {
 
 footer div#rotaIcon {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 footer div#rotaIcon img {
@@ -46,6 +46,7 @@ footer div#contact {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    padding-top: 1rem;
 }
 
 footer div#contact a {

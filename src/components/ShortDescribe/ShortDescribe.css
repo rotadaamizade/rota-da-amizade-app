@@ -1,0 +1,8 @@
+section#aboutUs {
+  height: 80vh;
+}
+
+section#aboutUs div#contentMiddle {
+  text-align: center;
+  padding: 10rem 25%;
+}

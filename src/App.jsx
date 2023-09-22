@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { PageProvider } from "./useContext";
 import "./css/Normalize.css";
 import "./css/Style.css";
 import Home from "./screens/Home/Home";
@@ -11,17 +13,21 @@ import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <>
-      <Header />
-      <main>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/sobre" element={<AboutUs />} />
-          <Route path="/cidades" element={<Cities />} />
-          <Route path="/associados" element={<Associates />} />
-          <Route path="*" element={<Navigate to="" />} />
-        </Routes>
-      </main>
-      <Footer />
+      <BrowserRouter>
+        <PageProvider>
+          <Header />
+          <main>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="/sobre" element={<AboutUs />} />
+              <Route path="/cidades" element={<Cities />} />
+              <Route path="/associados" element={<Associates />} />
+              <Route path="*" element={<Navigate to="" />} />
+            </Routes>
+          </main>
+          <Footer />
+        </PageProvider>
+      </BrowserRouter>
     </>
   );
 }

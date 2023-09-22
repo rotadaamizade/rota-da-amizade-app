@@ -1,28 +1,36 @@
 import rotaDesenho from "./rota-da-amizade-desenho.png";
 import rotaEscrita from "./rota-da-amizade-escrita.png";
 import "./Header.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PageContext } from "../../useContext";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const { page, setPage } = useContext(PageContext);
+  console.log("page -" + page);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const linkHome = () => {
     if (isOpen) setIsOpen(!isOpen);
+    setPage("home");
     navigate("");
   };
   const linkAboutUs = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
+    setPage("about");
     navigate("/sobre");
   };
   const linkCities = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
+    setPage("cities");
     navigate("/cidades");
   };
   const linkAssociates = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
+    setPage("associates");
     navigate("/associados");
   };
 
@@ -66,9 +74,14 @@ function Header() {
           <img src={rotaEscrita} alt="nome Rota da amizade" id="rotaEscrita" />
         </a>
         <ul>
-          <a onClick={linkAboutUs}>Quem somos</a>
-          <a onClick={linkCities}>Municipios</a>
-          <a onClick={linkAssociates}>Associados</a>
+          <a
+            className={page == "about" ? "activeLink" : ""}
+            onClick={linkAboutUs}
+          >
+            Quem somos
+          </a>
+          <a className={page == "cities" ? "activeLink" : ""} onClick={linkCities}>Municipios</a>
+          <a className={page == "associates" ? "activeLink" : ""} onClick={linkAssociates}>Associados</a>
           <a href="#contact">Contato</a>
         </ul>
         <a href="#" id="baixarApp">

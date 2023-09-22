@@ -10,12 +10,12 @@ function Footer() {
   return (
     <footer>
       <div id="paddingAll">
+        <div id="rotaIcon" className="container">
+          <img src={RotaAmizadeIcon} alt="" id="rotaDesenho" />
+          <img src={RotaAmizadeName} alt="" />
+        </div>
         <div id="contact" className="container">
           <div>
-            <div id="rotaIcon" className="container">
-              <img src={RotaAmizadeIcon} alt="" id="rotaDesenho" />
-              <img src={RotaAmizadeName} alt="" />
-            </div>
             <p className="tittleContact">
               <b>Contato</b>
             </p>

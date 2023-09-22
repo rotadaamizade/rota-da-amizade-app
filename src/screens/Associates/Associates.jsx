@@ -28,6 +28,7 @@ function Associates() {
   }, []);
   return (
     <section id="associates" className="container">
+      <h1>Associados</h1>
       <div className="cardGroup">
         {associadosDiamante.map((associado) => {
           return (

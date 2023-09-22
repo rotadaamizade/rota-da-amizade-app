@@ -35,20 +35,6 @@ section#aboutUs div#imageWrapper img {
   border-bottom-right-radius: 5px;
 }
 */
-
-section#aboutUs {
-  height: 80vh;
-}
-
-section#aboutUs div#textMiddle {
-  text-align: center;
-  padding: 10rem 25%;
-}
-
-section#aboutUs div#textMiddle h1 {
-  animation-name: colorTitle;
-  animation-duration: 3000ms;
-}
 /* IMAGE */
 /* 
 section#aboutUsImage{
@@ -131,17 +117,5 @@ section#ourValues div#valuesWrapper > div h3 {
     width: 80%;
     border-right: none;
     border-bottom: solid #98b126 2px;
-  }
-}
-
-@keyframes colorTitle {
-  25% {
-    color: #98b126;
-  }
-  50% {
-    color: #e30613;
-  }
-  100% {
-    color: black;
   }
 }

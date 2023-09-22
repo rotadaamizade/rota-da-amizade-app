@@ -1,0 +1,17 @@
+section#aboutUs div#contentMiddle h1 {
+  animation-name: colorTitle;
+  animation-delay: 500ms;
+  animation-duration: 3000ms;
+}
+
+@keyframes colorTitle {
+  25% {
+    color: #98b126;
+  }
+  50% {
+    color: #e30613;
+  }
+  100% {
+    color: black;
+  }
+}

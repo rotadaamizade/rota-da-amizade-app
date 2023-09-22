@@ -3,7 +3,7 @@ import "./AssociadoCard.css";
 
 function AssociadoCard(props) {
   return (
-    <Cards objeto={props.instancia} path={props.path}> 
+    <Cards objeto={props.instancia} path={props.path} shadow="highShadow"> 
       <h3>{props.instancia.nome}</h3>
       <h4>{props.instancia.cidade}</h4>
     </Cards>
