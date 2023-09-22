@@ -22,20 +22,6 @@
     margin-top: 23px;
 }
 
-.title-associado{
-    color: #2D2C2C;
-    font-family: Raleway;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 91.9%; /* 13.785px */
-    letter-spacing: 0.075px;
-    border-bottom: 1px solid rgb(224, 224, 224);
-    padding-bottom: 11px;
-    margin-bottom: 11px;
-    margin-top: 29px;
-}
-
 .open-button{
     border-radius: 6px;
     background: #008CA6;
@@ -70,37 +56,6 @@
     margin-right: 8px;
 }
 
-.redes-div{
-    margin-top: 29px;
-    border-bottom: 1px solid rgb(224, 224, 224);
-    border-top: 1px solid rgb(224, 224, 224);
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.redes-div div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    font-size: 15px;
-    width: calc(50% - 6px);
-    padding: 8px 0;
-}
-
-.redes-button-1{
-    color: #1B8296;
-    font-weight: 700;
-    border: 2px solid #008CA6;
-}
-
-.redes-button-2{
-    color: #ffffff;
-    background-color: #008CA6;
-    font-weight: 700;
-}
-
 .sobre-nos{
     color: #5a5a5a;
     text-align: justify;
@@ -110,52 +65,5 @@
     font-weight: 600;
     line-height: 130%; /* 15.6px */
     letter-spacing: -0.12px;
-}
-
-.redes-popup{
-    border-radius: 10px;
-    position: fixed;
-    background-color: #ffffff;
-    opacity: 0;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: .4s ease;
-    min-width: 250px;
-    width: calc(100% - 70px);
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.popup-buttons{
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.close-button-container{
-    padding-top: 15px;
-    margin-top: 15px;
-    border-top: 1px solid rgb(224, 224, 224);
-}
-
-.close-button{
-    width: 100%;
-    color: #1B8296;
-    font-weight: 700;
-    border: 2px solid #6297a0;
-    height: 37px;
-}
-
-.rede-button{
-    width: 100%;
-    color: white;
-    font-weight: 700;
-    height: 37px;
-    background-color: #008CA6;
-    margin-bottom: 10px;
+    margin: 0;
 }

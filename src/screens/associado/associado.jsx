@@ -6,7 +6,7 @@ import SliderMenu from "../../components/sliderMenu/sliderMenu";
 import Card from '../../components/card/card';
 import HeaderAssociado from '../../components/headerAssociado/headerAssociado';
 import ImgCarousel from '../../components/imgCarousel/imgCarousel';
-import LocalizationCard from '../../components/localizationCard/localizationCard';
+import Buttons from '../../components/buttons/buttons';
 
 function Associado() {
     const { id } = useParams();
@@ -182,6 +182,8 @@ function Associado() {
         {name: 'WebSite', color: '#000'},
     ]
 
+    const localization  = ''
+
     const contatos = [
         {name: 'WhatsApp', color: '#25D366'},
         {name: 'Email', color: '#000'},
@@ -215,15 +217,15 @@ function Associado() {
   
     const openPopup = (type) => {
 
-        background.current.style.zIndex = '3';
+        background.current.style.zIndex = '4';
         background.current.style.opacity = '100%';
 
         if(type == 'contato'){
             contatopopup.current.style.opacity = '100%';
-            contatopopup.current.style.zIndex = '4';
+            contatopopup.current.style.zIndex = '5';
         } else {
             redespopup.current.style.opacity = '100%';
-            redespopup.current.style.zIndex = '4';
+            redespopup.current.style.zIndex = '5';
         }
     };
 
@@ -233,30 +235,35 @@ function Associado() {
                 closePopup('contato')
                 closePopup('redes')
             }} ref={background} className='popup-background'></div>
-            <div ref={redespopup} className='redes-popup' >
-                <div>
-                    {
-                        redes.map((rede, index) => (
-                            <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
-                        ))
-                    }
-                    <div className='close-button-container'>
-                        <div onClick={() => closePopup('redes')} className='close-button popup-buttons'>Fechar</div>
+            {redes !== undefined && (
+                <div ref={redespopup} className='redes-popup' >
+                    <div>
+                        {
+                            redes.map((rede, index) => (
+                                <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                            ))
+                        }
+                        <div className='close-button-container'>
+                            <div onClick={() => closePopup('redes')} className='close-button popup-buttons'>Fechar</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div ref={contatopopup} className='redes-popup' >
-                <div>
-                    {
-                        contatos.map((contato, index) => (
-                            <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
-                        ))
-                    }
-                    <div className='close-button-container'>
-                        <div onClick={() => closePopup('contato')} className='close-button popup-buttons'>Fechar</div>
+            )}
+            {contatos !== undefined && (
+                <div ref={contatopopup} className='redes-popup' >
+                    <div>
+                        {
+                            contatos.map((contato, index) => (
+                                <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                            ))
+                        }
+                        <div className='close-button-container'>
+                            <div onClick={() => closePopup('contato')} className='close-button popup-buttons'>Fechar</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
+
             <HeaderAssociado/>
             <section className="section-3">
                 <SliderMenu
@@ -289,15 +296,25 @@ function Associado() {
                         <ImgCarousel
                             imgArray={imgs}
                         />
-
-                        <h2 className='title-associado'>Localização</h2>
-                        <LocalizationCard/>
                         <h2 className='title-associado'>Sobre Nós</h2>
                         <p className='sobre-nos'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis asperiores sint aliquam optio reiciendis molestias, cumque incidunt eos aut odit consequuntur a nisi sapiente rerum possimus neque expedita at adipisci? Lorem  dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
-                        <div className='redes-div'>
-                            <div onClick={() => openPopup('contato')} className='redes-button-1'>Contato</div>
-                            <div onClick={() => openPopup('redes')} className='redes-button-2'>Redes Sociais</div>
-                        </div>
+                        {contatos.length > 0 || redes.length > 0 || localization !== '' ? (
+                        <Buttons
+                            localization={localization}
+                            contatos={contatos}
+                            redes={redes}
+                            openContatos={() => {
+                                if (contatos !== undefined) {
+                                    openPopup('contato');
+                                }
+                            }}
+                            openRedes={() => {
+                                if (redes !== undefined) {
+                                    openPopup('rede');
+                                }
+                            }}
+                        />
+                    ) : null}
                     </div>
                     <div className="content-2">{ 
                     cards.map((card, index) => (

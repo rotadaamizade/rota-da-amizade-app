@@ -8,6 +8,7 @@ main{
 
 section{
     padding: 23px 23px 0 23px;
+    position: relative;
 }
 
 .section-1{
@@ -19,7 +20,7 @@ section{
     overflow: auto;
     bottom: 0;
     background-color: white;
-    padding-bottom: 80px;
+    padding-bottom: 77px;
     border-radius: 25px 25px 0px 0px;
     overflow: hidden;
 }
@@ -32,7 +33,7 @@ section{
     box-sizing: border-box;
     overflow: auto;
     background-color: white;
-    padding-bottom: 80px;
+    padding-bottom: 77px;
     overflow: hidden;
 }
 
@@ -48,7 +49,7 @@ section{
     padding-bottom: 80px;
     border-radius: 25px 25px 0px 0px;
     overflow: hidden;
-    padding: 0 0 80px 0;
+    padding: 0 0 77px 0;
 }
 
 .section-4{
@@ -60,7 +61,7 @@ section{
     overflow: auto;
     bottom: 0;
     background-color: white;
-    padding-bottom: 80px;
+    padding-bottom: 77px;
     border-radius: 25px 25px 0px 0px;
     overflow: hidden;
 }
@@ -89,4 +90,74 @@ section{
     position: absolute;
     width: 100%;
     height: 100%;
+}
+
+.redes-popup{
+    border-radius: 10px;
+    position: fixed;
+    background-color: #ffffff;
+    opacity: 0;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .4s ease;
+    min-width: 250px;
+    width: calc(100% - 70px);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-buttons{
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.close-button-container{
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgb(224, 224, 224);
+}
+
+.close-button{
+    width: 100%;
+    color: #1B8296;
+    font-weight: 700;
+    border: 2px solid #6297a0;
+    height: 37px;
+}
+
+.rede-button{
+    width: 100%;
+    color: white;
+    font-weight: 700;
+    height: 37px;
+    background-color: #008CA6;
+    margin-bottom: 10px;
+}
+
+.content-3{
+    border-radius: 10px 10px 0 0;
+    height: 100%;
+    overflow: scroll;
+    padding-bottom: 18px;
+    box-sizing: border-box;
+}
+
+.title-associado{
+    color: #2D2C2C;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 91.9%; /* 13.785px */
+    letter-spacing: 0.075px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding-bottom: 11px;
+    margin-bottom: 11px;
+    margin-top: 29px;
 }
