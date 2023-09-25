@@ -12,31 +12,37 @@ function Municipios(){
 
     const cards = [
         {
+            id: 1,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
         },
         {
+            id: 2,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
         },
         {
+            id: 2,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
         },
         {
+            id: 3,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
         },
         {
+            id: 4,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
         },
         {
+            id: 5,
             city: 'Videira',
             slogan: 'O berço da uva e do vinho',
             img: 'https://live.staticflickr.com/4083/5001988006_2cd94aa9eb_b.jpg',
@@ -70,6 +76,7 @@ function Municipios(){
                         img={card.img}
                         name={card.city}
                         slogan={card.slogan}
+                        id={card.id}
                     />
                 ))
             }

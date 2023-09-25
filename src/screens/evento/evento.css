@@ -1,22 +1,3 @@
-.event-title{
-    width: 100%;
-    text-align: center;
-    color: #78900E;
-    font-weight: 700;
-    font-size: 18px;
-    font-style: normal;
-    line-height: 110.9%; /* 15.526px */
-    letter-spacing: 0.07px;
-}
-
-.event-title div{
-    width: 100%;
-    height: 4px;
-    background-color: #78900E;
-    margin-top: 10px;
-    border-radius: 10px;
-}
-
 .title-associado-2{
     color: #2D2C2C;
     font-family: Raleway;
@@ -29,4 +10,83 @@
     padding-bottom: 11px;
     margin-bottom: 11px;
     margin-top: 6px;
+}
+
+.data-horario-content{
+    display: flex;
+}
+
+.data-button{
+    background-color: #096C7E;
+    border-radius: 6px;
+    height: 57px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-button-div{
+    height: 34px;
+}
+
+.data-button h1, .data-button h2{
+    text-align: center;
+    color: white;
+}
+
+.data-button h1{
+    font-size: 22px;
+    margin: 0;
+    font-weight: 700;
+    line-height: 87%;
+    font-family: 'Montserrat'
+}
+
+.data-button h2{
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+    line-height: 100%;
+}
+
+.hora-button{
+    background-color: #78900E;
+    border-radius: 6px;
+    height: 57px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+.hora-button-div{
+    height: 41px;
+}
+
+.hora-line{
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.664);
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 3px;
+}
+
+.hora-button-div h1{
+    margin: 0;
+    color: white;
+    font-size: 16px;
+    line-height: 100%;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: 700;
+}
+
+.hora-button h1:first-child{
+    margin-top: 2px;
+}
+
+.hora-button h1:last-child{
+    margin-bottom: 5px;
 }

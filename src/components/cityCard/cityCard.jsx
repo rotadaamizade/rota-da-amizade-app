@@ -1,8 +1,16 @@
 import './cityCard.css'
+import { useNavigate } from 'react-router-dom';
 
 function CityCard(props){
+
+    const navigate = useNavigate()
+
+    const linkto = () => {
+      navigate(`/municipio/${props.id}`)
+    }
+
     return(
-        <div className='card-div'>
+        <div onClick={linkto} className='card-div'>
         <img src={props.img} alt="" />
         <div className='card-gradient' />
         <div className='card-content'>

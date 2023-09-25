@@ -12,6 +12,7 @@ import Municipios from './screens/municipios/municipios';
 import Atrativos from './screens/atrativos/atrativos';
 import Evento from './screens/evento/evento';
 import Associado from './screens/associado/associado';
+import Municipio from './screens/municipio/municipio';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/atrativos' element={<Atrativos/>}/>
         <Route path='/evento/:id' element={<Evento/>}/>
         <Route path='/associado/:id' element={<Associado/>}/>
+        <Route path='/municipio/:id' element={<Municipio/>}/>
       </Routes>
       </main>
     </UserProvider>

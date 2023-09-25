@@ -10,6 +10,8 @@ function Card(props) {
       navigate(`/evento/${props.id}`)
     } else if(props.type == 'associado'){
       navigate(`/associado/${props.id}`)
+    } else if(props.type == 'atrativo'){
+      navigate(`/atrativo/${props.id}`)
     }
   }
 
