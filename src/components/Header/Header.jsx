@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const { page, setPage } = useContext(PageContext);
-  console.log("page -" + page);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,6 +33,12 @@ function Header() {
     navigate("/associados");
   };
 
+  const linkContact = () => {
+    setIsOpen(!isOpen);
+    setPage("contact");
+    navigate("/contato");
+  };
+
   const dropdownMenuIcon = (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -55,12 +60,6 @@ function Header() {
     </svg>
   );
 
-  useEffect(() => {
-    if (isOpen) {
-      // document.body
-    }
-  }, [isOpen]);
-
   return (
     <header>
       <div id="options" className="container">
@@ -80,9 +79,25 @@ function Header() {
           >
             Quem somos
           </a>
-          <a className={page == "cities" ? "activeLink" : ""} onClick={linkCities}>Municipios</a>
-          <a className={page == "associates" ? "activeLink" : ""} onClick={linkAssociates}>Associados</a>
-          <a href="#contact">Contato</a>
+          <a
+            className={page == "cities" ? "activeLink" : ""}
+            onClick={linkCities}
+          >
+            Municipios
+          </a>
+          <a
+            className={page == "associates" ? "activeLink" : ""}
+            onClick={linkAssociates}
+          >
+            Associados
+          </a>
+          <a
+            className={page == "contact" ? "activeLink" : ""}
+            onClick={linkContact}
+            href="#contact"
+          >
+            Contato
+          </a>
         </ul>
         <a href="#" id="baixarApp">
           Baixar o aplicativo
@@ -112,12 +127,7 @@ function Header() {
             <a onClick={linkAssociates}>Associados</a>
           </li>
           <li>
-            <a
-              href="#contact"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
+            <a href="#contact" onClick={linkContact}>
               Contato
             </a>
           </li>

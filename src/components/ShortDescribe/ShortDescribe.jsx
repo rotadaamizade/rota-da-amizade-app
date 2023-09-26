@@ -5,6 +5,7 @@ function ShortDescribe(props) {
     <section id="aboutUs">
       <div className="container">
         <div id="contentMiddle">
+        <h1>ROTA DA AMIZADE</h1>
           {props.children}
         </div>
       </div>

@@ -3,13 +3,7 @@ section#aboutUs p#supporters {
 }
 
 section#aboutUs img.sponsor {
-  width: 100px;
-}
-
-section#aboutUs div#contentMiddle h1 {
-  animation-name: colorTitle;
-  animation-delay: 500ms;
-  animation-duration: 3000ms;
+  width: 75px;
 }
 
 @keyframes colorTitle {

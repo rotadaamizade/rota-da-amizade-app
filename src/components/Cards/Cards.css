@@ -20,12 +20,12 @@ div.cardGroup div.shadow {
 }
 
 div.cardGroup div.lowShadow {
-    box-shadow: inset 0px -70px 10px -10px rgba(0,0,0,0.7);
+    box-shadow: inset 0px -70px 30px -10px rgba(0,0,0,0.7);
     transition: .2s;
 }
 
 div.cardGroup div.highShadow {
-    box-shadow: inset 0px -100px 10px -10px rgba(0,0,0,0.7);
+    box-shadow: inset 0px -100px 30px -10px rgba(0,0,0,0.7);
     transition: .2s;
 }
 
