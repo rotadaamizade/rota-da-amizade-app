@@ -69,7 +69,7 @@ section{
 .card-container{
     height: calc(100% - 130px);
     overflow: scroll;
-    border-radius: 6px 6px 0 0;
+    border-radius: 8px 8px 0 0;
 }
 
 ::-webkit-scrollbar {
@@ -160,4 +160,18 @@ section{
     padding-bottom: 11px;
     margin-bottom: 11px;
     margin-top: 29px;
+}
+
+.title-associado-2{
+    color: #2D2C2C;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 91.9%; /* 13.785px */
+    letter-spacing: 0.075px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding-bottom: 11px;
+    margin-bottom: 11px;
+    margin-top: 6px;
 }

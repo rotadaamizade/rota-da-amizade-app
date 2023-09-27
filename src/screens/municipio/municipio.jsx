@@ -1,18 +1,22 @@
 import './municipio.css'
 import { useContext, useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
 import SliderMenu from "../../components/sliderMenu/sliderMenu";
 import Card from '../../components/card/card';
 import Header2 from '../../components/header2/header2';
 import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
+import { db } from '../../config/firebase';
+import { getDoc, doc } from 'firebase/firestore';
 
 function Municipio() {
     const { id } = useParams();
     const { navbarState, setNavbarState } = useContext(UserContext)
     const menus = ['Informações', 'Atrativos']
     const [menuActive, setMenuActive] = useState(menus[0])
+    const [city, setCity] = useState({})
+    const navigate = useNavigate()
 
     const content = useRef(null);
 
@@ -20,6 +24,8 @@ function Municipio() {
         if (navbarState !== 'municipios') {
             setNavbarState('municipios')
         }
+
+        getCity()
     }, [])
 
     useEffect(() => {
@@ -35,6 +41,23 @@ function Municipio() {
             }
         }
     }, [menuActive])
+
+    console.log(city)
+
+    const getCity = async () => {
+
+        try {
+          const docRef = doc(db, "municipios", id)
+          const docSnap = await getDoc(docRef)
+          setCity(docSnap.data())
+          
+          if (!docSnap.exists()) {
+            navigate(`/`)
+          }
+        } catch (error) {
+            navigate(`/`)
+        }
+      }
 
     const cards = [
         {
@@ -215,9 +238,9 @@ function Municipio() {
             )}
 
             <Header2 
-                text1 = 'Fraiburgo'
-                text2 = 'A Capital da Maçã'
-                img = 'https://www.viagensecaminhos.com/wp-content/uploads/2019/02/hotel-renar-fraiburgo.jpg'            
+                text1 = {city.municipio}
+                text2 = {city.descricao}
+                img = {city.imgCard}        
             />
             <section className="section-3">
                 <SliderMenu

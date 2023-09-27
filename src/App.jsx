@@ -13,6 +13,7 @@ import Atrativos from './screens/atrativos/atrativos';
 import Evento from './screens/evento/evento';
 import Associado from './screens/associado/associado';
 import Municipio from './screens/municipio/municipio';
+import Atrativo from './screens/atrativo/atrativo';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path='/evento/:id' element={<Evento/>}/>
         <Route path='/associado/:id' element={<Associado/>}/>
         <Route path='/municipio/:id' element={<Municipio/>}/>
+        <Route path='/atrativo/:id' element={<Atrativo/>}/>
       </Routes>
       </main>
     </UserProvider>

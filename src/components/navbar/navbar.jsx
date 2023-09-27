@@ -6,7 +6,6 @@ import { UserContext } from '../../UserContext';
 function Navbar(){
 
     const { navbarState, setNavbarState } = useContext(UserContext)
-    console.log(navbarState)
     return (
         <section className="navbar">
             <div className="navbar-div ">

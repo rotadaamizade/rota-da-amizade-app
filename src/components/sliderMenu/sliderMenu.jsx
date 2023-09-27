@@ -2,8 +2,6 @@ import './sliderMenu.css'
 
 function SliderMenu(props){
 
-    console.log(props.menuActive)
-
     return(
         <div className='slider-menu-container'>
             <div className="slider-menu">
