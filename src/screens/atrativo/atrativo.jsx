@@ -1,22 +1,60 @@
 import './atrativo.css'
 import { useContext, useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
 import Header2 from '../../components/header2/header2';
 import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
+import { db } from '../../config/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 function Atrativo() {
     const { id } = useParams();
     const { navbarState, setNavbarState } = useContext(UserContext)
     const [popup, setPopup] = useState('')
+    const [atrativo, setAtrativo] = useState({})
+    const [redes, setRedes] = useState([])
+    const [localizacao, setLocalizacao] = useState('')
+    const [contatos, setContatos] = useState([])
+    const navigate = useNavigate()
 
 
     useEffect(() => {
         if (navbarState !== 'atrativos') {
             setNavbarState('atrativos')
         }
+
+        getAtrativo()
     }, [])
+
+    const getAtrativo = async () => {
+
+        try {
+          const docRef = doc(db, "atrativos", id)
+          const docSnap = await getDoc(docRef)
+          setAtrativo(docSnap.data())
+          console.log(atrativo)
+
+          if(docSnap.data().redes != undefined){
+            setRedes(docSnap.data().redes)
+          }
+
+          if(docSnap.data().contatos != undefined){
+            setContatos(docSnap.contatos().contatos)
+          }
+
+          if(docSnap.data().localizacao != undefined){
+            setLocalizacao(docSnap.data().localizacao)
+          }
+          
+          if (!docSnap.exists()) {
+            //navigate(`/`)
+          }
+        } catch (error) {
+            //navigate(`/`)
+            console.log('das')
+        }
+    }
 
     const imgs = [
         'https://optimizer.dooca.store/2179/files/vinho-de-mesa-ou-vinho-fino-3-blog-setembro-22.jpg',
@@ -24,18 +62,6 @@ function Atrativo() {
         'https://vejario.abril.com.br/wp-content/uploads/2022/07/Le-Terroir-Regua-de-vinho-2-Foto-Fabio-Rossi.jpg.jpg.jpg?quality=70&strip=info&w=1280&h=720&crop=1',
         'https://media.istockphoto.com/id/1301017778/pt/foto/three-glasses-of-white-rose-and-red-wine-on-a-wooden-barrel.jpg?s=612x612&w=0&k=20&c=wn_Zad_udltkpd8tD_-hI7EeQ1EHrtyV2C_hU3m_uTE='
     ]
-
-
-
-    const contatos = [
-        {name: 'WhatsApp', color: '#25D366'},
-        {name: 'Email', color: '#000'},
-        {name: 'Telefone', color: '#4267B2'}
-    ]
-
-    const redes = []
-
-    const localization = 'https://www.google.com/maps/place/Hotel+Santa+Clara/@-27.0261368,-51.1480951,15z/data=!4m9!3m8!1s0x94e14fae1ae24467:0x26ffb849bc196d53!5m2!4m1!1i2!8m2!3d-27.021633!4d-51.1483297!16s%2Fg%2F11b6hqdxkx?entry=ttu'
 
     const background = useRef();
     const redespopup = useRef();
@@ -112,9 +138,9 @@ function Atrativo() {
                 </div>
             )}
             <Header2 
-                text1 = 'Show Corpo e Alma'
-                text2 = 'Matheus Eventos'
-                img = 'https://sobailao.com.br/wp-content/uploads/2023/05/Banda-Corpo-e-Alma-1.jpg'            
+                text1 = {atrativo.nome}
+                text2 = {atrativo.municipio}
+                img = {atrativo.imgCard}          
             />
             <section className="section-4">
                 <div className='content-3'>
@@ -134,9 +160,9 @@ function Atrativo() {
                     <ImgCarousel
                         imgArray={imgs}
                     />
-                    {contatos.length > 0 || redes.length > 0 || localization !== '' ? (
+                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
                         <Buttons
-                            localization={localization}
+                            localization={localizacao}
                             contatos={contatos}
                             redes={redes}
                             openContatos={() => {

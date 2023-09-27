@@ -23,11 +23,17 @@ function Municipios(){
 
     const getCities = async () => {
         try {
-          const querySnapshot = await getDocs(collection(db, "municipios"));
+          const data = await getDocs(collection(db, "municipios"));
           const citiesData = [];
       
-          querySnapshot.forEach((doc) => {
-            const cityData = { id: doc.id, ...doc.data() };
+          data.forEach((doc) => {
+            const cityData = {
+              id: doc.id,
+              municipio: doc.data().municipio,
+              descricao: doc.data().descricao,
+              imgCard: doc.data().imgCard
+            };
+            
             citiesData.push(cityData);
           });
       

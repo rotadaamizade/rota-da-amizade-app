@@ -18,7 +18,7 @@ function Buttons(props){
 
             {props.redes.length > 0 && (
             <div className='redes-button' onClick={props.openRedes}>
-                Redes
+                Redes Sociais
             </div>
             )}
 
