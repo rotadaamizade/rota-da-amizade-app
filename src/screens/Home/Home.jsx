@@ -17,13 +17,56 @@ function Home() {
     <>
       <ShortDescribeHome />
 
-      <section id="whatIs">
-        {/* 
-      Destinos Turísticos
-      Dicas de Passeios
-      Meio Oeste Catarinense
-      Referência no Turismo
-      */}
+      <section id="app">
+        <div id="appContainer" className="container">
+          <div id="appText">
+            <h1>Venha conhecer nosso App!</h1>
+            <ul>
+              <li>
+                <h2>- Eventos da regiao</h2>
+              </li>
+              <li>
+                <h2>- Principais pontos turísticos</h2>
+              </li>
+              <li>
+                <h2>- Melhores estabelecimentos</h2>
+              </li>
+              <li>
+                <h2>- Simples e fácil</h2>
+              </li>
+              <li>
+                <h2>- Gratuito para download</h2>
+              </li>
+            </ul>
+            <div className="appBadges">
+              <div className="appBadge">
+                <a href="#" target="_blank">
+                  <img src="./App/googlePlayBadge.png" alt="" />
+                </a>
+              </div>
+              <div className="appBadge">
+                <a href="#" target="_blank">
+                  <img src="./App/iosStoreBadge.svg" alt="" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div id="appImgContainer">
+            <img src={`./App/screenMockup.webp`} alt="" />
+          </div>
+          <div className="appBadges appMobile">
+            <div className="appBadge">
+              <a href="#" target="_blank">
+                <img src="./App/googlePlayBadge.png" alt="" />
+              </a>
+            </div>
+            <div className="appBadge">
+              <a href="#" target="_blank">
+                <img src="./App/iosStoreBadge.svg" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
       <section id="wannaBeAssociate">
         <div id="wbaContainer" className="container">
