@@ -1,6 +1,8 @@
 # rota-da-amizade-app
 Rota da Amizade: Seu Guia de Bolso
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d6ed4823-e561-4331-b5ea-190c68fa7d29/deploy-status)](https://app.netlify.com/sites/rotadaamizadeapp/deploys)
+
 ## Descrição
 O aplicativo Rota da Amizade é um guia de bolso para os turistas que visitam a região da Rota da Amizade, em Santa Catarina. O aplicativo foi desenvolvido na *Fábrica de Sotware* do IFC - Campus Videira, em parceria com a *Rota da Amizade Convention & Visitors Boreau*. O aplicativo será desenvolvido utilizando a linguagem de programação JavaScript, com o framework Vite, e o banco de dados Firebase. O aplicativo estárá disponível para download nas lojas de aplicativo Google Play e Apple Store.
 
