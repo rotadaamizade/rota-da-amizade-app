@@ -6,12 +6,15 @@ import CityFilter from "../../components/cityFilter/cityFilter";
 import SectionTitle from "../../components/sectionTitle/sectionTitle";
 import Search from "../../components/search/search";
 import Categories from "../../components/categories/categories";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import Loading from "../../components/loading/loading";
 
 function Atrativos(){
 
     const { navbarState, setNavbarState, globalCity, globalCategory  } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [atrativos, setAtrativos] = useState([])
 
 
     const buttons = [
@@ -158,9 +161,34 @@ function Atrativos(){
         if(navbarState != 'atrativos'){
             setNavbarState('atrativos')
         }
+
+        getAtrativos()
     }, [])
 
+    const getAtrativos = async () => {
+        try {
+            const data = await getDocs(collection(db, "atrativos"));
+            const atrativosData = [];
+        
+            data.forEach((doc) => {
+              const dataAtrativos = {
+                id: doc.id,
+                municipio: doc.data().municipio,
+                nome: doc.data().nome,
+                imgCard: doc.data().imgCard,
+                type: 'atrativo'
+              };
+              
+              atrativosData.push(dataAtrativos);
+            });
+        
+            setAtrativos(atrativosData);
+          } catch (error) {
+            console.error("Erro ao recuperar documentos:", error);
+          }
+    }
 
+    console.log(atrativos)
 
     const handleSearch = (value) => {
       setSearchTerm(value);
@@ -177,24 +205,29 @@ function Atrativos(){
                 <Search
                     onSearch={handleSearch}
                 />
+                
                 <div className="card-container">
-                    <Categories
-                        buttons = {buttons}
-                    />
-                    {
-                        filteredCards.map((card, index) => (
-                            <Card
-                                key={index}
-                                name={card.name}
-                                city={card.city}
-                                svg={card.categorySvg}
-                                img={card.img}
-                                type={card.type}
-                                dates={card.dates != undefined ? card.dates : null}
-                            />
-                        ))
-                    }
+                {atrativos.length === 0 ? (
+                    <Loading />
+                ) : (
+                    <>
+                    <Categories buttons={buttons} />
+                    {atrativos.map((card, index) => (
+                        <Card
+                        key={index}
+                        name={card.nome}
+                        city={card.municipio}
+                        svg={card.categorySvg}
+                        img={card.imgCard}
+                        type={card.type}
+                        dates={card.dates !== undefined ? card.dates : null}
+                        id={card.id}
+                        />
+                    ))}
+                    </>
+                )}
                 </div>
+
             </section>
         </>
     )
