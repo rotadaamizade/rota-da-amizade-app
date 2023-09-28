@@ -18,7 +18,7 @@ import Atrativo from './screens/atrativo/atrativo';
 function App() {
 
   // Para colocar o site em manutenção, enquanto está sendo desenvolvido
-  const maintenance = true
+  const maintenance = false
 
   if(maintenance){
     return (
