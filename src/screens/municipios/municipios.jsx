@@ -13,13 +13,20 @@ function Municipios(){
     const { navbarState, setNavbarState } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
     const [cities, setCities] = useState([])
+    const [titleHeight, setTitleHeight] = useState(0);
 
     useEffect(() => {
         if(navbarState != 'municipios'){
             setNavbarState('municipios')
         }
         getCities()
+
+        const titleDiv = document.getElementById('title-div')
+        let height = titleDiv.offsetHeight
+
+        setTitleHeight(height)
     }, [])
+
 
     const getCities = async () => {
         try {
@@ -57,7 +64,7 @@ function Municipios(){
             <Search
                 onSearch={handleSearch}
             />
-            <div className="card-container">
+            <div style={{paddingBottom: `calc(75px + ${titleHeight}px`}} className="card-container">
             {cities.length === 0 ? (
                 <Loading />
             ) : (
