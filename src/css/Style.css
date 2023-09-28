@@ -8,8 +8,12 @@ body {
 
 .row {
   display: flex;
-  justify-content: center;
   align-items: center;
+}
+
+.icon {
+  max-width: 1.5rem;
+  width: 100%;
 }
 
 .container {

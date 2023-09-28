@@ -1,4 +1,6 @@
 import AssociadoCard from "../../components/AssociadoCard/AssociadoCard";
+import Footer from "../../components/Footer/Footer";
+import Loading from "../../components/Loading/Loading";
 import "./Associates.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -27,38 +29,47 @@ function Associates() {
     });
   }, []);
   return (
+    <>
+    <span id="associados" />
     <section id="associates" className="container">
       <h1>Associados</h1>
       <div className="cardGroup">
-        {associadosDiamante.map((associado) => {
-          return (
-            <AssociadoCard
-              key={associado.id}
-              instancia={associado}
-              path="associados"
-            />
-          );
-        })}
-        {associadosOuro.map((associado) => {
-          return (
-            <AssociadoCard
-              key={associado.id}
-              instancia={associado}
-              path="associados"
-            />
-          );
-        })}
-        {associadosPrata.map((associado) => {
-          return (
-            <AssociadoCard
-              key={associado.id}
-              instancia={associado}
-              path="associados"
-            />
-          );
-        })}
+        {associadosDiamante.length === 0 ? (
+          <Loading />
+        ) : (
+          associadosDiamante.map((associado) => {
+            return (
+              <AssociadoCard
+                key={associado.id}
+                instancia={associado}
+                path="associados"
+              />
+            );
+          }),
+          associadosOuro.map((associado) => {
+            return (
+              <AssociadoCard
+                key={associado.id}
+                instancia={associado}
+                path="associados"
+              />
+            );
+          }),
+          associadosPrata.map((associado) => {
+            return (
+              <AssociadoCard
+                key={associado.id}
+                instancia={associado}
+                path="associados"
+              />
+            );
+          })
+
+        )}
       </div>
     </section>
+    <Footer />
+    </>
   );
 }
 

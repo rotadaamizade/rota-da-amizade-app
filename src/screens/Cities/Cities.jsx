@@ -1,4 +1,6 @@
 import CidadeCard from "../../components/CidadeCard/cidadeCard";
+import Footer from "../../components/Footer/Footer";
+import Loading from "../../components/Loading/Loading";
 import "./Cities.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -14,20 +16,28 @@ function Cities() {
   }, []);
 
   return (
-  <section id="cities" className="container">
-    <h1>Municípios</h1>
+    <>
+    <span id="cidades" />
+    <section id="cities" className="container">
+      <h1>Municípios</h1>
       <div className="cardGroup">
-        {municipios.map((municipio) => {
-          return (
-            <CidadeCard
-              key={municipio.id}
-              instancia={municipio}
-              path="cidades"
-            />
-          );
-        })}
+        {municipios.length === 0 ? (
+          <Loading />
+        ) : (
+          municipios.map((municipio) => {
+            return (
+              <CidadeCard
+                key={municipio.id}
+                instancia={municipio}
+                path="cidades"
+              />
+            );
+          })
+        )}
       </div>
     </section>
+    <Footer />
+    </>
   );
 }
 export default Cities;

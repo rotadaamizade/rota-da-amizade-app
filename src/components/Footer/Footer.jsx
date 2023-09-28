@@ -1,8 +1,5 @@
+import SubFooter from "../SubFooter/SubFooter";
 import "./Footer.css";
-import EmailIcon from "./email-icon.svg";
-import PhoneIcon from "./phone-icon.svg";
-import FacebookIcon from "./facebook-icon.svg";
-import InstagramIcon from "./instagram-icon.svg";
 import RotaAmizadeIcon from "./rota-da-amizade-desenho.png";
 import RotaAmizadeName from "./rota-da-amizade-escrita.png";
 
@@ -20,7 +17,7 @@ function Footer() {
               <b>Contato</b>
             </p>
             <div className="row redFilter" id="emailBox">
-              <img className="icon" id="emailIcon" src={EmailIcon} alt="" />
+              <img className="icon" id="emailIcon" src="./Icons/email-icon.svg" alt="" />
               <p className="textWithIcon">
                 <a id="email" href="mailto:amizade@rotadaamizade.com.br">
                   amizade@rotadaamizade.com.br
@@ -28,7 +25,7 @@ function Footer() {
               </p>
             </div>
             <div className="row redFilter" id="phoneBox">
-              <img className="icon" id="phoneIcon" src={PhoneIcon} alt="" />
+              <img className="icon" id="phoneIcon" src="./Icons/phone-icon.svg" alt="" />
               <p className="textWithIcon">(49) 99930-7834</p>
             </div>
           </div>
@@ -40,7 +37,7 @@ function Footer() {
               <img
                 className="icon"
                 id="facebookIcon"
-                src={FacebookIcon}
+                src="./Icons/facebook-icon.svg"
                 alt=""
               />
               <p className="textWithIcon">
@@ -57,7 +54,7 @@ function Footer() {
               <img
                 className="icon"
                 id="instagramIcon"
-                src={InstagramIcon}
+                src="./Icons/instagram-icon.svg"
                 alt=""
               />
               <p className="textWithIcon">
@@ -88,13 +85,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div id="subContact">
-        <div className="container">
-          <p>
-            <b>© Rota da Amizade. Todos os Direitos Reservados. 2023</b>
-          </p>
-        </div>
-      </div>
+      <SubFooter />
     </footer>
   );
 }

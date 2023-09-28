@@ -63,7 +63,7 @@ function Header() {
   return (
     <header>
       <div id="options" className="container">
-        <a onClick={linkHome} id="icon">
+        <a onClick={linkHome} href="#paginaInicial" id="icon">
           <img
             src={rotaDesenho}
             alt="Logo da rota da amizade"
@@ -75,26 +75,25 @@ function Header() {
         <ul>
           <a
             className={page == "about" ? "activeLink" : ""}
-            onClick={linkAboutUs}
+            onClick={linkAboutUs} href="#sobreNos"
           >
             Quem somos
           </a>
           <a
             className={page == "cities" ? "activeLink" : ""}
-            onClick={linkCities}
+            onClick={linkCities} href="#cidades"
           >
             Municipios
           </a>
           <a
             className={page == "associates" ? "activeLink" : ""}
-            onClick={linkAssociates}
+            onClick={linkAssociates} href="#associados"
           >
             Associados
           </a>
           <a
             className={page == "contact" ? "activeLink" : ""}
-            onClick={linkContact}
-            href="#contact"
+            onClick={linkContact} href="#contatos"
           >
             Contato
           </a>
@@ -118,16 +117,16 @@ function Header() {
       >
         <ul id="dropdown-menu-mobile">
           <li>
-            <a onClick={linkAboutUs}>Quem somos</a>
+            <a onClick={linkAboutUs} href="#sobreNos">Quem somos</a>
           </li>
           <li>
-            <a onClick={linkCities}>Municipios</a>
+            <a onClick={linkCities} href="#cidades">Municipios</a>
           </li>
           <li>
-            <a onClick={linkAssociates}>Associados</a>
+            <a onClick={linkAssociates} href="#associados">Associados</a>
           </li>
           <li>
-            <a href="#contact" onClick={linkContact}>
+            <a onClick={linkContact} href="#contatos">
               Contato
             </a>
           </li>

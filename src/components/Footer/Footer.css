@@ -20,10 +20,6 @@ footer div#rotaIcon img#rotaDesenho {
   max-height: 50px;
 }
 
-footer img.icon {
-  max-width: 1.5rem;
-}
-
 footer p.tittleContact {
   margin-bottom: 0.5rem;
 }
@@ -71,12 +67,6 @@ footer div#contact div.redFilter:hover {
 
 footer div#contact > div {
   align-items: end;
-}
-
-footer div#subContact {
-  background-color: #dfdfdf;
-  text-align: center;
-  padding: 0.5rem 0;
 }
 
 @media (max-width: 991px) {
