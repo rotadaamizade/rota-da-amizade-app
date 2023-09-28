@@ -17,6 +17,17 @@ import Atrativo from './screens/atrativo/atrativo';
 
 function App() {
 
+  const maintenance = false
+
+  if(maintenance){
+    return (
+      <div className="App">
+        <h1>Site is under maintenance</h1>
+        <p>Please come back later</p>
+      </div>
+    )
+  }
+
   return (
     <div className="App">
       
