@@ -65,3 +65,13 @@
     color: #096475;
     transition: .35s;
 }
+
+@media (max-width: 335px){
+    .navbar-div div{
+        width: 50px;
+    }
+
+    .navbar-div div p{
+        font-size: 7.4px;
+    }
+}

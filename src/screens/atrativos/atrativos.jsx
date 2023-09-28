@@ -197,8 +197,6 @@ function Atrativos(){
           }
     }
 
-    console.log(atrativos)
-
     const handleSearch = (value) => {
       setSearchTerm(value);
     };
