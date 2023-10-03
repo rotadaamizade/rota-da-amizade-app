@@ -56,12 +56,12 @@ function Municipio() {
 
           getAtrativos(docSnap.data().municipio)
 
-          if(docSnap.data().redes != undefined){
-            setRedes(docSnap.data().redes)
+          if(docSnap.data().redesSociais != undefined){
+            setRedes(docSnap.data().redesSociais)
           }
 
           if(docSnap.data().contatos != undefined){
-            setContatos(docSnap.contatos().contatos)
+            setContatos(docSnap.data().contatos)
           }
 
           if(docSnap.data().localizacao != undefined){
