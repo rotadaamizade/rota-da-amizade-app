@@ -73,6 +73,7 @@ function Municipio() {
           }
         } catch (error) {
             navigate(`/`)
+            console.log(error)
         }
     }
 
