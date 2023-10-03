@@ -56,12 +56,12 @@ function Municipio() {
 
           getAtrativos(docSnap.data().municipio)
 
-          if(docSnap.data().redes != undefined){
-            setRedes(docSnap.data().redes)
+          if(docSnap.data().redesSociais != undefined){
+            setRedes(docSnap.data().redesSociais)
           }
 
           if(docSnap.data().contatos != undefined){
-            setContatos(docSnap.contatos().contatos)
+            setContatos(docSnap.data().contatos)
           }
 
           if(docSnap.data().localizacao != undefined){
@@ -73,6 +73,7 @@ function Municipio() {
           }
         } catch (error) {
             navigate(`/`)
+            console.log(error)
         }
     }
 
@@ -148,7 +149,7 @@ function Municipio() {
                     <div>
                         {
                             redes.map((rede, index) => (
-                                <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                                <div key={index} style={{ backgroundColor: `#${rede.color}` }} className='rede-button popup-buttons'>{rede.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -162,7 +163,7 @@ function Municipio() {
                     <div>
                         {
                             contatos.map((contato, index) => (
-                                <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                                <div key={index} style={{ backgroundColor: `#${contato.color}` }} className='rede-button popup-buttons'>{contato.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
