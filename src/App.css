@@ -9,6 +9,7 @@ main{
 section{
     padding: 23px 23px 0 23px;
     position: relative;
+    padding-bottom: 100px;
 }
 
 .section-1{
@@ -67,9 +68,10 @@ section{
 }
 
 .card-container{
-    height: calc(100% - 130px);
     overflow: scroll;
     border-radius: 8px 8px 0 0;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 ::-webkit-scrollbar {

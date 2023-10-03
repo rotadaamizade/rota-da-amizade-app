@@ -15,6 +15,7 @@ function Atrativos(){
     const { navbarState, setNavbarState, globalCity, globalCategory  } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
     const [atrativos, setAtrativos] = useState([])
+    const [titleHeight, setTitleHeight] = useState(0);
 
 
     const buttons = [
@@ -163,7 +164,15 @@ function Atrativos(){
         }
 
         getAtrativos()
+
     }, [])
+
+    useEffect(() => {
+        const titleDiv = document.getElementById('title-div')
+        let height = titleDiv.offsetHeight
+
+        setTitleHeight(height)
+    }, [globalCity])
 
     const getAtrativos = async () => {
         try {
@@ -188,8 +197,6 @@ function Atrativos(){
           }
     }
 
-    console.log(atrativos)
-
     const handleSearch = (value) => {
       setSearchTerm(value);
     };
@@ -205,8 +212,8 @@ function Atrativos(){
                 <Search
                     onSearch={handleSearch}
                 />
-                
-                <div className="card-container">
+
+                <div style={{paddingBottom: `calc(75px + ${titleHeight}px`}} className="card-container">
                 {atrativos.length === 0 ? (
                     <Loading />
                 ) : (

@@ -11,6 +11,7 @@ function Associados(){
 
     const { navbarState, setNavbarState, globalCity, globalCategory  } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
+    const [titleHeight, setTitleHeight] = useState(0);
     const buttons = [
         {
             name: 'Rotas turísticas',
@@ -161,7 +162,15 @@ function Associados(){
         if(navbarState != 'associados'){
             setNavbarState('associados')
         }
+
     }, [])
+
+    useEffect(() => {
+        const titleDiv = document.getElementById('title-div')
+        let height = titleDiv.offsetHeight
+
+        setTitleHeight(height)
+    }, [globalCity])
 
     const handleSearch = (value) => {
         setSearchTerm(value);
@@ -179,7 +188,7 @@ function Associados(){
                 <Search
                     onSearch={handleSearch}
                 />
-                <div className="card-container">
+                <div style={{paddingBottom: `calc(75px + ${titleHeight}px`}} className="card-container">
                     <Categories
                         buttons = {buttons}
                     />
