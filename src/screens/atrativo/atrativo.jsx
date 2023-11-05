@@ -10,13 +10,15 @@ import { doc, getDoc } from 'firebase/firestore';
 
 function Atrativo() {
     const { id } = useParams();
-    const { navbarState, setNavbarState } = useContext(UserContext)
+    const { navbarState, setNavbarState, categoriesAtrativos } = useContext(UserContext)
     const [popup, setPopup] = useState('')
     const [atrativo, setAtrativo] = useState({})
     const [redes, setRedes] = useState([])
     const [localizacao, setLocalizacao] = useState('')
     const [contatos, setContatos] = useState([])
     const navigate = useNavigate()
+    const [imgArray, setImgArray] = useState([])
+    const [categories, setCategories] = useState([])
 
 
     useEffect(() => {
@@ -25,43 +27,58 @@ function Atrativo() {
         }
 
         getAtrativo()
+
+
     }, [])
 
     const getAtrativo = async () => {
 
         try {
-          const docRef = doc(db, "atrativos", id)
-          const docSnap = await getDoc(docRef)
-          setAtrativo(docSnap.data())
-          console.log(atrativo)
+            const docRef = doc(db, "atrativos", id)
+            const docSnap = await getDoc(docRef)
+            setAtrativo(docSnap.data())
 
-          if(docSnap.data().redes != undefined){
-            setRedes(docSnap.data().redes)
-          }
+            let categoriesTemp = []
 
-          if(docSnap.data().contatos != undefined){
-            setContatos(docSnap.contatos().contatos)
-          }
+            docSnap.data().categorias.forEach((category, element) => {
 
-          if(docSnap.data().localizacao != undefined){
-            setLocalizacao(docSnap.data().localizacao)
-          }
-          
-          if (!docSnap.exists()) {
-            //navigate(`/`)
-          }
+                categoriesAtrativos.forEach((category2, index) => {
+
+                    if (category2.nome == category) {
+                        categoriesTemp.push({ nome: category2.nome, cor: category2.corPrincipal })
+                    }
+                })
+            });
+
+            setCategories(categoriesTemp)
+
+            let imgArrayTemp = []
+
+            docSnap.data().imgs.forEach((img, index) => {
+                imgArrayTemp.push(img.url)
+            });
+
+            setImgArray(imgArrayTemp)
+
+            if (docSnap.data().redes != undefined) {
+                setRedes(docSnap.data().redes)
+            }
+
+            if (docSnap.data().contatos != undefined) {
+                setContatos(docSnap.data().contatos)
+            }
+
+            if (docSnap.data().localizacao != undefined) {
+                setLocalizacao(docSnap.data().localizacao)
+            }
+
+            if (!docSnap.exists()) {
+                navigate(`/`)
+            }
         } catch (error) {
-            //navigate(`/`)
-            console.log('das')
+            console.log(error)
         }
     }
-
-    const imgs = [
-        'https://optimizer.dooca.store/2179/files/vinho-de-mesa-ou-vinho-fino-3-blog-setembro-22.jpg',
-        'https://s2.glbimg.com/Zs2gDkUy-utAtayacsX7dD4m9AU=/620x455/e.glbimg.com/og/ed/f/original/2017/02/16/thinkstockphotos-615269202.jpg',
-        'https://vejario.abril.com.br/wp-content/uploads/2022/07/Le-Terroir-Regua-de-vinho-2-Foto-Fabio-Rossi.jpg.jpg.jpg?quality=70&strip=info&w=1280&h=720&crop=1',
-        'https://media.istockphoto.com/id/1301017778/pt/foto/three-glasses-of-white-rose-and-red-wine-on-a-wooden-barrel.jpg?s=612x612&w=0&k=20&c=wn_Zad_udltkpd8tD_-hI7EeQ1EHrtyV2C_hU3m_uTE='
-    ]
 
     const background = useRef();
     const redespopup = useRef();
@@ -73,7 +90,7 @@ function Atrativo() {
 
         background.current.style.opacity = '0';
 
-        if(type == 'contato'){
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '0';
         } else {
             redespopup.current.style.opacity = '0';
@@ -81,15 +98,15 @@ function Atrativo() {
 
         setTimeout(() => {
             background.current.style.zIndex = '-1';
-           
-            if(type == 'contato'){
-                contatopopup.current.style.zIndex = '-1'; 
+
+            if (type == 'contato') {
+                contatopopup.current.style.zIndex = '-1';
             } else {
-                redespopup.current.style.zIndex = '-1'; 
+                redespopup.current.style.zIndex = '-1';
             }
         }, 200);
     };
-  
+
     const openPopup = (type) => {
 
         setPopup(type)
@@ -97,14 +114,16 @@ function Atrativo() {
         background.current.style.zIndex = '4';
         background.current.style.opacity = '100%';
 
-        if(type == 'contato'){
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '100%';
             contatopopup.current.style.zIndex = '5';
         } else {
             redespopup.current.style.opacity = '100%';
             redespopup.current.style.zIndex = '5';
         }
-    };
+    }
+
+    console.log(categories)
 
     return (
         <>
@@ -137,28 +156,27 @@ function Atrativo() {
                     </div>
                 </div>
             )}
-            <Header2 
-                text1 = {atrativo.nome}
-                text2 = {atrativo.municipio}
-                img = {atrativo.imgCard}          
+            <Header2
+                text1={atrativo.nome}
+                text2={atrativo.municipio}
+                img={atrativo.imgCard != undefined ? atrativo.imgCard.url : undefined}
             />
             <section className="section-4">
                 <div className='content-3'>
-                
+
                     <h2 className='title-associado-2'>Categorias</h2>
-                    <div style={{ backgroundColor: '#B20710' }} className='category-button'>
-                        <p>Gastronomia</p>
-                    </div>
-                    <div style={{ backgroundColor: '#E3121D' }} className='category-button'>
-                        <p>Onde Comer</p>
-                    </div>
+                    {categories.map((category, index) => (
+                        <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
+                            <p>{category.nome}</p>
+                        </div>
+                    ))}
 
                     <h2 className='title-associado'>Sobre Nós</h2>
-                    <p className='sobre-nos'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis asperiores sint aliquam optio reiciendis molestias, cumque incidunt eos aut odit consequuntur a nisi sapiente rerum possimus neque expedita at adipisci? Lorem  dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
+                    <p className='sobre-nos'>{atrativo.sobre}</p>
 
                     <h2 className='title-associado'>Imagens</h2>
                     <ImgCarousel
-                        imgArray={imgs}
+                        imgArray={imgArray}
                     />
                     {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
                         <Buttons

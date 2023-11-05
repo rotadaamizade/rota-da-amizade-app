@@ -3,10 +3,19 @@
     margin-bottom: 8px;
     overflow: scroll;
 }
+.categorie-div div{
+    display: block
+}
+
+.categorie-div div div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .categorie-button{
-    width: 52px;
-    height: 52px;
+    width: 59px;
+    height: 59px;
     background-color: aqua;
     display: flex;
     align-items: center;
@@ -33,12 +42,12 @@
     font-size: 9px;
     font-style: normal;
     font-weight: 700;
-    line-height: 110.9%; /* 9.981px */
+    line-height: 110.9%;
     letter-spacing: 0.045px;
-    max-width: 52px;
+    max-width: 100%;
 }
 
 .category-button-active{
-    width: 85px;
-    transition: .4s ease;
+    width: 89px;
+    transition: .27s ease;
 }
