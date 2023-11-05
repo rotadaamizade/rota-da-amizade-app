@@ -71,7 +71,7 @@ function Municipios(){
                 cities.map((card, index) => (
                 <CityCard
                     key={index}
-                    img={card.imgCard}
+                    img={card.imgCard.url}
                     name={card.municipio}
                     slogan={card.descricao}
                     id={card.id}

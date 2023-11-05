@@ -21,6 +21,7 @@ function Municipio() {
     const [localizacao, setLocalizacao] = useState('')
     const [contatos, setContatos] = useState([])
     const [atrativos, setAtrativos] = useState([])
+    const [imgArray, setImgArray] = useState([])
     const navigate = useNavigate()
 
     const content = useRef(null);
@@ -31,6 +32,7 @@ function Municipio() {
         }
 
         getCity()
+
     }, [])
 
     useEffect(() => {
@@ -54,6 +56,14 @@ function Municipio() {
           const docSnap = await getDoc(docRef)
           setCity(docSnap.data())
 
+          let imgArrayTemp = []
+
+          docSnap.data().imgs.forEach((img, index) => {
+            imgArrayTemp.push(img.url)
+          });
+
+          setImgArray(imgArrayTemp)
+
           getAtrativos(docSnap.data().municipio)
 
           if(docSnap.data().redesSociais != undefined){
@@ -67,7 +77,8 @@ function Municipio() {
           if(docSnap.data().localizacao != undefined){
             setLocalizacao(docSnap.data().localizacao)
           }
-          
+        
+
           if (!docSnap.exists()) {
             navigate(`/`)
           }
@@ -76,6 +87,8 @@ function Municipio() {
             console.log(error)
         }
     }
+
+    console.log(city)
 
     const getAtrativos = async (city) => {
 
@@ -176,8 +189,9 @@ function Municipio() {
             <Header2 
                 text1 = {city.municipio}
                 text2 = {city.descricao}
-                img = {city.imgCard}        
+                img = {city.imgCard != undefined ? city.imgCard.url : undefined}        
             />
+
             <section className="section-3">
                 <SliderMenu
                     menus={menus}
@@ -198,7 +212,7 @@ function Municipio() {
 
                         <h2 className='title-associado'>Imagens</h2>
                         <ImgCarousel
-                            imgArray={city.imgs}
+                            imgArray={imgArray}
                         />
 
                         {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
@@ -229,7 +243,7 @@ function Municipio() {
                             name={card.nome}
                             city={card.municipio}
                             svg={card.categorySvg}
-                            img={card.imgCard}
+                            img={card.imgCard.url}
                             type={card.type}
                             dates={card.dates != undefined ? card.dates : null}
                             id={card.id}
