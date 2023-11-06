@@ -7,7 +7,7 @@ import Card from '../../components/card/card';
 import HeaderAssociado from '../../components/headerAssociado/headerAssociado';
 import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 
 function Associado() {
@@ -23,6 +23,7 @@ function Associado() {
     const [contatos, setContatos] = useState([])
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
+    const [eventos, setEventos] = useState([])
 
     const content = useRef(null);
 
@@ -56,6 +57,7 @@ function Associado() {
             const docRef = doc(db, "associados", id)
             const docSnap = await getDoc(docRef)
             setAssociado(docSnap.data())
+            getEventos(docSnap.data().nome)
 
             console.log(docSnap.data())
 
@@ -101,6 +103,28 @@ function Associado() {
             console.log(error)
         }
     }
+
+    const getEventos = async (nome) => {
+
+        const q = query(collection(db, "eventos"), where("realizador", "==", nome));
+        const data = await getDocs(q)
+
+        const eventosData = [];
+      
+        data.forEach((doc) => {
+          const eventoData = {
+            id: doc.id,
+            realizador: doc.data().realizador,
+            nome: doc.data().nome,
+            imgCard: doc.data().imgCard,
+            type: 'evento'
+          };
+          
+          eventosData.push(eventoData);
+        });
+    
+        setEventos(eventosData);
+      }
 
     const background = useRef();
     const redespopup = useRef();
@@ -225,18 +249,18 @@ function Associado() {
                         ) : null}
                     </div>
                     <div className="content-2">{
-                        // cards.map((card, index) => (
-                        //     <Card
-                        //         key={index}
-                        //         name={card.name}
-                        //         city={card.city}
-                        //         svg={card.categorySvg}
-                        //         img={card.img}
-                        //         type={card.type}
-                        //         dates={card.dates != undefined ? card.dates : null}
-                        //         id={card.id}
-                        //     />
-                        // ))
+                        eventos.map((evento, index) => (
+                            <Card
+                                key={index}
+                                name={evento.nome}
+                                city={evento.realizador}
+                                svg={evento.categorySvg}
+                                img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
+                                type={evento.type}
+                                dates={evento.dates != undefined ? evento.dates : null}
+                                id={evento.id}
+                            />
+                        ))
                     }
 
                     </div>
