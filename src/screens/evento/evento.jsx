@@ -1,41 +1,87 @@
 import './evento.css'
 import { useContext, useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
 import Header2 from '../../components/header2/header2';
 import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+getDoc
 
 function Evento() {
+
+    const navigate = useNavigate()
     const { id } = useParams();
-    const { navbarState, setNavbarState } = useContext(UserContext)
+    const { navbarState, setNavbarState, categoriesEventos } = useContext(UserContext)
     const [popup, setPopup] = useState('')
+    const [evento, setEvento] = useState({})
+    const [imgArray, setImgArray] = useState([])
+    const [redes, setRedes] = useState([])
+    const [localizacao, setLocalizacao] = useState('')
+    const [contatos, setContatos] = useState([])
+    const [categories, setCategories] = useState([])
 
 
     useEffect(() => {
         if (navbarState !== 'eventos') {
             setNavbarState('eventos')
         }
+
+        getEvento()
     }, [])
 
-    const imgs = [
-        'https://optimizer.dooca.store/2179/files/vinho-de-mesa-ou-vinho-fino-3-blog-setembro-22.jpg',
-        'https://s2.glbimg.com/Zs2gDkUy-utAtayacsX7dD4m9AU=/620x455/e.glbimg.com/og/ed/f/original/2017/02/16/thinkstockphotos-615269202.jpg',
-        'https://vejario.abril.com.br/wp-content/uploads/2022/07/Le-Terroir-Regua-de-vinho-2-Foto-Fabio-Rossi.jpg.jpg.jpg?quality=70&strip=info&w=1280&h=720&crop=1',
-        'https://media.istockphoto.com/id/1301017778/pt/foto/three-glasses-of-white-rose-and-red-wine-on-a-wooden-barrel.jpg?s=612x612&w=0&k=20&c=wn_Zad_udltkpd8tD_-hI7EeQ1EHrtyV2C_hU3m_uTE='
-    ]
+    const getEvento = async () => {
+
+        try {
+            const docRef = doc(db, "eventos", id)
+            const docSnap = await getDoc(docRef)
+            setEvento(docSnap.data())
+
+            let categoriesTemp = []
+
+            docSnap.data().categorias.forEach((category, element) => {
+
+                categoriesEventos.forEach((category2, index) => {
+
+                    if (category2.nome == category) {
+                        categoriesTemp.push({ nome: category2.nome, cor: category2.corPrincipal })
+                    }
+                })
+            });
+
+            setCategories(categoriesTemp)
+
+            let imgArrayTemp = []
+
+            docSnap.data().imgs.forEach((img, index) => {
+                imgArrayTemp.push(img.url)
+            });
+
+            setImgArray(imgArrayTemp)
+
+            if (docSnap.data().redesSociais != undefined) {
+                setRedes(docSnap.data().redesSociais)
+            }
+
+            if (docSnap.data().contatos != undefined) {
+                setContatos(docSnap.data().contatos)
+            }
+
+            if (docSnap.data().localizacao != undefined) {
+                setLocalizacao(docSnap.data().localizacao)
+            }
 
 
+            if (!docSnap.exists()) {
+                navigate(`/`)
+            }
+        } catch (error) {
+            navigate(`/`)
+            console.log(error)
+        }
+    }
 
-    const contatos = [
-        {name: 'WhatsApp', color: '#25D366'},
-        {name: 'Email', color: '#000'},
-        {name: 'Telefone', color: '#4267B2'}
-    ]
-
-    const redes = []
-
-    const localization = 'https://www.google.com/maps/place/Hotel+Santa+Clara/@-27.0261368,-51.1480951,15z/data=!4m9!3m8!1s0x94e14fae1ae24467:0x26ffb849bc196d53!5m2!4m1!1i2!8m2!3d-27.021633!4d-51.1483297!16s%2Fg%2F11b6hqdxkx?entry=ttu'
 
     const background = useRef();
     const redespopup = useRef();
@@ -47,7 +93,7 @@ function Evento() {
 
         background.current.style.opacity = '0';
 
-        if(type == 'contato'){
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '0';
         } else {
             redespopup.current.style.opacity = '0';
@@ -55,15 +101,17 @@ function Evento() {
 
         setTimeout(() => {
             background.current.style.zIndex = '-1';
-           
-            if(type == 'contato'){
-                contatopopup.current.style.zIndex = '-1'; 
+
+            if (type == 'contato') {
+                contatopopup.current.style.zIndex = '-1';
             } else {
-                redespopup.current.style.zIndex = '-1'; 
+                redespopup.current.style.zIndex = '-1';
             }
         }, 200);
     };
-  
+
+    console.log(evento)
+
     const openPopup = (type) => {
 
         setPopup(type)
@@ -71,7 +119,7 @@ function Evento() {
         background.current.style.zIndex = '4';
         background.current.style.opacity = '100%';
 
-        if(type == 'contato'){
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '100%';
             contatopopup.current.style.zIndex = '5';
         } else {
@@ -111,47 +159,55 @@ function Evento() {
                     </div>
                 </div>
             )}
-            <Header2 
-                text1 = 'Show Corpo e Alma'
-                text2 = 'Matheus Eventos'
-                img = 'https://sobailao.com.br/wp-content/uploads/2023/05/Banda-Corpo-e-Alma-1.jpg'            
+            <Header2
+                text1={evento.nome}
+                text2={evento.tipo == 'municipio' ? 'Prefeitura de ' + evento.realizador : evento.realizador + ' | ' + evento.municipio}
+                img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
             />
             <section className="section-4">
                 <div className='content-3'>
                     <h2 className='title-associado-2'>Data e Horário</h2>
+
+
                     <div className='data-horario-content'>
-                        <div className='data-button'>
-                            <div className='data-button-div'>
-                                <h1>24</h1>
-                                <h2>SET</h2>
-                            </div>
-                        </div>
-                        <div className='hora-button'>
-                            <div className='hora-button-div'>
-                                <h1>12:00</h1>
-                                <div className='hora-line'></div>
-                                <h1>5:00</h1>
-                            </div>
-                        </div>
+                        {evento.data != undefined ? evento.data.map((data, index) => (
+                            <>
+                                <div className='data-button'>
+                                    <div className='data-button-div'>
+                                        <h1>24</h1>
+                                        <h2>SET</h2>
+                                    </div>
+                                </div>
+                                <div className='hora-button'>
+                                    <div className='hora-button-div'>
+                                        <h1>12:00</h1>
+                                        <div className='hora-line'></div>
+                                        <h1>5:00</h1>
+                                    </div>
+                                </div>
+                                
+                                {index != evento.data.length - 1? <div className='data-spacing'></div> : undefined}
+                            </>
+                        )) : undefined}
                     </div>
+
 
                     <h2 className='title-associado'>Categorias</h2>
-                    <div style={{ backgroundColor: '#B20710' }} className='category-button'>
-                        <p>Gastronomia</p>
-                    </div>
-                    <div style={{ backgroundColor: '#E3121D' }} className='category-button'>
-                        <p>Onde Comer</p>
-                    </div>
+                    {categories.map((category, index) => (
+                        <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
+                            <p>{category.nome}</p>
+                        </div>
+                    ))}
                     <h2 className='title-associado'>Imagens</h2>
                     <ImgCarousel
-                        imgArray={imgs}
+                        imgArray={imgArray}
                     />
                     <h2 className='title-associado'>Sobre Nós</h2>
-                    <p className='sobre-nos'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis asperiores sint aliquam optio reiciendis molestias, cumque incidunt eos aut odit consequuntur a nisi sapiente rerum possimus neque expedita at adipisci? Lorem  dolor sit amet consectetur, adipisicing elit. Excepturi amet consectetur, incidunt fugit ducimus tempore! Rerum soluta dolores, maiores veniam eum molestiae qui dignissimos quos libero quam voluptatum perspiciatis hic.</p>
+                    <p className='sobre-nos'>{evento.sobre}</p>
 
-                    {contatos.length > 0 || redes.length > 0 || localization !== '' ? (
+                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
                         <Buttons
-                            localization={localization}
+                            localization={localizacao}
                             contatos={contatos}
                             redes={redes}
                             openContatos={() => {

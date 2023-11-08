@@ -49,8 +49,6 @@ function Associado() {
         }
     }, [menuActive])
 
-    console.log(imgArray)
-
     const getAssociado = async () => {
 
         try {
@@ -117,7 +115,8 @@ function Associado() {
             realizador: doc.data().realizador,
             nome: doc.data().nome,
             imgCard: doc.data().imgCard,
-            type: 'evento'
+            type: 'evento',
+            dates: doc.data().data
           };
           
           eventosData.push(eventoData);
