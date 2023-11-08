@@ -21,17 +21,32 @@ function Card(props) {
       <div className='card-gradient' />
       <div className='date-content'>
         {props.dates != null && (
-          props.dates.map((date, index) => (
+          props.dates.map((date, index) => {
+
+            let dia = 0
+            let mes = 0
+            let ano = 0
+
+            const partes = date.data.split('-')
+
+            if (partes.length === 3) {
+              dia = partes[2]
+              mes = partes[1]
+              ano = partes[0]
+            }
+        
+
+            return (
             <div className='date-div' key={index}>
-                <p className='date-number'>{date.day}</p>
+                <p className='date-number'>{dia}</p>
                 <p className='date-text'>
                 {[
                     'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
                     'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
-                ][date.month - 1]}
+                ][mes - 1]}
                 </p>
             </div>
-          ))
+          )})
         )}
       </div>
       <div className='card-content'>
