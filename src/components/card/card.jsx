@@ -6,11 +6,11 @@ function Card(props) {
   const navigate = useNavigate()
 
   const linkto = () => {
-    if(props.type == 'evento'){
+    if (props.type == 'evento') {
       navigate(`/evento/${props.id}`)
-    } else if(props.type == 'associado'){
+    } else if (props.type == 'associado') {
       navigate(`/associado/${props.id}`)
-    } else if(props.type == 'atrativo'){
+    } else if (props.type == 'atrativo') {
       navigate(`/atrativo/${props.id}`)
     }
   }
@@ -21,32 +21,36 @@ function Card(props) {
       <div className='card-gradient' />
       <div className='date-content'>
         {props.dates != null && (
-          props.dates.map((date, index) => {
+          props.dates
+            .slice()
+            .sort((a, b) => new Date(a.data) - new Date(b.data))
+            .map((date, index) => {
 
-            let dia = 0
-            let mes = 0
-            let ano = 0
+              let dia = 0
+              let mes = 0
+              let ano = 0
 
-            const partes = date.data.split('-')
+              const partes = date.data.split('-')
 
-            if (partes.length === 3) {
-              dia = partes[2]
-              mes = partes[1]
-              ano = partes[0]
-            }
-        
+              if (partes.length === 3) {
+                dia = partes[2]
+                mes = partes[1]
+                ano = partes[0]
+              }
 
-            return (
-            <div className='date-div' key={index}>
-                <p className='date-number'>{dia}</p>
-                <p className='date-text'>
-                {[
-                    'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
-                    'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
-                ][mes - 1]}
-                </p>
-            </div>
-          )})
+              return (
+                <div className='date-div' key={index}>
+                  <p className='date-number'>{dia}</p>
+                  <p className='date-text'>
+                    {[
+                      'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
+                      'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
+                    ][mes - 1]}
+                  </p>
+                </div>
+              )
+            })
+
         )}
       </div>
       <div className='card-content'>
