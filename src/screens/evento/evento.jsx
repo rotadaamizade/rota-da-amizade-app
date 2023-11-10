@@ -1,5 +1,5 @@
 import './evento.css'
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
 import Header2 from '../../components/header2/header2';
@@ -7,7 +7,6 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-getDoc
 
 function Evento() {
 
@@ -170,26 +169,51 @@ function Evento() {
 
 
                     <div className='data-horario-content'>
-                        {evento.data != undefined ? evento.data.map((data, index) => (
-                            <>
-                                <div className='data-button'>
-                                    <div className='data-button-div'>
-                                        <h1>24</h1>
-                                        <h2>SET</h2>
-                                    </div>
-                                </div>
-                                <div className='hora-button'>
-                                    <div className='hora-button-div'>
-                                        <h1>12:00</h1>
-                                        <div className='hora-line'></div>
-                                        <h1>5:00</h1>
-                                    </div>
-                                </div>
-                                
-                                {index != evento.data.length - 1? <div className='data-spacing'></div> : undefined}
-                            </>
-                        )) : undefined}
+                        {evento.data !== undefined ?
+                            evento.data
+                                .slice()
+                                .sort((a, b) => new Date(a.data) - new Date(b.data))
+                                .map((data, index) => {
+
+                                    let dia = 0
+                                    let mes = 0
+                                    let ano = 0
+
+                                    const partes = data.data.split('-')
+
+                                    if (partes.length === 3) {
+                                        dia = partes[2]
+                                        mes = partes[1]
+                                        ano = partes[0]
+                                    }
+
+                                    return (
+                                        <Fragment key={index}>
+                                            <div className='data-button'>
+                                                <div className='data-button-div'>
+                                                    <h1>{dia}</h1>
+                                                    <h2>{[
+                                                        'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
+                                                        'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
+                                                    ][mes - 1]}</h2>
+                                                </div>
+                                            </div>
+                                            <div className='hora-button' key={`${index}hora`}>
+                                                <div className='hora-button-div'>
+                                                    <h1>{data.horaInicio}</h1>
+                                                    <div className='hora-line'></div>
+                                                    <h1>{data.horaFim}</h1>
+                                                </div>
+                                            </div>
+
+                                            {index !== evento.data.length - 1 ? <div key={`${index}spacing`} className='data-spacing'></div> : null}
+                                        </Fragment>
+                                    )
+                                })
+                            : null
+                        }
                     </div>
+
 
 
                     <h2 className='title-associado'>Categorias</h2>
