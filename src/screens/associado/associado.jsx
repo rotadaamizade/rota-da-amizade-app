@@ -9,6 +9,7 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../config/firebase';
+import { motion } from 'framer-motion';
 
 function Associado() {
 
@@ -108,22 +109,22 @@ function Associado() {
         const data = await getDocs(q)
 
         const eventosData = [];
-      
+
         data.forEach((doc) => {
-          const eventoData = {
-            id: doc.id,
-            realizador: doc.data().realizador,
-            nome: doc.data().nome,
-            imgCard: doc.data().imgCard,
-            type: 'evento',
-            dates: doc.data().data
-          };
-          
-          eventosData.push(eventoData);
+            const eventoData = {
+                id: doc.id,
+                realizador: doc.data().realizador,
+                nome: doc.data().nome,
+                imgCard: doc.data().imgCard,
+                type: 'evento',
+                dates: doc.data().data
+            };
+
+            eventosData.push(eventoData);
         });
-    
+
         setEventos(eventosData);
-      }
+    }
 
     const background = useRef();
     const redespopup = useRef();
@@ -199,72 +200,83 @@ function Associado() {
                 </div>
             )}
 
-            <HeaderAssociado
-                img={associado.imgCard != undefined ? associado.imgCard.url : undefined}
-                logo={associado.imgLogo != undefined ? associado.imgLogo.url : undefined}
-                municipio={associado.municipio}
-                nome={associado.nome}
-            />
-            <section className="section-3">
-                <SliderMenu
-                    menus={menus}
-                    menuActive={menuActive}
-                    setMenuActive={setMenuActive}
+            <motion.section
+                className='event-section'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 1, transition: { duration: 0.25 } }}
+            >
+
+                <HeaderAssociado
+                    img={associado.imgCard != undefined ? associado.imgCard.url : undefined}
+                    logo={associado.imgLogo != undefined ? associado.imgLogo.url : undefined}
+                    municipio={associado.municipio}
+                    nome={associado.nome}
                 />
-                <div ref={content} className="all-content-page">
-                    <div>
+                <section className="section-3">
+                    <SliderMenu
+                        menus={menus}
+                        menuActive={menuActive}
+                        setMenuActive={setMenuActive}
+                    />
+                    <div ref={content} className="all-content-page">
+                        <div>
 
-                    </div>
-                    <div className="content-1">
+                        </div>
+                        <div className="content-1">
 
-                        <h2 className='title-associado'>Categorias</h2>
-                        {categories.map((category, index) => (
-                            <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
-                                <p>{category.nome}</p>
-                            </div>
-                        ))}
-                        <h2 className='title-associado'>Imagens</h2>
-                        <ImgCarousel
-                            imgArray={imgArray}
-                        />
-                        <h2 className='title-associado'>Sobre Nós</h2>
-                        <p className='sobre-nos'>{associado.sobre}</p>
-                        {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                            <Buttons
-                                localization={localizacao}
-                                contatos={contatos}
-                                redes={redes}
-                                openContatos={() => {
-                                    if (contatos !== undefined) {
-                                        openPopup('contato');
-                                    }
-                                }}
-                                openRedes={() => {
-                                    if (redes !== undefined) {
-                                        openPopup('rede');
-                                    }
-                                }}
+                            <h2 className='title-associado'>Categorias</h2>
+                            {categories.map((category, index) => (
+                                <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
+                                    <p>{category.nome}</p>
+                                </div>
+                            ))}
+                            <h2 className='title-associado'>Imagens</h2>
+                            <ImgCarousel
+                                imgArray={imgArray}
                             />
-                        ) : null}
-                    </div>
-                    <div className="content-2">{
-                        eventos.map((evento, index) => (
-                            <Card
-                                key={index}
-                                name={evento.nome}
-                                city={evento.realizador}
-                                svg={evento.categorySvg}
-                                img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
-                                type={evento.type}
-                                dates={evento.dates != undefined ? evento.dates : null}
-                                id={evento.id}
-                            />
-                        ))
-                    }
+                            <h2 className='title-associado'>Sobre Nós</h2>
+                            <p className='sobre-nos'>{associado.sobre}</p>
+                            {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                                <Buttons
+                                    localization={localizacao}
+                                    contatos={contatos}
+                                    redes={redes}
+                                    openContatos={() => {
+                                        if (contatos !== undefined) {
+                                            openPopup('contato');
+                                        }
+                                    }}
+                                    openRedes={() => {
+                                        if (redes !== undefined) {
+                                            openPopup('rede');
+                                        }
+                                    }}
+                                />
+                            ) : null}
+                        </div>
+                        <div className="content-2">{
+                            eventos.map((evento, index) => (
+                                <Card
+                                    key={index}
+                                    name={evento.nome}
+                                    city={evento.realizador}
+                                    svg={evento.categorySvg}
+                                    img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
+                                    type={evento.type}
+                                    dates={evento.dates != undefined ? evento.dates : null}
+                                    id={evento.id}
+                                />
+                            ))
+                        }
 
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+
+            </motion.section>
+
+
         </>
     )
 }

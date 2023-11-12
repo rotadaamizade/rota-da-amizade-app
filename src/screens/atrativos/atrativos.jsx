@@ -9,10 +9,11 @@ import Categories from "../../components/categories/categories";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import Loading from "../../components/loading/loading";
+import { motion } from "framer-motion";
 
-function Atrativos(){
+function Atrativos() {
 
-    const { navbarState, setNavbarState, globalCity} = useContext(UserContext)
+    const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
     const [category, setCategory] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [atrativos, setAtrativos] = useState([])
@@ -21,7 +22,7 @@ function Atrativos(){
 
 
     useEffect(() => {
-        if(navbarState != 'atrativos'){
+        if (navbarState != 'atrativos') {
             setNavbarState('atrativos')
         }
 
@@ -40,65 +41,66 @@ function Atrativos(){
         try {
             const data = await getDocs(collection(db, "atrativos"));
             const atrativosData = [];
-        
+
             data.forEach((doc) => {
-              const dataAtrativos = {
-                id: doc.id,
-                municipio: doc.data().municipio,
-                nome: doc.data().nome,
-                imgCard: doc.data().imgCard,
-                type: 'atrativo'
-              };
-              
-              atrativosData.push(dataAtrativos);
+                const dataAtrativos = {
+                    id: doc.id,
+                    municipio: doc.data().municipio,
+                    nome: doc.data().nome,
+                    imgCard: doc.data().imgCard,
+                    type: 'atrativo'
+                };
+
+                atrativosData.push(dataAtrativos);
             });
-        
+
             setAtrativos(atrativosData);
-          } catch (error) {
+        } catch (error) {
             console.error("Erro ao recuperar documentos:", error);
-          }
+        }
     }
 
     const handleSearch = (value) => {
-      setSearchTerm(value);
+        setSearchTerm(value);
     };
 
     return (
-        <>
-        <CityFilter/>
-            <section className="section-1">
-                <SectionTitle
-                    text1 = {globalCity == '' ? 'Atrativos da' : 'Atrativos de'}
-                    text2 = {globalCity == '' ? 'Rota da Amizade' : globalCity}
-                />
-                <Search
-                    onSearch={handleSearch}
-                />
 
-                <div style={{paddingBottom: `calc(75px + ${titleHeight}px`}} className="card-container">
-                {atrativos.length === 0 ? (
-                    <Loading />
-                ) : (
+        <motion.section
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 1, transition: {duration: 0.25} }}
+            className="section-1">
+            <SectionTitle
+                text1={globalCity == '' ? 'Atrativos da' : 'Atrativos de'}
+                text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
+            />
+            <Search
+                onSearch={handleSearch}
+            />
+
+            <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
+                {
                     <>
-                    <Categories category={category} setCategory={setCategory} type={'atrativos'} />
-                    {atrativos.map((card, index) => (
-                        <Card
-                        key={index}
-                        name={card.nome}
-                        city={card.municipio}
-                        svg={card.categorySvg}
-                        img={card.imgCard.url}
-                        type={card.type}
-                        dates={card.dates !== undefined ? card.dates : null}
-                        id={card.id}
-                        />
-                    ))}
+                        <Categories category={category} setCategory={setCategory} type={'atrativos'} />
+                        {atrativos.map((card, index) => (
+                            <Card
+                                key={index}
+                                name={card.nome}
+                                city={card.municipio}
+                                svg={card.categorySvg}
+                                img={card.imgCard.url}
+                                type={card.type}
+                                dates={card.dates !== undefined ? card.dates : null}
+                                id={card.id}
+                                index={index}
+                            />
+                        ))}
                     </>
-                )}
-                </div>
+                }
+            </div>
 
-            </section>
-        </>
+        </motion.section>
     )
 }
 

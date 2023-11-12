@@ -58,10 +58,10 @@ function CityFilter(){
         <div onClick={closePopup} ref={background} className='popup-background'></div>
         <div ref={popup} className='city-popup' >
             <div>
-                <p onClick={() => {
+                <div className='rota-button' onClick={() => {
                     closePopup()
                     setGlobalCity('')
-                }}>Rota da Amizade</p>
+                }}>Rota da Amizade</div>
                 {cities.map((city, index) => (
                 <p key={index} onClick={() => {
                     closePopup()
@@ -81,6 +81,7 @@ function CityFilter(){
             <div className='gradient'></div>
             <button onClick={openPopup}>{globalCity == '' ? 'Selecione um Município' : globalCity}</button>
         </div>
+        <section className='section-1'></section>
     </>
     )
 }

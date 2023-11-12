@@ -7,8 +7,9 @@ import CityCard from "../../components/cityCard/cityCard";
 import { db } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Loading from "../../components/loading/loading";
+import { motion } from "framer-motion";
 
-function Municipios(){
+function Municipios() {
 
     const { navbarState, setNavbarState } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
@@ -16,7 +17,7 @@ function Municipios(){
     const [titleHeight, setTitleHeight] = useState(0);
 
     useEffect(() => {
-        if(navbarState != 'municipios'){
+        if (navbarState != 'municipios') {
             setNavbarState('municipios')
         }
         getCities()
@@ -30,23 +31,23 @@ function Municipios(){
 
     const getCities = async () => {
         try {
-          const data = await getDocs(collection(db, "municipios"));
-          const citiesData = [];
-      
-          data.forEach((doc) => {
-            const cityData = {
-              id: doc.id,
-              municipio: doc.data().municipio,
-              descricao: doc.data().descricao,
-              imgCard: doc.data().imgCard
-            };
-            
-            citiesData.push(cityData);
-          });
-      
-          setCities(citiesData);
+            const data = await getDocs(collection(db, "municipios"));
+            const citiesData = [];
+
+            data.forEach((doc) => {
+                const cityData = {
+                    id: doc.id,
+                    municipio: doc.data().municipio,
+                    descricao: doc.data().descricao,
+                    imgCard: doc.data().imgCard
+                };
+
+                citiesData.push(cityData);
+            });
+
+            setCities(citiesData);
         } catch (error) {
-          console.error("Erro ao recuperar documentos:", error);
+            console.error("Erro ao recuperar documentos:", error);
         }
     }
 
@@ -54,33 +55,36 @@ function Municipios(){
         setSearchTerm(value);
     };
 
-    return(
-        <section className="section-2">
+    return (
+        <motion.section
+            initial={{ opacity: 0, top: '0' }}
+            animate={{ opacity: 1, top: '0' }}
+            exit={{ opacity: 0, transition: {duration: 0.25} }}
+            className="section-2">
             <SectionTitle
                 text1='Municípios da'
                 text2='Rota da Amizade'
             />
-            
+
             <Search
                 onSearch={handleSearch}
             />
-            <div style={{paddingBottom: `calc(75px + ${titleHeight}px`}} className="card-container">
-            {cities.length === 0 ? (
-                <Loading />
-            ) : (
-                cities.map((card, index) => (
-                <CityCard
-                    key={index}
-                    img={card.imgCard.url}
-                    name={card.municipio}
-                    slogan={card.descricao}
-                    id={card.id}
-                />
-                ))
-            )}
+            <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
+                {
+                    cities.map((card, index) => (
+                        <CityCard
+                            key={index}
+                            img={card.imgCard.url}
+                            name={card.municipio}
+                            slogan={card.descricao}
+                            id={card.id}
+                            index={index}
+                        />
+                    ))
+                }
             </div>
 
-        </section>
+        </motion.section>
     )
 }
 

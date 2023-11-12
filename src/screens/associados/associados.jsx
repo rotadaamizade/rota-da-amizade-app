@@ -2,12 +2,12 @@ import { useEffect } from "react"
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../../UserContext';
 import Card from "../../components/card/card";
-import CityFilter from "../../components/cityFilter/cityFilter";
 import SectionTitle from "../../components/sectionTitle/sectionTitle";
 import Search from "../../components/search/search";
 import Categories from "../../components/categories/categories";
 import { db } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 function Associados(){
 
@@ -64,9 +64,13 @@ function Associados(){
   
 
     return (
-        <>
-        <CityFilter/>
-            <section className="section-1">
+
+        
+            <motion.section 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 1 , transition: {duration: 0.25}}}
+            className="section-1">
                 <SectionTitle
                     text1 = {globalCity == '' ? 'Associados da' : 'Associados de'}
                     text2 = {globalCity == '' ? 'Rota da Amizade' : globalCity}
@@ -87,12 +91,13 @@ function Associados(){
                                 type={associado.type}
                                 dates={associado.dates != undefined ? associado.dates : null}
                                 id={associado.id}
+                                index={index}
                             />
                         ))
                     }
                 </div>
-            </section>
-        </>
+            </motion.section>
+        
     )
 }
 

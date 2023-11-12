@@ -7,6 +7,7 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
+import { motion } from 'framer-motion';
 
 function Evento() {
 
@@ -158,7 +159,14 @@ function Evento() {
                     </div>
                 </div>
             )}
-            <Header2
+
+            <motion.section
+                className='event-section'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                >
+                <Header2
                 text1={evento.nome}
                 text2={evento.tipo == 'municipio' ? 'Prefeitura de ' + evento.realizador : evento.realizador + ' | ' + evento.municipio}
                 img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
@@ -249,6 +257,7 @@ function Evento() {
 
                 </div>
             </section>
+        </motion.section >
         </>
     )
 }

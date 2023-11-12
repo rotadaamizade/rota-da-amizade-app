@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import StringToHtml from '../stringToHtml/stringToHtml'
+import CategoryButton from '../categoryButton/categoryButton'
 
 function Categories({category, setCategory, type}){
 
@@ -32,18 +33,13 @@ function Categories({category, setCategory, type}){
     return (
         <div className='categorie-div'>
           {categories.map((button, index) => (
-            <div onClick={() => {
-                if(category == button.nome){
-                    setCategory('')
-                } else{
-                    setCategory(button.nome)
-                }
-            }} className='categorie-button-div' key={index}>
-                <div style={{backgroundColor: "#" + button.corFundo}} className={category == button.nome ? 'category-button-active categorie-button'  : 'categorie-button'}>
-                    <StringToHtml htmlString={button.svg} />
-                </div>
-                <p>{button.nome}</p>
-            </div>
+            <CategoryButton
+            key={index}
+            button = {button}
+            setCategory = {setCategory}
+            category = {category}
+            index = {index}
+            />
           ))}
         </div>
     )
