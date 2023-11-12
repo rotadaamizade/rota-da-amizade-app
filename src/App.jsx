@@ -12,7 +12,7 @@ function App() {
   // Para colocar o site em manutenção, enquanto está sendo desenvolvido
   const maintenance = false
 
-  if(maintenance){
+  if (maintenance) {
     return (
       <div className="App">
         <h1>Site is under maintenance</h1>
@@ -20,32 +20,22 @@ function App() {
       </div>
     )
   }
-  
-  
+
+
 
   return (
     <div className="App">
 
-    <BrowserRouter>
-    <UserProvider>
-      <Navbar/>
-      <main>
-      <Routes>
-        <Route path='/' element={<Inicio/>}/>
-        <Route path='/inicio' element={<Inicio/>}/>
-        <Route path='/associados' element={<Associados/>}/>
-        <Route path='/eventos' element={<Eventos/>}/>
-        <Route path='/municipios' element={<Municipios/>}/>
-        <Route path='/atrativos' element={<Atrativos/>}/>
-        <Route path='/evento/:id' element={<Evento/>}/>
-        <Route path='/associado/:id' element={<Associado/>}/>
-        <Route path='/municipio/:id' element={<Municipio/>}/>
-        <Route path='/atrativo/:id' element={<Atrativo/>}/>
-      </Routes>
-      </main>
-    </UserProvider>
-    </BrowserRouter>
-    
+      <BrowserRouter>
+        <UserProvider>
+          <Navbar />
+          <main>
+            <CityFilter />
+            <AnimatedRoutes />
+          </main>
+        </UserProvider>
+      </BrowserRouter>
+
     </div>
   )
 }
