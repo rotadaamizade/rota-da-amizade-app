@@ -20,23 +20,20 @@ function App() {
       </div>
     )
   }
-  
-  
 
   return (
     <div className="App">
 
 
-    <BrowserRouter>
-    <UserProvider>
-      <Navbar/>
-      <main>
-      <CityFilter/>
-      <AnimatedRoutes/>
-      </main>
-    </UserProvider>
-    </BrowserRouter>
-    
+      <BrowserRouter>
+        <UserProvider>
+          <Navbar />
+          <main>
+            <CityFilter />
+            <AnimatedRoutes />
+          </main>
+        </UserProvider>
+      </BrowserRouter>
 
     </div>
   )
