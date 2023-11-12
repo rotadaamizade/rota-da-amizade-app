@@ -12,7 +12,7 @@ function App() {
   // Para colocar o site em manutenção, enquanto está sendo desenvolvido
   const maintenance = false
 
-  if(maintenance){
+  if (maintenance) {
     return (
       <div className="App">
         <h1>Site is under maintenance</h1>
@@ -20,12 +20,13 @@ function App() {
       </div>
     )
   }
-  
-  
+
+
 
   return (
     <div className="App">
-    <BrowserRouter>
+
+<BrowserRouter>
     <UserProvider>
       <Navbar/>
       <main>
@@ -34,7 +35,6 @@ function App() {
       </main>
     </UserProvider>
     </BrowserRouter>
-
     
     </div>
   )
