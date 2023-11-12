@@ -107,6 +107,7 @@ section{
     min-width: 250px;
     max-width: calc(700px - 70px);
     width: calc(100% - 70px);
+    max-width: calc(700px - 70px);
     padding: 20px;
     box-sizing: border-box;
 }
