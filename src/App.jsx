@@ -20,8 +20,6 @@ function App() {
       </div>
     )
   }
-  
-  
 
   return (
     <div className="App">
@@ -36,6 +34,7 @@ function App() {
       </main>
     </UserProvider>
     </BrowserRouter>
+    
 
     </div>
   )
