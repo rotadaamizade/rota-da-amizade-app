@@ -14,7 +14,7 @@ function Card(props) {
     opacity: inView ? 1 : 0,
     transform: inView ? 'translateX(0)' : 'translateX(100%)',
     config: { duration: 350 },
-    delay: inView ? props.index * 150 : 0,
+    delay: inView ? props.index * 50 : 0,
   })
 
   const navigate = useNavigate()

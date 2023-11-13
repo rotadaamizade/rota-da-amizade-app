@@ -12,8 +12,8 @@ function CityCard(props) {
   const animation = useSpring({
     opacity: inView ? 1 : 0,
     transform: inView ? 'translateX(0)' : 'translateX(100%)',
-    config: { duration: 500 },
-    delay: inView ? props.index * 200 : 0,
+    config: { duration: 350 },
+    delay: inView ? props.index * 50 : 0,
   });
 
   const navigate = useNavigate()
