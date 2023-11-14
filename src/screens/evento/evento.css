@@ -1,5 +1,7 @@
 .data-horario-content{
     display: flex;
+    overflow-x: auto;
+    border-radius: 5px;
 }
 
 .data-button{
@@ -75,4 +77,14 @@
 
 .hora-button h1:last-child{
     margin-bottom: 5px;
+}
+
+.data-spacing{
+    margin-right: 15px;
+    border-right: 1px solid rgb(212, 212, 212);
+    margin-left: 15px;
+}
+
+.event-section{
+    padding: 0;
 }

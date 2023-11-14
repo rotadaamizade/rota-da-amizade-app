@@ -13,6 +13,7 @@
     border-top: 1px solid rgb(224, 224, 224);
     padding: 14px 0;
     margin-top: 29px;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -32,7 +33,6 @@
 }
 
 .localization-button{
-    margin-bottom: 7px;
     background-color: #78900E;
     width: 100%;
 }
@@ -45,5 +45,4 @@
 .contatos-button{
     background-color: #E3121D;
     width: 100%;
-    margin-bottom: 7px;
 }

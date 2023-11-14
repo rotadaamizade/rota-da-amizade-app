@@ -3,7 +3,7 @@
     width: 100%;
     padding: 8px 6px;
     box-sizing: border-box;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     border-top: 0.5px solid rgb(236, 236, 236);
     display: flex;
@@ -64,4 +64,14 @@
 .active-navbar p{
     color: #096475;
     transition: .35s;
+}
+
+@media (max-width: 335px){
+    .navbar-div div{
+        width: 50px;
+    }
+
+    .navbar-div div p{
+        font-size: 7.4px;
+    }
 }
