@@ -204,7 +204,7 @@ function Associado() {
                 className='event-section'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 1, transition: { duration: 0.25 } }}
+                exit={{ opacity: 0 }}
             >
 
                 <HeaderAssociado
