@@ -204,11 +204,7 @@ function Associado() {
                 className='event-section'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-<<<<<<< HEAD
-                exit={{ opacity: 0 }}
-=======
                 exit={{ opacity: 1, transition: { duration: 0.25 } }}
->>>>>>> origin/18-desenvolver-o-aplicativo-pwa
             >
 
                 <HeaderAssociado
