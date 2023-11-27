@@ -57,7 +57,19 @@ function Municipio() {
             const docSnap = await getDoc(docRef)
             setCity(docSnap.data())
 
+<<<<<<< HEAD
             let imgArrayTemp = []
+=======
+          let imgArrayTemp = []
+
+          docSnap.data().imgs.forEach((img, index) => {
+            imgArrayTemp.push(img.url)
+          });
+
+          setImgArray(imgArrayTemp)
+
+          getAtrativos(docSnap.data().municipio)
+>>>>>>> origin/18-desenvolver-o-aplicativo-pwa
 
             docSnap.data().imgs.forEach((img, index) => {
                 imgArrayTemp.push(img.url)
@@ -65,6 +77,7 @@ function Municipio() {
 
             setImgArray(imgArrayTemp)
 
+<<<<<<< HEAD
             getAtrativos(docSnap.data().municipio)
 
             if (docSnap.data().redesSociais != undefined) {
@@ -83,6 +96,16 @@ function Municipio() {
             if (!docSnap.exists()) {
                 navigate(`/`)
             }
+=======
+          if(docSnap.data().localizacao != undefined){
+            setLocalizacao(docSnap.data().localizacao)
+          }
+        
+
+          if (!docSnap.exists()) {
+            navigate(`/`)
+          }
+>>>>>>> origin/18-desenvolver-o-aplicativo-pwa
         } catch (error) {
             navigate(`/`)
             console.log(error)
@@ -187,6 +210,7 @@ function Municipio() {
                 </div>
             )}
 
+<<<<<<< HEAD
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -196,6 +220,12 @@ function Municipio() {
                 text1={city.municipio}
                 text2={city.descricao}
                 img={city.imgCard != undefined ? city.imgCard.url : undefined}
+=======
+            <Header2 
+                text1 = {city.municipio}
+                text2 = {city.descricao}
+                img = {city.imgCard != undefined ? city.imgCard.url : undefined}        
+>>>>>>> origin/18-desenvolver-o-aplicativo-pwa
             />
 
             <section className="section-3">
@@ -207,6 +237,7 @@ function Municipio() {
                 <div ref={content} className="all-content-page">
                     <div>
 
+<<<<<<< HEAD
                     </div>
                     <div className="content-1">
                         {Object.keys(city).length === 0 ? (
@@ -215,6 +246,12 @@ function Municipio() {
                             <div>
                                 <h2 className='title-associado'>Sobre {city.municipio}</h2>
                                 <p className='sobre-nos'>{city.sobre}</p>
+=======
+                        <h2 className='title-associado'>Imagens</h2>
+                        <ImgCarousel
+                            imgArray={imgArray}
+                        />
+>>>>>>> origin/18-desenvolver-o-aplicativo-pwa
 
                                 <h2 className='title-associado'>Imagens</h2>
                                 <ImgCarousel
@@ -254,7 +291,28 @@ function Municipio() {
                                 dates={card.dates != undefined ? card.dates : null}
                                 id={card.id}
                             />
+<<<<<<< HEAD
                         ))
+=======
+                        ) : null}
+                    </div>
+                    )}
+                    </div>
+
+                    <div className="content-2">{ 
+                    atrativos.map((card, index) => (
+                        <Card
+                            key={index}
+                            name={card.nome}
+                            city={card.municipio}
+                            svg={card.categorySvg}
+                            img={card.imgCard.url}
+                            type={card.type}
+                            dates={card.dates != undefined ? card.dates : null}
+                            id={card.id}
+                        />
+                    ))
+>>>>>>> origin/18-desenvolver-o-aplicativo-pwa
                     }
 
                     </div>

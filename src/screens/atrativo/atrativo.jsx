@@ -157,15 +157,10 @@ function Atrativo() {
                     </div>
                 </div>
             )}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
-            <Header2
-                text1={atrativo.nome}
-                text2={atrativo.municipio}
-                img={atrativo.imgCard != undefined ? atrativo.imgCard.url : undefined}
+            <Header2 
+                text1 = {atrativo.nome}
+                text2 = {atrativo.municipio}
+                img = {atrativo.imgCard}          
             />
             <section className="section-4">
                 <div className='content-3'>
