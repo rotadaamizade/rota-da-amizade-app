@@ -27,18 +27,6 @@ function App() {
     <div className="App">
 
 
-<<<<<<< HEAD
-    <BrowserRouter>
-    <UserProvider>
-      <Navbar/>
-      <main>
-      <CityFilter/>
-      <AnimatedRoutes/>
-      </main>
-    </UserProvider>
-    </BrowserRouter>
-    
-=======
       <BrowserRouter>
         <UserProvider>
           <Navbar />
@@ -48,7 +36,6 @@ function App() {
           </main>
         </UserProvider>
       </BrowserRouter>
->>>>>>> origin/18-desenvolver-o-aplicativo-pwa
 
     </div>
   )
