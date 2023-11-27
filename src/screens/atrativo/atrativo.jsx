@@ -7,7 +7,6 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { db } from '../../config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { motion } from 'framer-motion';
 
 function Atrativo() {
     const { id } = useParams();
@@ -157,10 +156,10 @@ function Atrativo() {
                     </div>
                 </div>
             )}
-            <Header2 
-                text1 = {atrativo.nome}
-                text2 = {atrativo.municipio}
-                img = {atrativo.imgCard}          
+            <Header2
+                text1={atrativo.nome}
+                text2={atrativo.municipio}
+                img={atrativo.imgCard != undefined ? atrativo.imgCard.url : undefined}
             />
             <section className="section-4">
                 <div className='content-3'>
@@ -199,7 +198,6 @@ function Atrativo() {
 
                 </div>
             </section>
-            </motion.div>
         </>
     )
 }
