@@ -1,5 +1,5 @@
 # rota-da-amizade-app
-Rota da Amizade: Seu Guia de Bolso
+Rota da Amizade: Seu Guia de Bolso para a Rota da Amizade
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d6ed4823-e561-4331-b5ea-190c68fa7d29/deploy-status)](https://app.netlify.com/sites/rotadaamizadeapp/deploys)
 
