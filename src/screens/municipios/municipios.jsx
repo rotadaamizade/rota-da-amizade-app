@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { UserContext } from '../../UserContext';
 import SectionTitle from "../../components/sectionTitle/sectionTitle";
 import Search from "../../components/search/search";
 import CityCard from "../../components/cityCard/cityCard";
 import { db } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import Loading from "../../components/loading/loading";
 import { motion } from "framer-motion";
 
 function Municipios() {
@@ -54,6 +53,8 @@ function Municipios() {
     const handleSearch = (value) => {
         setSearchTerm(value);
     };
+
+    console.log(searchTerm);
 
     return (
         <motion.section
