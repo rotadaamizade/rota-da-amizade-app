@@ -18,10 +18,11 @@ function Inicio() {
     const [atrativos, setAtrativos] = useState([])
     const [eventosAssociados, setEventosAssociados] = useState([])
     const [eventosMunicipios, setEventosMunicipios] = useState([])
-    const [cards, setCards] = useState([])
     const [associados, setAssociados] = useState([])
     const [municipios, setMunicipios] = useState([])
+    const [cards, setCards] = useState([])
 
+    let tempCards = []
 
     useEffect(() => {
         const titleDiv = document.getElementById('title-div')
@@ -37,6 +38,8 @@ function Inicio() {
 
         getAssociados()
         getMunicipios()
+        console.log(tempCards)
+        
     }, [])
 
     const getAssociados = async () => {
@@ -49,16 +52,18 @@ function Inicio() {
         data.forEach((doc) => {
             const associadoData = {
                 id: doc.id,
-                municipio: doc.data().municipio,
+                descricao: null,
                 nome: doc.data().nome,
                 imgCard: doc.data().imgCard.url,
                 type: 'associado',
-                dates: null
+                dates: [],
+                municipio: doc.data().municipio,
+                realizador: ''
             };
             associadosData.push(associadoData);
         });
-
-        setAssociados(associadosData);
+        tempCards.push(associadosData)
+        getEventos(associadosData, 'associados')
     }
 
     const getMunicipios = async () => {
@@ -75,46 +80,68 @@ function Inicio() {
                 nome: doc.data().municipio,
                 imgCard: doc.data().imgCard.url,
                 type: 'municipio',
-                dates: null
+                dates: [],
+                municipio: '',
+                realizador: ''
             };
-            municipiosData.push(municipioData);
+            municipiosData.push(municipioData)
         });
 
-        setMunicipios(municipiosData)
-        getEventosMunicipios(municipiosData)
+        tempCards.push(municipiosData)
+        getAtrativos(municipiosData)
+        getEventos(municipiosData, 'municipios')
     }
 
-    const getEventosMunicipios = async (municipiosTemp) => {
+    const getEventos = async (refs, type) => {
 
         const eventosData = [];
 
-        for (const municipio of municipiosTemp) {
-            const q = query(collection(db, "eventos"), where("municipio", "==", municipio.nome));
-            const data = await getDocs(q);
-    
+        for (const ref of refs) {
+            const q = query(collection(db, "eventos"), where("realizador", "==", ref.nome));
+            const data = await getDocs(q)
             data.forEach((doc) => {
-                console.log(doc.data());
                 const eventoData = {
                     id: doc.id,
-                    realizador: doc.data().realizador,
+                    descricao: doc.data().realizador,
                     nome: doc.data().nome,
                     imgCard: doc.data().imgCard.url,
                     type: 'evento',
                     dates: doc.data().data,
-                    municipio: doc.data().municipio
+                    municipio: doc.data().municipio,
+                    realizador: ''
                 };
-    
-                console.log(doc.data());
+
                 eventosData.push(eventoData);
             });
         }
 
-        setEventosMunicipios(eventosData);
+        tempCards.push(eventosData)
     }
 
-    // const getAtrativos = async () => {
+    const getAtrativos = async (refs) => {
 
-    // }
+        const atrativosData = [];
+
+        for (const ref of refs) {
+            const q = query(collection(db, "atrativos"), where("municipio", "==", ref.nome));
+            const data = await getDocs(q)
+            data.forEach((doc) => {
+                const atrativoData = {
+                    id: doc.id,
+                    descricao: doc.data().realizador,
+                    nome: doc.data().nome,
+                    imgCard: doc.data().imgCard.url,
+                    type: 'evento',
+                    dates: [],
+                    municipio: doc.data().municipio,
+                    realizador: ''
+                };
+
+                atrativosData.push(atrativoData);
+            });
+        }
+        tempCards.push(atrativosData)
+    }
 
     return (
 
@@ -127,51 +154,9 @@ function Inicio() {
                 text1={globalCity == '' ? 'Recomendados da' : 'Recomendados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
             />
-            <Search
-                onSearch={null}
-            />
             <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
 
-                {
-                    associados.map((card, index) => (
-                        <Card
-                            key={index}
-                            name={card.nome}
-                            city={card.municipio}
-                            svg={card.categorySvg}
-                            img={card.imgCard}
-                            type={card.type}
-                            dates={card.dates != null ? card.dates : null}
-                            id={card.id}
-                        />
-                    ))
-                }
-                {
-                    municipios.map((card, index) => (
-                        <CityCard
-                            key={index}
-                            img={card.imgCard}
-                            name={card.nome}
-                            slogan={card.descricao}
-                            id={card.id}
-                            index={index}
-                        />
-                    ))
-                }
-                {
-                    eventosMunicipios.map((card, index) => (
-                        <Card
-                            key={index}
-                            name={card.nome}
-                            city={card.realizador == card.municipio ? "Prefeitura de " + card.municipio : card.realizador}
-                            svg={card.categorySvg}
-                            img={card.imgCard}
-                            type={card.type}
-                            dates={card.dates != null ? card.dates : null}
-                            id={card.id}
-                        />
-                    ))
-                }
+                <h1>TESTE ANALYTICS</h1>
 
             </div>
         </motion.section>
