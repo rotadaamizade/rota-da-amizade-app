@@ -12,9 +12,9 @@ function Card(props) {
 
   const animation = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateX(0)' : 'translateX(100%)',
+    transform: inView ? 'opacity(0)' : 'opacity(100%)',
     config: { duration: 350 },
-    delay: inView ? props.index * 50 : 0,
+    delay: inView ? props.index * 100 : 0,
   })
 
   const navigate = useNavigate()

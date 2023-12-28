@@ -14,10 +14,6 @@ function Inicio() {
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
     const [titleHeight, setTitleHeight] = useState(0);
-    const [municipiosRef, setMunicipiosRef] = useState([])
-    const [atrativos, setAtrativos] = useState([])
-    const [eventosAssociados, setEventosAssociados] = useState([])
-    const [eventosMunicipios, setEventosMunicipios] = useState([])
     const [associados, setAssociados] = useState([])
     const [municipios, setMunicipios] = useState([])
     const [cards, setCards] = useState([])
@@ -38,16 +34,13 @@ function Inicio() {
 
         getAssociados()
         getMunicipios()
-        console.log(tempCards)
-        
+
     }, [])
 
     const getAssociados = async () => {
 
         const q = query(collection(db, "associados"), where("plano", "==", "black"));
         const data = await getDocs(q)
-
-        const associadosData = [];
 
         data.forEach((doc) => {
             const associadoData = {
@@ -60,18 +53,15 @@ function Inicio() {
                 municipio: doc.data().municipio,
                 realizador: ''
             };
-            associadosData.push(associadoData);
+            tempCards.push(associadoData);
+            setCards(tempCards)
         });
-        tempCards.push(associadosData)
-        getEventos(associadosData, 'associados')
     }
 
     const getMunicipios = async () => {
 
-        const q = query(collection(db, "municipios"), where("plano", "==", "black"));
+        const q = query(collection(db, "municipios"));
         const data = await getDocs(q)
-
-        const municipiosData = [];
 
         data.forEach((doc) => {
             const municipioData = {
@@ -84,64 +74,12 @@ function Inicio() {
                 municipio: '',
                 realizador: ''
             };
-            municipiosData.push(municipioData)
+            tempCards.push(municipioData)
+            setCards(tempCards)
         });
-
-        tempCards.push(municipiosData)
-        getAtrativos(municipiosData)
-        getEventos(municipiosData, 'municipios')
     }
 
-    const getEventos = async (refs, type) => {
-
-        const eventosData = [];
-
-        for (const ref of refs) {
-            const q = query(collection(db, "eventos"), where("realizador", "==", ref.nome));
-            const data = await getDocs(q)
-            data.forEach((doc) => {
-                const eventoData = {
-                    id: doc.id,
-                    descricao: doc.data().realizador,
-                    nome: doc.data().nome,
-                    imgCard: doc.data().imgCard.url,
-                    type: 'evento',
-                    dates: doc.data().data,
-                    municipio: doc.data().municipio,
-                    realizador: ''
-                };
-
-                eventosData.push(eventoData);
-            });
-        }
-
-        tempCards.push(eventosData)
-    }
-
-    const getAtrativos = async (refs) => {
-
-        const atrativosData = [];
-
-        for (const ref of refs) {
-            const q = query(collection(db, "atrativos"), where("municipio", "==", ref.nome));
-            const data = await getDocs(q)
-            data.forEach((doc) => {
-                const atrativoData = {
-                    id: doc.id,
-                    descricao: doc.data().realizador,
-                    nome: doc.data().nome,
-                    imgCard: doc.data().imgCard.url,
-                    type: 'evento',
-                    dates: [],
-                    municipio: doc.data().municipio,
-                    realizador: ''
-                };
-
-                atrativosData.push(atrativoData);
-            });
-        }
-        tempCards.push(atrativosData)
-    }
+    console.log(cards)
 
     return (
 
@@ -154,9 +92,38 @@ function Inicio() {
                 text1={globalCity == '' ? 'Recomendados da' : 'Recomendados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
             />
-            <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
+            <div style={{ paddingBottom: `calc(20px + ${titleHeight}px` }} className="card-container">
 
-                <h1>TESTE ANALYTICS</h1>
+                {
+                    cards.map((card, index) => {
+                        if (card.type == 'associado') {
+                            return (
+                                <Card
+                                    key={index}
+                                    name={card.nome}
+                                    city={card.municipio}
+                                    svg={card.categorySvg}
+                                    img={card.imgCard}
+                                    type={card.type}
+                                    dates={card.dates != undefined ? card.dates : null}
+                                    id={card.id}
+                                    index={index}
+                                />
+                            )
+                        } else if (card.type == 'municipio') {
+                            return (
+                                <CityCard
+                                    key={index}
+                                    img={card.imgCard}
+                                    name={card.nome}
+                                    slogan={card.descricao}
+                                    id={card.id}
+                                    index={index}
+                                />
+                            )
+                        }
+                    })
+                }
 
             </div>
         </motion.section>
