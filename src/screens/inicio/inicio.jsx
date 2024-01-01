@@ -3,22 +3,18 @@ import { useContext, useState } from 'react'
 import { UserContext } from '../../UserContext';
 import Card from "../../components/card/card";
 import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import Search from "../../components/search/search";
 import { motion } from "framer-motion";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import CityCard from "../../components/cityCard/cityCard";
 
 function Inicio() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    const [searchTerm, setSearchTerm] = useState('');
+    // const [searchTerm, setSearchTerm] = useState('');
     const [titleHeight, setTitleHeight] = useState(0);
-    const [associados, setAssociados] = useState([])
-    const [municipios, setMunicipios] = useState([])
     const [cards, setCards] = useState([])
 
-    let tempCards = []
 
     useEffect(() => {
         const titleDiv = document.getElementById('title-div')
@@ -28,20 +24,33 @@ function Inicio() {
     }, [globalCity])
 
     useEffect(() => {
-        if (navbarState != 'inicio') {
-            setNavbarState('inicio')
+        if (navbarState !== 'inicio') {
+            setNavbarState('inicio');
         }
+    
+    
+        fetchData();
+    }, []);
 
-        getAssociados()
-        getMunicipios()
+    const fetchData = async () => {
+        const associadosData = await getAssociados();
+        const municipiosData = await getMunicipios();
 
-    }, [])
-
+        const vetorMesclado = associadosData.concat(municipiosData);
+        const randomSort = () => Math.random() - 0.5;
+        const vetorMescladoAleatorio = vetorMesclado.sort(randomSort);
+        
+        const combinedData = vetorMescladoAleatorio
+        
+        setCards(combinedData);
+    };
+    
     const getAssociados = async () => {
-
         const q = query(collection(db, "associados"), where("plano", "==", "black"));
-        const data = await getDocs(q)
+        const data = await getDocs(q);
 
+        const associados = []
+    
         data.forEach((doc) => {
             const associadoData = {
                 id: doc.id,
@@ -53,16 +62,17 @@ function Inicio() {
                 municipio: doc.data().municipio,
                 realizador: ''
             };
-            tempCards.push(associadoData);
-            setCards(tempCards)
-        });
-    }
-
+            associados.push(associadoData)
+        })
+        return associados;
+    };
+    
     const getMunicipios = async () => {
-
         const q = query(collection(db, "municipios"));
-        const data = await getDocs(q)
-
+        const data = await getDocs(q);
+    
+        const municipios = []
+    
         data.forEach((doc) => {
             const municipioData = {
                 id: doc.id,
@@ -74,10 +84,12 @@ function Inicio() {
                 municipio: '',
                 realizador: ''
             };
-            tempCards.push(municipioData)
-            setCards(tempCards)
-        });
-    }
+            municipios.push(municipioData)
+        
+        })
+        return municipios;
+        
+    };
 
     console.log(cards)
 
@@ -94,7 +106,7 @@ function Inicio() {
             />
             <div style={{ paddingBottom: `calc(20px + ${titleHeight}px` }} className="card-container">
 
-                {
+                 {
                     cards.map((card, index) => {
                         if (card.type == 'associado') {
                             return (
@@ -118,11 +130,11 @@ function Inicio() {
                                     name={card.nome}
                                     slogan={card.descricao}
                                     id={card.id}
-                                    index={index}
+                                    index={index}w
                                 />
                             )
                         }
-                    })
+                    }) 
                 }
 
             </div>
