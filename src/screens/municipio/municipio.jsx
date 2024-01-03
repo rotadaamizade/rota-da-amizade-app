@@ -10,6 +10,9 @@ import Buttons from '../../components/buttons/buttons';
 import { db } from '../../config/firebase';
 import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
 import Loading from '../../components/loading/loading';
+import { motion } from 'framer-motion';
+import Sobre from '../../components/sobre/sobre';
+import EmptyList from '../../components/emptyList/emptyList';
 
 function Municipio() {
     const { id } = useParams();
@@ -43,7 +46,7 @@ function Municipio() {
             }
         } else if (menuActive === menus[1]) {
             if (content.current) {
-                
+
                 content.current.style.transform = 'translateX(-50%)';
             }
         }
@@ -52,36 +55,36 @@ function Municipio() {
     const getCity = async () => {
 
         try {
-          const docRef = doc(db, "municipios", id)
-          const docSnap = await getDoc(docRef)
-          setCity(docSnap.data())
+            const docRef = doc(db, "municipios", id)
+            const docSnap = await getDoc(docRef)
+            setCity(docSnap.data())
 
-          let imgArrayTemp = []
+            let imgArrayTemp = []
 
-          docSnap.data().imgs.forEach((img, index) => {
-            imgArrayTemp.push(img.url)
-          });
+            docSnap.data().imgs.forEach((img, index) => {
+                imgArrayTemp.push(img.url)
+            });
 
-          setImgArray(imgArrayTemp)
+            setImgArray(imgArrayTemp)
 
-          getAtrativos(docSnap.data().municipio)
+            getAtrativos(docSnap.data().municipio)
 
-          if(docSnap.data().redesSociais != undefined){
-            setRedes(docSnap.data().redesSociais)
-          }
+            if (docSnap.data().redesSociais != undefined) {
+                setRedes(docSnap.data().redesSociais)
+            }
 
-          if(docSnap.data().contatos != undefined){
-            setContatos(docSnap.data().contatos)
-          }
+            if (docSnap.data().contatos != undefined) {
+                setContatos(docSnap.data().contatos)
+            }
 
-          if(docSnap.data().localizacao != undefined){
-            setLocalizacao(docSnap.data().localizacao)
-          }
-        
+            if (docSnap.data().localizacao != undefined) {
+                setLocalizacao(docSnap.data().localizacao)
+            }
 
-          if (!docSnap.exists()) {
-            navigate(`/`)
-          }
+
+            if (!docSnap.exists()) {
+                navigate(`/`)
+            }
         } catch (error) {
             navigate(`/`)
             console.log(error)
@@ -96,21 +99,21 @@ function Municipio() {
         const data = await getDocs(q)
 
         const atrativosData = [];
-      
+
         data.forEach((doc) => {
-          const atrativoData = {
-            id: doc.id,
-            municipio: doc.data().municipio,
-            nome: doc.data().nome,
-            imgCard: doc.data().imgCard,
-            type: 'atrativo'
-          };
-          
-          atrativosData.push(atrativoData);
+            const atrativoData = {
+                id: doc.id,
+                municipio: doc.data().municipio,
+                nome: doc.data().nome,
+                imgCard: doc.data().imgCard,
+                type: 'atrativo'
+            };
+
+            atrativosData.push(atrativoData);
         });
-    
+
         setAtrativos(atrativosData);
-      }
+    }
 
     const background = useRef();
     const redespopup = useRef();
@@ -118,9 +121,9 @@ function Municipio() {
 
     const closePopup = (type) => {
         background.current.style.opacity = '0';
-        
 
-        if(type == 'contato'){
+
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '0';
         } else {
             redespopup.current.style.opacity = '0';
@@ -128,21 +131,21 @@ function Municipio() {
 
         setTimeout(() => {
             background.current.style.zIndex = '-1';
-           
-            if(type == 'contato'){
-                contatopopup.current.style.zIndex = '-1'; 
+
+            if (type == 'contato') {
+                contatopopup.current.style.zIndex = '-1';
             } else {
-                redespopup.current.style.zIndex = '-1'; 
+                redespopup.current.style.zIndex = '-1';
             }
         }, 200);
     };
-  
+
     const openPopup = (type) => {
 
         background.current.style.zIndex = '4';
         background.current.style.opacity = '100%';
 
-        if(type == 'contato'){
+        if (type == 'contato') {
             contatopopup.current.style.opacity = '100%';
             contatopopup.current.style.zIndex = '5';
         } else {
@@ -185,75 +188,85 @@ function Municipio() {
                     </div>
                 </div>
             )}
-
-            <Header2 
-                text1 = {city.municipio}
-                text2 = {city.descricao}
-                img = {city.imgCard != undefined ? city.imgCard.url : undefined}        
-            />
-
-            <section className="section-3">
-                <SliderMenu
-                    menus={menus}
-                    menuActive={menuActive}
-                    setMenuActive={setMenuActive}
+            <motion.section
+                className='motion-section'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                <Header2
+                    text1={city.municipio}
+                    text2={city.descricao}
+                    img={city.imgCard != undefined ? city.imgCard.url : undefined}
                 />
-                <div ref={content} className="all-content-page">
-                <div>
-                    
-                </div>
-                <div className="content-1">
-                {Object.keys(city).length === 0 ? (
-                    <Loading />
-                    ) : (
-                    <div>
-                        <h2 className='title-associado'>Sobre {city.municipio}</h2>
-                        <p className='sobre-nos'>{city.sobre}</p>
 
-                        <h2 className='title-associado'>Imagens</h2>
-                        <ImgCarousel
-                            imgArray={imgArray}
-                        />
+                <section className="section-3">
+                    <SliderMenu
+                        menus={menus}
+                        menuActive={menuActive}
+                        setMenuActive={setMenuActive}
+                    />
+                    <div ref={content} className="all-content-page">
+                        <div>
 
-                        {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                            <Buttons
-                                localization={localizacao}
-                                contatos={contatos}
-                                redes={redes}
-                                openContatos={() => {
-                                    if (contatos !== undefined) {
-                                        openPopup('contato');
-                                    }
-                                }}
-                                openRedes={() => {
-                                    if (redes !== undefined) {
-                                        openPopup('rede');
-                                    }
-                                }}
+                        </div>
+                        <div className="content-1">
+                            {Object.keys(city).length > 0 &&
+                                <div>
+                                    <h2 className='title-associado'>Sobre {city.municipio}</h2>
+                                    <Sobre
+                                        sobre={city.sobre}
+                                    />
+
+                                    <h2 className='title-associado'>Imagens</h2>
+                                    <ImgCarousel
+                                        imgArray={imgArray}
+                                    />
+
+                                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                                        <Buttons
+                                            localization={localizacao}
+                                            contatos={contatos}
+                                            redes={redes}
+                                            openContatos={() => {
+                                                if (contatos !== undefined) {
+                                                    openPopup('contato');
+                                                }
+                                            }}
+                                            openRedes={() => {
+                                                if (redes !== undefined) {
+                                                    openPopup('rede');
+                                                }
+                                            }}
+                                        />
+                                    ) : null}
+                                </div>
+                            }
+                        </div>
+
+                        <div className="content-2">{atrativos.length == 0 ? 
+                            <EmptyList
+                                type = {'Atrativos'}
                             />
-                        ) : null}
-                    </div>
-                    )}
-                    </div>
+                        : 
+                            atrativos.map((card, index) => (
+                                <Card
+                                    key={index}
+                                    name={card.nome}
+                                    city={card.municipio}
+                                    svg={card.categorySvg}
+                                    img={card.imgCard.url}
+                                    type={card.type}
+                                    dates={card.dates != undefined ? card.dates : null}
+                                    id={card.id}
+                                />
+                            ))
+                        }
 
-                    <div className="content-2">{ 
-                    atrativos.map((card, index) => (
-                        <Card
-                            key={index}
-                            name={card.nome}
-                            city={card.municipio}
-                            svg={card.categorySvg}
-                            img={card.imgCard.url}
-                            type={card.type}
-                            dates={card.dates != undefined ? card.dates : null}
-                            id={card.id}
-                        />
-                    ))
-                    }
-
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </motion.section >
         </>
     )
 }

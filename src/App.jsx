@@ -31,7 +31,7 @@ function App() {
         <UserProvider>
           <Navbar />
           <main>
-            <CityFilter />
+          <CityFilter />
             <AnimatedRoutes />
           </main>
         </UserProvider>

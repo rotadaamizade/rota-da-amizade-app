@@ -10,6 +10,9 @@ import Buttons from '../../components/buttons/buttons';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { motion } from 'framer-motion';
+import CategoryLabel from '../../components/categoryLabel/categoryLabel';
+import Sobre from '../../components/sobre/sobre';
+import EmptyList from '../../components/emptyList/emptyList';
 
 function Associado() {
 
@@ -18,7 +21,7 @@ function Associado() {
     const { navbarState, setNavbarState, categoriesAssociados } = useContext(UserContext)
     const menus = ['Informações', 'Eventos']
     const [menuActive, setMenuActive] = useState(menus[0])
-    const [associado, setAssociado] = useState([])
+    const [associado, setAssociado] = useState({})
     const [redes, setRedes] = useState([])
     const [localizacao, setLocalizacao] = useState('')
     const [contatos, setContatos] = useState([])
@@ -166,7 +169,13 @@ function Associado() {
     };
 
     return (
-        <>
+        <motion.section
+            className='motion-section'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+
             <div onClick={() => {
                 closePopup('contato')
                 closePopup('redes')
@@ -200,43 +209,44 @@ function Associado() {
                 </div>
             )}
 
-            <motion.section
-                className='event-section'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 1, transition: { duration: 0.25 } }}
-            >
 
-                <HeaderAssociado
-                    img={associado.imgCard != undefined ? associado.imgCard.url : undefined}
-                    logo={associado.imgLogo != undefined ? associado.imgLogo.url : undefined}
-                    municipio={associado.municipio}
-                    nome={associado.nome}
+            <HeaderAssociado
+                img={associado.imgCard != undefined ? associado.imgCard.url : undefined}
+                logo={associado.imgLogo != undefined ? associado.imgLogo.url : undefined}
+                municipio={associado.municipio}
+                nome={associado.nome}
+            />
+            <section className="section-3">
+                <SliderMenu
+                    menus={menus}
+                    menuActive={menuActive}
+                    setMenuActive={setMenuActive}
                 />
-                <section className="section-3">
-                    <SliderMenu
-                        menus={menus}
-                        menuActive={menuActive}
-                        setMenuActive={setMenuActive}
-                    />
-                    <div ref={content} className="all-content-page">
-                        <div>
+                <div ref={content} className="all-content-page">
+                    <div>
 
-                        </div>
+                    </div>
+                    {Object.keys(associado).length > 0 &&
                         <div className="content-1">
 
                             <h2 className='title-associado'>Categorias</h2>
                             {categories.map((category, index) => (
-                                <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
-                                    <p>{category.nome}</p>
-                                </div>
+                                <CategoryLabel
+                                    key={index}
+                                    category={category}
+                                    index={index}
+                                />
                             ))}
                             <h2 className='title-associado'>Imagens</h2>
                             <ImgCarousel
                                 imgArray={imgArray}
                             />
+
                             <h2 className='title-associado'>Sobre Nós</h2>
-                            <p className='sobre-nos'>{associado.sobre}</p>
+                            <Sobre
+                                sobre={associado.sobre}
+                            />
+
                             {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
                                 <Buttons
                                     localization={localizacao}
@@ -254,9 +264,13 @@ function Associado() {
                                     }}
                                 />
                             ) : null}
-                        </div>
-                        <div className="content-2">{
-                            eventos.map((evento, index) => (
+                        </div>}
+                    <div className="content-2">{
+                        eventos.length == 0 ?
+                            <EmptyList
+                                type={'Eventos'}
+                            />
+                            : eventos.map((evento, index) => (
                                 <Card
                                     key={index}
                                     name={evento.nome}
@@ -268,16 +282,14 @@ function Associado() {
                                     id={evento.id}
                                 />
                             ))
-                        }
+                    }
 
-                        </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-            </motion.section>
+        </motion.section>
 
-
-        </>
     )
 }
 

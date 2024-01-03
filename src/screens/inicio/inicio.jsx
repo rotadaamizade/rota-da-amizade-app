@@ -28,8 +28,7 @@ function Inicio() {
             setNavbarState('inicio');
         }
     
-    
-        fetchData();
+        fetchData()
     }, []);
 
     const fetchData = async () => {
@@ -100,6 +99,7 @@ function Inicio() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 1, transition: { duration: 0.25 } }}
             className="section-1">
+                
             <SectionTitle
                 text1={globalCity == '' ? 'Recomendados da' : 'Recomendados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}

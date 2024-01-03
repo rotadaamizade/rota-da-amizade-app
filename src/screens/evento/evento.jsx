@@ -8,6 +8,9 @@ import Buttons from '../../components/buttons/buttons';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { motion } from 'framer-motion';
+import EventHour from '../../components/eventHour/eventHour';
+import CategoryLabel from '../../components/categoryLabel/categoryLabel';
+import Sobre from '../../components/sobre/sobre';
 
 function Evento() {
 
@@ -161,103 +164,96 @@ function Evento() {
             )}
 
             <motion.section
-                className='event-section'
+                className='motion-section'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                >
+            >
                 <Header2
-                text1={evento.nome}
-                text2={evento.tipo == 'municipio' ? 'Prefeitura de ' + evento.realizador : evento.realizador + ' | ' + evento.municipio}
-                img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
-            />
-            <section className="section-4">
-                <div className='content-3'>
-                    <h2 className='title-associado-2'>Data e Horário</h2>
+                    text1={evento.nome}
+                    text2={evento.tipo == 'municipio' ? 'Prefeitura de ' + evento.realizador : evento.realizador + ' | ' + evento.municipio}
+                    img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
+                />
+                <section className="section-4">
+                    {Object.keys(evento).length > 0 && 
+                    <div className='content-3'>
+                        <h2 className='title-associado-2'>Data e Horário</h2>
 
 
-                    <div className='data-horario-content'>
-                        {evento.data !== undefined ?
-                            evento.data
-                                .slice()
-                                .sort((a, b) => new Date(a.data) - new Date(b.data))
-                                .map((data, index) => {
+                        <div className='data-horario-content'>
+                            {evento.data !== undefined ?
+                                evento.data
+                                    .slice()
+                                    .sort((a, b) => new Date(a.data) - new Date(b.data))
+                                    .map((data, index) => {
 
-                                    let dia = 0
-                                    let mes = 0
-                                    let ano = 0
+                                        let dia = 0
+                                        let mes = 0
+                                        let ano = 0
 
-                                    const partes = data.data.split('-')
+                                        const partes = data.data.split('-')
 
-                                    if (partes.length === 3) {
-                                        dia = partes[2]
-                                        mes = partes[1]
-                                        ano = partes[0]
-                                    }
+                                        if (partes.length === 3) {
+                                            dia = partes[2]
+                                            mes = partes[1]
+                                            ano = partes[0]
+                                        }
 
-                                    return (
-                                        <Fragment key={index}>
-                                            <div className='data-button'>
-                                                <div className='data-button-div'>
-                                                    <h1>{dia}</h1>
-                                                    <h2>{[
-                                                        'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
-                                                        'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'
-                                                    ][mes - 1]}</h2>
-                                                </div>
-                                            </div>
-                                            <div className='hora-button' key={`${index}hora`}>
-                                                <div className='hora-button-div'>
-                                                    <h1>{data.horaInicio}</h1>
-                                                    <div className='hora-line'></div>
-                                                    <h1>{data.horaFim}</h1>
-                                                </div>
-                                            </div>
-
-                                            {index !== evento.data.length - 1 ? <div key={`${index}spacing`} className='data-spacing'></div> : null}
-                                        </Fragment>
-                                    )
-                                })
-                            : null
-                        }
-                    </div>
-
-
-
-                    <h2 className='title-associado'>Categorias</h2>
-                    {categories.map((category, index) => (
-                        <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
-                            <p>{category.nome}</p>
+                                        return (
+                                            <EventHour
+                                                dia={dia}
+                                                mes={mes}
+                                                index={index}
+                                                data={data}
+                                                evento={evento}
+                                                key={index}
+                                            />
+                                        )
+                                    })
+                                : null
+                            }
                         </div>
-                    ))}
-                    <h2 className='title-associado'>Imagens</h2>
-                    <ImgCarousel
-                        imgArray={imgArray}
-                    />
-                    <h2 className='title-associado'>Sobre Nós</h2>
-                    <p className='sobre-nos'>{evento.sobre}</p>
 
-                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                        <Buttons
-                            localization={localizacao}
-                            contatos={contatos}
-                            redes={redes}
-                            openContatos={() => {
-                                if (contatos !== undefined) {
-                                    openPopup('contato');
-                                }
-                            }}
-                            openRedes={() => {
-                                if (redes !== undefined) {
-                                    openPopup('rede');
-                                }
-                            }}
+
+
+                        <h2 className='title-associado'>Categorias</h2>
+                        {categories.map((category, index) => (
+                            <CategoryLabel
+                                key={index}
+                                category={category}
+                                index={index}
+                            />
+                        ))}
+                        <h2 className='title-associado'>Imagens</h2>
+                        <ImgCarousel
+                            imgArray={imgArray}
                         />
-                    ) : null}
+                        <h2 className='title-associado'>Sobre Nós</h2>
+                        <Sobre
+                            sobre={evento.sobre}
+                        />
 
-                </div>
-            </section>
-        </motion.section >
+                        {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                            <Buttons
+                                localization={localizacao}
+                                contatos={contatos}
+                                redes={redes}
+                                openContatos={() => {
+                                    if (contatos !== undefined) {
+                                        openPopup('contato');
+                                    }
+                                }}
+                                openRedes={() => {
+                                    if (redes !== undefined) {
+                                        openPopup('rede');
+                                    }
+                                }}
+                            />
+                        ) : null}
+
+                    </div>}
+                </section>
+            </motion.section >
         </>
     )
 }
