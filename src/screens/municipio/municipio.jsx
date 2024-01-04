@@ -9,7 +9,6 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { db } from '../../config/firebase';
 import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
-import Loading from '../../components/loading/loading';
 import { motion } from 'framer-motion';
 import Sobre from '../../components/sobre/sobre';
 import EmptyList from '../../components/emptyList/emptyList';

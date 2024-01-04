@@ -6,10 +6,19 @@ import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './UserContext';
 import AnimatedRoutes from './animatedRoutes';
 import CityFilter from './components/cityFilter/cityFilter';
+import { useEffect, useState } from 'react';
+import SplashScreeen from './screens/splashScreen/splashScreen';
 
 function App() {
 
-  // Para colocar o site em manutenção, enquanto está sendo desenvolvido
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 3200);
+  }, [])
+
   const maintenance = false
 
   if (maintenance) {
@@ -21,7 +30,13 @@ function App() {
     )
   }
 
-
+  if(loading){
+    return (
+      <div className="App">
+        <SplashScreeen/>
+      </div>
+    )
+  }
 
   return (
     <div className="App">

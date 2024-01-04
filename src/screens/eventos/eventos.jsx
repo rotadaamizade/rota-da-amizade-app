@@ -55,11 +55,14 @@ function Eventos() {
                     realizador: doc.data().realizador,
                     type: 'evento',
                     typeRealizador: doc.data().tipo,
-                    dates: doc.data().data
-                };
+                    dates: doc.data().data,
+                    ativo: doc.data().ativo,
+                }
 
-                eventsData.push(eventData);
-            });
+                if(eventData.ativo){
+                    eventsData.push(eventData)
+                }
+            })
 
             setEvents(eventsData);
         } catch (error) {

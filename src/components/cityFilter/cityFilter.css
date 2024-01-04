@@ -76,17 +76,11 @@
     border-radius: 25px 25px 0px 0px;
     transition: .4s ease;
     padding: 20px;
+    padding-bottom: 10px;
     box-sizing: border-box;
 }
 
-.city-popup div{
-    max-height: calc(40vh - 20px);
-    height: auto;
-    box-sizing: border-box;
-    overflow: scroll;
-}
-
-.city-popup div p{
+.cities-button-div p{
     margin: 0 ;
     margin-bottom: px;
     font-size: 16px;
@@ -98,8 +92,9 @@
     color: #2F2F2F;
 }
 
-.city-popup div p:last-child{
-    margin-bottom: 10px;
+.cities-button-div p:last-child{
+    margin-bottom: 0;
+    margin-bottom: 0;
     border-bottom: none;
 }
 
@@ -116,4 +111,15 @@
     width: 100%;
     font-size: 16px;
     margin-bottom: 4px;
+}
+
+.cities-button-div{
+    max-height: 33vh;
+    background-attachment: red;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+.city-header-container{
+    padding: 0;
 }

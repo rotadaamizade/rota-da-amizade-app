@@ -11,7 +11,6 @@ import CityCard from "../../components/cityCard/cityCard";
 function Inicio() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    // const [searchTerm, setSearchTerm] = useState('');
     const [titleHeight, setTitleHeight] = useState(0);
     const [cards, setCards] = useState([])
 
@@ -59,9 +58,13 @@ function Inicio() {
                 type: 'associado',
                 dates: [],
                 municipio: doc.data().municipio,
-                realizador: ''
-            };
-            associados.push(associadoData)
+                realizador: '',
+                ativo: doc.data().ativo
+            }
+
+            if(associadoData.ativo){
+                associados.push(associadoData)
+            }
         })
         return associados;
     };
@@ -81,16 +84,16 @@ function Inicio() {
                 type: 'municipio',
                 dates: [],
                 municipio: '',
-                realizador: ''
-            };
-            municipios.push(municipioData)
-        
-        })
-        return municipios;
-        
-    };
+                realizador: '',
+                ativo: doc.data().ativo
+            }
 
-    console.log(cards)
+            if(municipioData.ativo){
+                municipios.push(municipioData)
+            }
+        })
+        return municipios   
+    }
 
     return (
 
