@@ -7,6 +7,9 @@ import ImgCarousel from '../../components/imgCarousel/imgCarousel';
 import Buttons from '../../components/buttons/buttons';
 import { db } from '../../config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import CategoryLabel from '../../components/categoryLabel/categoryLabel';
+import { motion } from 'framer-motion';
+import Sobre from '../../components/sobre/sobre';
 
 function Atrativo() {
     const { id } = useParams();
@@ -126,7 +129,12 @@ function Atrativo() {
     console.log(categories)
 
     return (
-        <>
+        <motion.section
+            className='motion-section'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
             <div onClick={() => closePopup(popup)} ref={background} className='popup-background'></div>
             {redes.length > 0 && (
                 <div ref={redespopup} className='redes-popup' >
@@ -162,43 +170,49 @@ function Atrativo() {
                 img={atrativo.imgCard != undefined ? atrativo.imgCard.url : undefined}
             />
             <section className="section-4">
-                <div className='content-3'>
+                {Object.keys(atrativo).length > 0 &&
+                    <div className='content-3'>
 
-                    <h2 className='title-associado-2'>Categorias</h2>
-                    {categories.map((category, index) => (
-                        <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
-                            <p>{category.nome}</p>
-                        </div>
-                    ))}
+                        <h2 className='title-associado-2'>Categorias</h2>
+                        {categories.map((category, index) => (
+                            <CategoryLabel
+                                key={index}
+                                category={category}
+                                index={index}
+                            />
+                        ))}
 
-                    <h2 className='title-associado'>Sobre Nós</h2>
-                    <p className='sobre-nos'>{atrativo.sobre}</p>
-
-                    <h2 className='title-associado'>Imagens</h2>
-                    <ImgCarousel
-                        imgArray={imgArray}
-                    />
-                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                        <Buttons
-                            localization={localizacao}
-                            contatos={contatos}
-                            redes={redes}
-                            openContatos={() => {
-                                if (contatos !== undefined) {
-                                    openPopup('contato');
-                                }
-                            }}
-                            openRedes={() => {
-                                if (redes !== undefined) {
-                                    openPopup('rede');
-                                }
-                            }}
+                        <h2 className='title-associado'>Sobre Nós</h2>
+                        <Sobre
+                            sobre={atrativo.sobre}
                         />
-                    ) : null}
 
-                </div>
+                        <h2 className='title-associado'>Imagens</h2>
+                        <ImgCarousel
+                            imgArray={imgArray}
+                        />
+                        {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                            <Buttons
+                                localization={localizacao}
+                                contatos={contatos}
+                                redes={redes}
+                                openContatos={() => {
+                                    if (contatos !== undefined) {
+                                        openPopup('contato');
+                                    }
+                                }}
+                                openRedes={() => {
+                                    if (redes !== undefined) {
+                                        openPopup('rede');
+                                    }
+                                }}
+                            />
+                        ) : null}
+
+                    </div>
+                }
             </section>
-        </>
+        </motion.section>
     )
 }
 

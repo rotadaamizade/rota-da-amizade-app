@@ -38,11 +38,14 @@ function Municipios() {
                     id: doc.id,
                     municipio: doc.data().municipio,
                     descricao: doc.data().descricao,
-                    imgCard: doc.data().imgCard
-                };
+                    imgCard: doc.data().imgCard,
+                    ativo: doc.data().ativo,
+                }
 
-                citiesData.push(cityData);
-            });
+                if(cityData.ativo){
+                    citiesData.push(cityData)
+                }
+            })
 
             setCities(citiesData);
         } catch (error) {

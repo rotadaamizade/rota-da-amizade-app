@@ -8,7 +8,6 @@ import Search from "../../components/search/search";
 import Categories from "../../components/categories/categories";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import Loading from "../../components/loading/loading";
 import { motion } from "framer-motion";
 
 function Atrativos() {
@@ -48,10 +47,13 @@ function Atrativos() {
                     municipio: doc.data().municipio,
                     nome: doc.data().nome,
                     imgCard: doc.data().imgCard,
-                    type: 'atrativo'
-                };
+                    type: 'atrativo',
+                    ativo: doc.data().ativo,
+                }
 
-                atrativosData.push(dataAtrativos);
+                if (dataAtrativos.ativo) {
+                    atrativosData.push(dataAtrativos);
+                }
             });
 
             setAtrativos(atrativosData);
@@ -69,7 +71,7 @@ function Atrativos() {
         <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 1, transition: {duration: 0.25} }}
+            exit={{ opacity: 1, transition: { duration: 0.25 } }}
             className="section-1">
             <SectionTitle
                 text1={globalCity == '' ? 'Atrativos da' : 'Atrativos de'}

@@ -16,7 +16,7 @@ function Associados() {
     const [titleHeight, setTitleHeight] = useState(0);
     const [category, setCategory] = useState('')
     const [associados, setAssociados] = useState([])
-    // const [filteredAssociados, setFilteredAssociados] = useState([])
+    const [filteredCards, setFilteredCards] = useState([]);
 
     useEffect(() => {
         getAssociados()
@@ -25,25 +25,43 @@ function Associados() {
     const getAssociados = async () => {
         try {
             const data = await getDocs(collection(db, "associados"));
-            const atrativosData = [];
+            const associadosData = [];
 
             data.forEach((doc) => {
-                const dataAtrativos = {
+                const dataAssociado = {
                     id: doc.id,
-                    descicao: doc.data().municipio,
+                    municipio: doc.data().municipio,
                     nome: doc.data().nome,
                     imgCard: doc.data().imgCard,
-                    type: 'associado'
+                    type: 'associado',
+                    categorias: doc.data().categorias,
+                    ativo : doc.data().ativo
                 };
-
-                atrativosData.push(dataAtrativos);
+                if(dataAssociado.ativo){
+                    associadosData.push(dataAssociado);
+                }
+                
             });
-
-            setAssociados(atrativosData);
+            setAssociados(associadosData);
+            setFilteredCards(associadosData)
         } catch (error) {
             console.error("Erro ao recuperar documentos:", error);
         }
     }
+
+    useEffect(() => {
+        let newFilteredCards = associados
+        .filter(item =>
+            item.categorias.some(cat => cat === category)
+          );
+
+        if (globalCity == '' && category == '' && searchTerm == '') {
+            setFilteredCards(associados);
+        } else {
+            setFilteredCards(newFilteredCards);
+        }
+
+    }, [globalCity, category, searchTerm]);
 
     useEffect(() => {
         if (navbarState != 'associados') {
@@ -63,13 +81,7 @@ function Associados() {
         setSearchTerm(value);
     };
 
-    console.log(searchTerm)
-    
-
-
     return (
-
-
         <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -85,11 +97,11 @@ function Associados() {
             <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
                 <Categories category={category} setCategory={setCategory} type={'associados'} />
                 {
-                    associados.map((associado, index) => (
+                    filteredCards.map((associado, index) => (
                         <Card
                             key={index}
                             name={associado.nome}
-                            city={associado.descicao}
+                            city={associado.municipio}
                             svg={associado.categorySvg}
                             img={associado.imgCard.url}
                             type={associado.type}

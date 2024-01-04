@@ -1,0 +1,15 @@
+.emptyList-div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(223, 223, 223);
+    height: 85px;
+    border-radius: 10px;
+}
+
+.emptyList-div p{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(82, 82, 82);
+}
