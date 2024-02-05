@@ -1,16 +1,15 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import './cityFilter.css'
-import { UserContext } from '../../UserContext';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { motion } from "framer-motion";
-import { useInView } from 'react-intersection-observer';
+import { UserContext } from '../../UserContext'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../config/firebase'
+import { motion } from "framer-motion"
 
 function CityFilter() {
 
     const { globalCity, setGlobalCity } = useContext(UserContext)
-    const background = useRef();
-    const popup = useRef();
+    const background = useRef()
+    const popup = useRef()
     const [cities, setCities] = useState([])
 
     useEffect(() => {
@@ -19,39 +18,39 @@ function CityFilter() {
 
     const getCities = async () => {
         try {
-            const data = await getDocs(collection(db, "municipios"));
-            const citiesData = [];
+            const data = await getDocs(collection(db, "municipios"))
+            const citiesData = []
 
             data.forEach((doc) => {
                 const cityData = {
                     municipio: doc.data().municipio,
                     img: doc.data().imgCard.url
-                };
+                }
 
-                citiesData.push(cityData);
-            });
+                citiesData.push(cityData)
+            })
 
-            setCities(citiesData);
+            setCities(citiesData)
         } catch (error) {
-            console.error("Erro ao recuperar documentos:", error);
+            console.error("Erro ao recuperar documentos:", error)
         }
     }
 
     const closePopup = () => {
-        background.current.style.opacity = '0';
-        popup.current.style.bottom = '-40vh';
+        background.current.style.opacity = '0'
+        popup.current.style.bottom = '-40vh'
 
         setTimeout(() => {
-            background.current.style.zIndex = '-1';
-            popup.current.style.zIndex = '-1';
-        }, 200);
-    };
+            background.current.style.zIndex = '-1'
+            popup.current.style.zIndex = '-1'
+        }, 200)
+    }
 
     const openPopup = () => {
-        background.current.style.zIndex = '3';
-        popup.current.style.bottom = '0';
-        background.current.style.opacity = '100%';
-        popup.current.style.zIndex = '4';
+        background.current.style.zIndex = '3'
+        popup.current.style.bottom = '0'
+        background.current.style.opacity = '100%'
+        popup.current.style.zIndex = '4'
     }
 
 

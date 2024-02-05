@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react"
 import { useContext } from 'react'
-import { UserContext } from '../../UserContext';
-import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import Search from "../../components/search/search";
-import CityCard from "../../components/cityCard/cityCard";
-import { db } from "../../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { motion } from "framer-motion";
+import { UserContext } from '../../UserContext'
+import SectionTitle from "../../components/sectionTitle/sectionTitle"
+import Search from "../../components/search/search"
+import CityCard from "../../components/cityCard/cityCard"
+import { db } from "../../config/firebase"
+import { collection, getDocs } from "firebase/firestore"
 
 function Municipios() {
 
     const { navbarState, setNavbarState } = useContext(UserContext)
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('')
     const [cities, setCities] = useState([])
-    const [titleHeight, setTitleHeight] = useState(0);
+    const [titleHeight, setTitleHeight] = useState(0)
 
     useEffect(() => {
         if (navbarState != 'municipios') {
@@ -30,8 +29,8 @@ function Municipios() {
 
     const getCities = async () => {
         try {
-            const data = await getDocs(collection(db, "municipios"));
-            const citiesData = [];
+            const data = await getDocs(collection(db, "municipios"))
+            const citiesData = []
 
             data.forEach((doc) => {
                 const cityData = {
@@ -42,29 +41,23 @@ function Municipios() {
                     ativo: doc.data().ativo,
                 }
 
-                if(cityData.ativo){
+                if (cityData.ativo) {
                     citiesData.push(cityData)
                 }
             })
 
-            setCities(citiesData);
+            setCities(citiesData)
         } catch (error) {
-            console.error("Erro ao recuperar documentos:", error);
+            console.error("Erro ao recuperar documentos:", error)
         }
     }
 
     const handleSearch = (value) => {
-        setSearchTerm(value);
-    };
-
-    console.log(searchTerm);
+        setSearchTerm(value)
+    }
 
     return (
-        <motion.section
-            initial={{ opacity: 0, top: '0' }}
-            animate={{ opacity: 1, top: '0' }}
-            exit={{ opacity: 0, transition: {duration: 0.25} }}
-            className="section-2">
+        <section className="section-2">
             <SectionTitle
                 text1='Municípios da'
                 text2='Rota da Amizade'
@@ -75,20 +68,24 @@ function Municipios() {
             />
             <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
                 {
-                    cities.map((card, index) => (
-                        <CityCard
-                            key={index}
-                            img={card.imgCard.url}
-                            name={card.municipio}
-                            slogan={card.descricao}
-                            id={card.id}
-                            index={index}
-                        />
-                    ))
+                    cities.map((card, index) => {
+                        if (card.municipio.toUpperCase().startsWith(searchTerm.toLocaleUpperCase()) || searchTerm == '') {
+                            return (
+                                <CityCard
+                                    key={index}
+                                    img={card.imgCard.url}
+                                    name={card.municipio}
+                                    slogan={card.descricao}
+                                    id={card.id}
+                                    index={index}
+                                />
+                            )
+                        }
+                    })
                 }
             </div>
 
-        </motion.section>
+        </section>
     )
 }
 

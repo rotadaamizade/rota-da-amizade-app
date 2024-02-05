@@ -1,20 +1,20 @@
 import './cityCard.css'
-import { useNavigate } from 'react-router-dom';
-import { useSpring, animated } from 'react-spring';
-import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom'
+import { useSpring, animated } from 'react-spring'
+import { useInView } from 'react-intersection-observer'
 
 function CityCard(props) {
 
   const [ref, inView] = useInView({
     triggerOnce: true,
-  });
+  })
 
   const animation = useSpring({
     opacity: inView ? 1 : 0,
     transform: inView ? 'opacity(0)' : 'opacity(100%)',
     config: { duration: 350 },
     delay: inView ? props.index * 100 : 0,
-  });
+  })
 
   const navigate = useNavigate()
 
@@ -34,7 +34,6 @@ function CityCard(props) {
       </div>
     </animated.div>
   )
-
 }
 
-export default CityCard;
+export default CityCard
