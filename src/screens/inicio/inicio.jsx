@@ -6,13 +6,14 @@ import SectionTitle from "../../components/sectionTitle/sectionTitle"
 import { collection, getDocs, query, where } from "firebase/firestore"
 import { db } from "../../config/firebase"
 import CityCard from "../../components/cityCard/cityCard"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Inicio() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
     const [titleHeight, setTitleHeight] = useState(0)
     const [cards, setCards] = useState([])
-
+    const analytics = getAnalytics();
 
     useEffect(() => {
         const titleDiv = document.getElementById('title-div')
@@ -25,8 +26,11 @@ function Inicio() {
         if (navbarState !== 'inicio') {
             setNavbarState('inicio')
         }
-
         fetchData()
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Início', 
+            firebase_screen_class: 'Telas Principais'
+        })
     }, [])
 
     const fetchData = async () => {

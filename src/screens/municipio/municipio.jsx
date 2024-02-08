@@ -11,6 +11,7 @@ import { db } from '../../config/firebase'
 import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore'
 import Sobre from '../../components/sobre/sobre'
 import EmptyList from '../../components/emptyList/emptyList'
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Municipio() {
     const { id } = useParams()
@@ -24,16 +25,18 @@ function Municipio() {
     const [atrativos, setAtrativos] = useState([])
     const [imgArray, setImgArray] = useState([])
     const navigate = useNavigate()
-
+    const analytics = getAnalytics();
     const content = useRef(null)
 
     useEffect(() => {
         if (navbarState !== 'municipios') {
             setNavbarState('municipios')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Município', 
+            firebase_screen_class: 'Telas Secundárias'
+            });
         getCity()
-
     }, [])
 
     useEffect(() => {

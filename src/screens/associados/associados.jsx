@@ -7,6 +7,7 @@ import Search from "../../components/search/search"
 import Categories from "../../components/categories/categories"
 import { db } from "../../config/firebase"
 import { collection, getDocs } from "firebase/firestore"
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Associados() {
 
@@ -15,10 +16,7 @@ function Associados() {
     const [titleHeight, setTitleHeight] = useState(0)
     const [category, setCategory] = useState('')
     const [associados, setAssociados] = useState([])
-
-    useEffect(() => {
-        getAssociados()
-    }, [])
+    const analytics = getAnalytics()
 
     const getAssociados = async () => {
         try {
@@ -50,7 +48,11 @@ function Associados() {
         if (navbarState != 'associados') {
             setNavbarState('associados')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Associados',
+            firebase_screen_class: 'Telas Principais'
+        })
+        getAssociados()
     }, [])
 
     useEffect(() => {

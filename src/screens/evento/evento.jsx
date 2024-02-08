@@ -10,6 +10,7 @@ import { db } from '../../config/firebase'
 import EventHour from '../../components/eventHour/eventHour'
 import CategoryLabel from '../../components/categoryLabel/categoryLabel'
 import Sobre from '../../components/sobre/sobre'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Evento() {
 
@@ -23,13 +24,16 @@ function Evento() {
     const [localizacao, setLocalizacao] = useState('')
     const [contatos, setContatos] = useState([])
     const [categories, setCategories] = useState([])
-
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState !== 'eventos') {
             setNavbarState('eventos')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Evento',
+            firebase_screen_class: 'Telas Secundárias'
+        })
         getEvento()
     }, [])
 

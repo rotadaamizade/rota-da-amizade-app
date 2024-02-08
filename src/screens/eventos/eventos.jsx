@@ -7,21 +7,25 @@ import Search from "../../components/search/search"
 import Categories from "../../components/categories/categories"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../../config/firebase"
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Eventos() {
 
-    const { navbarState, setNavbarState, globalCity, globalCategory } = useContext(UserContext)
+    const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('')
     const [titleHeight, setTitleHeight] = useState(0)
     const [category, setCategory] = useState('')
     const [events, setEvents] = useState([])
-
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState != 'eventos') {
             setNavbarState('eventos')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Eventos',
+            firebase_screen_class: 'Telas Principais'
+        })
         getEventos()
     }, [])
 
@@ -52,7 +56,7 @@ function Eventos() {
                     typeRealizador: doc.data().tipo,
                     dates: doc.data().data,
                     ativo: doc.data().ativo,
-                    categorias : doc.data().categorias
+                    categorias: doc.data().categorias
                 }
 
                 if (eventData.ativo) {
@@ -81,7 +85,7 @@ function Eventos() {
                     events.map((event, index) => {
                         if (
                             (event.city == globalCity || globalCity == '') &&
-                            (event.nome.toUpperCase().startsWith(searchTerm.toLocaleUpperCase()) || searchTerm == '') && 
+                            (event.nome.toUpperCase().startsWith(searchTerm.toLocaleUpperCase()) || searchTerm == '') &&
                             (event.categorias.some(cat => cat === category) || category == '')
                         ) {
                             return (

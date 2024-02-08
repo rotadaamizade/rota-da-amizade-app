@@ -8,6 +8,7 @@ import { db } from '../../config/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import CategoryLabel from '../../components/categoryLabel/categoryLabel'
 import Sobre from '../../components/sobre/sobre'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Atrativo() {
     const { id } = useParams()
@@ -20,16 +21,17 @@ function Atrativo() {
     const navigate = useNavigate()
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
-
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState !== 'atrativos') {
             setNavbarState('atrativos')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativo',
+            firebase_screen_class: 'Telas Secundárias'
+        })
         getAtrativo()
-
-
     }, [])
 
     const getAtrativo = async () => {

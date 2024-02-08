@@ -6,6 +6,7 @@ import Search from "../../components/search/search"
 import CityCard from "../../components/cityCard/cityCard"
 import { db } from "../../config/firebase"
 import { collection, getDocs } from "firebase/firestore"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Municipios() {
 
@@ -13,6 +14,7 @@ function Municipios() {
     const [searchTerm, setSearchTerm] = useState('')
     const [cities, setCities] = useState([])
     const [titleHeight, setTitleHeight] = useState(0)
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState != 'municipios') {
@@ -22,8 +24,11 @@ function Municipios() {
 
         const titleDiv = document.getElementById('title-div')
         let height = titleDiv.offsetHeight
-
         setTitleHeight(height)
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Município', 
+            firebase_screen_class: 'Telas Principais'
+            });
     }, [])
 
 

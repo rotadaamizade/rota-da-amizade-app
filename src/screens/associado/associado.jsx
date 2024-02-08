@@ -12,6 +12,7 @@ import { db } from '../../config/firebase'
 import CategoryLabel from '../../components/categoryLabel/categoryLabel'
 import Sobre from '../../components/sobre/sobre'
 import EmptyList from '../../components/emptyList/emptyList'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Associado() {
 
@@ -27,14 +28,17 @@ function Associado() {
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
     const [eventos, setEventos] = useState([])
-
+    const analytics = getAnalytics()
     const content = useRef(null)
 
     useEffect(() => {
         if (navbarState !== 'associados') {
             setNavbarState('associados')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativos',
+            firebase_screen_class: 'Telas Principais'
+        })
         getAssociado()
     }, [])
 

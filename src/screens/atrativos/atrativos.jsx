@@ -8,6 +8,7 @@ import Search from "../../components/search/search"
 import Categories from "../../components/categories/categories"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../../config/firebase"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Atrativos() {
 
@@ -16,16 +17,17 @@ function Atrativos() {
     const [searchTerm, setSearchTerm] = useState('')
     const [atrativos, setAtrativos] = useState([])
     const [titleHeight, setTitleHeight] = useState(0)
-
-
+    const analytics = getAnalytics();
 
     useEffect(() => {
         if (navbarState != 'atrativos') {
             setNavbarState('atrativos')
         }
-
         getAtrativos()
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativos',
+            firebase_screen_class: 'Telas Primárias'
+        })
     }, [])
 
     useEffect(() => {
