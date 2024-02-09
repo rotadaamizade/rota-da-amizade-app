@@ -91,8 +91,8 @@ function Associado() {
 
             setImgArray(imgArrayTemp)
 
-            if (docSnap.data().redes != undefined) {
-                setRedes(docSnap.data().redes)
+            if (docSnap.data().redesSociais != undefined) {
+                setRedes(docSnap.data().redesSociais)
             }
 
             if (docSnap.data().contatos != undefined) {
@@ -183,9 +183,35 @@ function Associado() {
                 <div ref={redespopup} className='redes-popup' >
                     <div>
                         {
-                            redes.map((rede, index) => (
-                                <div key={index} className='rede-button popup-buttons'>{rede.name}</div>
-                            ))
+                            redes.map((contato, index) => {
+                                if (contato.name == 'Facebook') {
+                                    return (
+                                        <a href={contato.url} target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#3b5998' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else if (contato.name == 'Twitter') {
+                                    return (
+                                        <a href={contato.url}  target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#00aced' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else if (contato.name == 'Instagram') {
+                                    return (
+                                        <a href={contato.url}  target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#FD1D1D' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else {
+                                    return (
+                                        <a href={contato.url} target='_blank'>
+                                            <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                }
+
+                            }
+                            )
                         }
                         <div className='close-button-container'>
                             <div onClick={() => closePopup('redes')} className='close-button popup-buttons'>Fechar</div>
@@ -193,13 +219,40 @@ function Associado() {
                     </div>
                 </div>
             )}
+
             {contatos !== undefined && (
                 <div ref={contatopopup} className='redes-popup' >
                     <div>
                         {
-                            contatos.map((contato, index) => (
-                                <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
-                            ))
+                            contatos.map((contato, index) => {
+                                if (contato.name == 'Whatsapp') {
+                                    return (
+                                        <a href={`https://wa.me/${contato.url}?text=Olá`} target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#25d366' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else if (contato.name == 'Email') {
+                                    return (
+                                        <a href="" target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#ca3625' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else if (contato.name == 'Telefone') {
+                                    return (
+                                        <a href="" target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#000' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else {
+                                    return (
+                                        <a href={contato.url} target='_blank'>
+                                            <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                }
+
+                            }
+                            )
                         }
                         <div className='close-button-container'>
                             <div onClick={() => closePopup('contato')} className='close-button popup-buttons'>Fechar</div>
@@ -233,7 +286,7 @@ function Associado() {
                                         index={index}
                                     />
                                 ))}
-                                <h2 className='title-associado'>Imagens</h2>
+                                
                                 <ImgCarousel
                                     imgArray={imgArray}
                                 />
