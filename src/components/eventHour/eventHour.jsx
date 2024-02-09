@@ -1,21 +1,19 @@
-import { useSpring, animated } from 'react-spring';
-import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from 'react-spring'
+import { useInView } from 'react-intersection-observer'
 import './eventHour.css'
 
 function EventHour(props) {
 
     const [ref, inView] = useInView({
         triggerOnce: true,
-    });
-
-    const generalDelay = 50;
+    })
 
     const animation = useSpring({
         opacity: inView ? 1 : 0,
         transform: inView ? 'opacity(0)' : 'opacity(100%)',
         config: { duration: 350 },
         delay: inView ? props.index * 100 : 0,
-    });
+    })
 
     return (
         <animated.div ref={ref} style={animation}

@@ -25,8 +25,6 @@ function Categories({category, setCategory, type}){
         }
     }
 
-    console.log(categories)
-
     return (
         <div className='categorie-div'>
           {categories.map((button, index) => (

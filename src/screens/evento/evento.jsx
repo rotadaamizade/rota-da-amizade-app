@@ -1,21 +1,21 @@
 import './evento.css'
-import { useContext, useEffect, useState, useRef, Fragment } from "react";
+import { useContext, useEffect, useState, useRef, Fragment } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
-import Header2 from '../../components/header2/header2';
-import ImgCarousel from '../../components/imgCarousel/imgCarousel';
-import Buttons from '../../components/buttons/buttons';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { motion } from 'framer-motion';
-import EventHour from '../../components/eventHour/eventHour';
-import CategoryLabel from '../../components/categoryLabel/categoryLabel';
-import Sobre from '../../components/sobre/sobre';
+import Header2 from '../../components/header2/header2'
+import ImgCarousel from '../../components/imgCarousel/imgCarousel'
+import Buttons from '../../components/buttons/buttons'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
+import EventHour from '../../components/eventHour/eventHour'
+import CategoryLabel from '../../components/categoryLabel/categoryLabel'
+import Sobre from '../../components/sobre/sobre'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Evento() {
 
     const navigate = useNavigate()
-    const { id } = useParams();
+    const { id } = useParams()
     const { navbarState, setNavbarState, categoriesEventos } = useContext(UserContext)
     const [popup, setPopup] = useState('')
     const [evento, setEvento] = useState({})
@@ -24,13 +24,16 @@ function Evento() {
     const [localizacao, setLocalizacao] = useState('')
     const [contatos, setContatos] = useState([])
     const [categories, setCategories] = useState([])
-
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState !== 'eventos') {
             setNavbarState('eventos')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Evento',
+            firebase_screen_class: 'Telas Secundárias'
+        })
         getEvento()
     }, [])
 
@@ -86,50 +89,48 @@ function Evento() {
     }
 
 
-    const background = useRef();
-    const redespopup = useRef();
+    const background = useRef()
+    const redespopup = useRef()
     const contatopopup = useRef()
 
     const closePopup = (type) => {
 
         setPopup('')
 
-        background.current.style.opacity = '0';
+        background.current.style.opacity = '0'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '0';
+            contatopopup.current.style.opacity = '0'
         } else {
-            redespopup.current.style.opacity = '0';
+            redespopup.current.style.opacity = '0'
         }
 
         setTimeout(() => {
-            background.current.style.zIndex = '-1';
+            background.current.style.zIndex = '-1'
 
             if (type == 'contato') {
-                contatopopup.current.style.zIndex = '-1';
+                contatopopup.current.style.zIndex = '-1'
             } else {
-                redespopup.current.style.zIndex = '-1';
+                redespopup.current.style.zIndex = '-1'
             }
-        }, 200);
-    };
-
-    console.log(evento)
+        }, 200)
+    }
 
     const openPopup = (type) => {
 
         setPopup(type)
 
-        background.current.style.zIndex = '4';
-        background.current.style.opacity = '100%';
+        background.current.style.zIndex = '4'
+        background.current.style.opacity = '100%'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '100%';
-            contatopopup.current.style.zIndex = '5';
+            contatopopup.current.style.opacity = '100%'
+            contatopopup.current.style.zIndex = '5'
         } else {
-            redespopup.current.style.opacity = '100%';
-            redespopup.current.style.zIndex = '5';
+            redespopup.current.style.opacity = '100%'
+            redespopup.current.style.zIndex = '5'
         }
-    };
+    }
 
     return (
         <>
@@ -139,7 +140,7 @@ function Evento() {
                     <div>
                         {
                             redes.map((rede, index) => (
-                                <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{rede.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -153,7 +154,7 @@ function Evento() {
                     <div>
                         {
                             contatos.map((contato, index) => (
-                                <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -163,99 +164,97 @@ function Evento() {
                 </div>
             )}
 
-            <motion.section
-                className='motion-section'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
+            <section className='motion-section'>
                 <Header2
                     text1={evento.nome}
                     text2={evento.tipo == 'municipio' ? 'Prefeitura de ' + evento.realizador : evento.realizador + ' | ' + evento.municipio}
                     img={evento.imgCard != undefined ? evento.imgCard.url : undefined}
                 />
                 <section className="section-4">
-                    {Object.keys(evento).length > 0 && 
                     <div className='content-3'>
-                        <h2 className='title-associado-2'>Data e Horário</h2>
+                        {Object.keys(evento).length > 0 &&
+                            <>
+                                <h2 className='title-associado-2'>Data e Horário</h2>
 
 
-                        <div className='data-horario-content'>
-                            {evento.data !== undefined ?
-                                evento.data
-                                    .slice()
-                                    .sort((a, b) => new Date(a.data) - new Date(b.data))
-                                    .map((data, index) => {
+                                <div className='data-horario-content'>
+                                    {evento.data !== undefined ?
+                                        evento.data
+                                            .slice()
+                                            .sort((a, b) => new Date(a.data) - new Date(b.data))
+                                            .map((data, index) => {
 
-                                        let dia = 0
-                                        let mes = 0
-                                        let ano = 0
+                                                let dia = 0
+                                                let mes = 0
+                                                let ano = 0
 
-                                        const partes = data.data.split('-')
+                                                const partes = data.data.split('-')
 
-                                        if (partes.length === 3) {
-                                            dia = partes[2]
-                                            mes = partes[1]
-                                            ano = partes[0]
-                                        }
+                                                if (partes.length === 3) {
+                                                    dia = partes[2]
+                                                    mes = partes[1]
+                                                    ano = partes[0]
+                                                }
 
-                                        return (
-                                            <EventHour
-                                                dia={dia}
-                                                mes={mes}
-                                                index={index}
-                                                data={data}
-                                                evento={evento}
-                                                key={index}
-                                            />
-                                        )
-                                    })
-                                : null
-                            }
-                        </div>
-
-
-
-                        <h2 className='title-associado'>Categorias</h2>
-                        {categories.map((category, index) => (
-                            <CategoryLabel
-                                key={index}
-                                category={category}
-                                index={index}
-                            />
-                        ))}
-                        <h2 className='title-associado'>Imagens</h2>
-                        <ImgCarousel
-                            imgArray={imgArray}
-                        />
-                        <h2 className='title-associado'>Sobre Nós</h2>
-                        <Sobre
-                            sobre={evento.sobre}
-                        />
-
-                        {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                            <Buttons
-                                localization={localizacao}
-                                contatos={contatos}
-                                redes={redes}
-                                openContatos={() => {
-                                    if (contatos !== undefined) {
-                                        openPopup('contato');
+                                                return (
+                                                    <EventHour
+                                                        dia={dia}
+                                                        mes={mes}
+                                                        index={index}
+                                                        data={data}
+                                                        evento={evento}
+                                                        key={index}
+                                                    />
+                                                )
+                                            })
+                                        : null
                                     }
-                                }}
-                                openRedes={() => {
-                                    if (redes !== undefined) {
-                                        openPopup('rede');
-                                    }
-                                }}
-                            />
-                        ) : null}
+                                </div>
 
-                    </div>}
+
+
+                                <h2 className='title-associado'>Categorias</h2>
+                                {categories.map((category, index) => (
+                                    <CategoryLabel
+                                        key={index}
+                                        category={category}
+                                        index={index}
+                                    />
+                                ))}
+                                <h2 className='title-associado'>Imagens</h2>
+                                <ImgCarousel
+                                    imgArray={imgArray}
+                                />
+                                <h2 className='title-associado'>Sobre Nós</h2>
+                                <Sobre
+                                    sobre={evento.sobre}
+                                />
+
+                                {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                                    <Buttons
+                                        localization={localizacao}
+                                        contatos={contatos}
+                                        redes={redes}
+                                        openContatos={() => {
+                                            if (contatos !== undefined) {
+                                                openPopup('contato');
+                                            }
+                                        }}
+                                        openRedes={() => {
+                                            if (redes !== undefined) {
+                                                openPopup('rede');
+                                            }
+                                        }}
+                                    />
+                                ) : null}
+
+                            </>
+                        }
+                    </div>
                 </section>
-            </motion.section >
+            </section>
         </>
     )
 }
 
-export default Evento;
+export default Evento

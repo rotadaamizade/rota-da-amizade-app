@@ -1,20 +1,20 @@
 import './municipio.css'
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
-import SliderMenu from "../../components/sliderMenu/sliderMenu";
-import Card from '../../components/card/card';
-import Header2 from '../../components/header2/header2';
-import ImgCarousel from '../../components/imgCarousel/imgCarousel';
-import Buttons from '../../components/buttons/buttons';
-import { db } from '../../config/firebase';
-import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
-import { motion } from 'framer-motion';
-import Sobre from '../../components/sobre/sobre';
-import EmptyList from '../../components/emptyList/emptyList';
+import SliderMenu from "../../components/sliderMenu/sliderMenu"
+import Card from '../../components/card/card'
+import Header2 from '../../components/header2/header2'
+import ImgCarousel from '../../components/imgCarousel/imgCarousel'
+import Buttons from '../../components/buttons/buttons'
+import { db } from '../../config/firebase'
+import { getDoc, doc, query, collection, where, getDocs } from 'firebase/firestore'
+import Sobre from '../../components/sobre/sobre'
+import EmptyList from '../../components/emptyList/emptyList'
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Municipio() {
-    const { id } = useParams();
+    const { id } = useParams()
     const { navbarState, setNavbarState } = useContext(UserContext)
     const menus = ['Informações', 'Atrativos']
     const [menuActive, setMenuActive] = useState(menus[0])
@@ -25,28 +25,28 @@ function Municipio() {
     const [atrativos, setAtrativos] = useState([])
     const [imgArray, setImgArray] = useState([])
     const navigate = useNavigate()
-
-    const content = useRef(null);
+    const analytics = getAnalytics();
+    const content = useRef(null)
 
     useEffect(() => {
         if (navbarState !== 'municipios') {
             setNavbarState('municipios')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Município', 
+            firebase_screen_class: 'Telas Secundárias'
+            });
         getCity()
-
     }, [])
 
     useEffect(() => {
         if (menuActive === menus[0]) {
             if (content.current) {
-
-                content.current.style.transform = 'translateX(0)';
+                content.current.style.transform = 'translateX(0)'
             }
         } else if (menuActive === menus[1]) {
             if (content.current) {
-
-                content.current.style.transform = 'translateX(-50%)';
+                content.current.style.transform = 'translateX(-50%)'
             }
         }
     }, [menuActive])
@@ -62,7 +62,7 @@ function Municipio() {
 
             docSnap.data().imgs.forEach((img, index) => {
                 imgArrayTemp.push(img.url)
-            });
+            })
 
             setImgArray(imgArrayTemp)
 
@@ -90,14 +90,12 @@ function Municipio() {
         }
     }
 
-    console.log(city)
-
     const getAtrativos = async (city) => {
 
-        const q = query(collection(db, "atrativos"), where("municipio", "==", city));
+        const q = query(collection(db, "atrativos"), where("municipio", "==", city))
         const data = await getDocs(q)
 
-        const atrativosData = [];
+        const atrativosData = []
 
         data.forEach((doc) => {
             const atrativoData = {
@@ -106,52 +104,52 @@ function Municipio() {
                 nome: doc.data().nome,
                 imgCard: doc.data().imgCard,
                 type: 'atrativo'
-            };
+            }
 
-            atrativosData.push(atrativoData);
-        });
+            atrativosData.push(atrativoData)
+        })
 
-        setAtrativos(atrativosData);
+        setAtrativos(atrativosData)
     }
 
-    const background = useRef();
-    const redespopup = useRef();
+    const background = useRef()
+    const redespopup = useRef()
     const contatopopup = useRef()
 
     const closePopup = (type) => {
-        background.current.style.opacity = '0';
+        background.current.style.opacity = '0'
 
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '0';
+            contatopopup.current.style.opacity = '0'
         } else {
-            redespopup.current.style.opacity = '0';
+            redespopup.current.style.opacity = '0'
         }
 
         setTimeout(() => {
-            background.current.style.zIndex = '-1';
+            background.current.style.zIndex = '-1'
 
             if (type == 'contato') {
-                contatopopup.current.style.zIndex = '-1';
+                contatopopup.current.style.zIndex = '-1'
             } else {
-                redespopup.current.style.zIndex = '-1';
+                redespopup.current.style.zIndex = '-1'
             }
-        }, 200);
-    };
+        }, 200)
+    }
 
     const openPopup = (type) => {
 
-        background.current.style.zIndex = '4';
-        background.current.style.opacity = '100%';
+        background.current.style.zIndex = '4'
+        background.current.style.opacity = '100%'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '100%';
-            contatopopup.current.style.zIndex = '5';
+            contatopopup.current.style.opacity = '100%'
+            contatopopup.current.style.zIndex = '5'
         } else {
-            redespopup.current.style.opacity = '100%';
-            redespopup.current.style.zIndex = '5';
+            redespopup.current.style.opacity = '100%'
+            redespopup.current.style.zIndex = '5'
         }
-    };
+    }
 
     return (
         <>
@@ -164,7 +162,7 @@ function Municipio() {
                     <div>
                         {
                             redes.map((rede, index) => (
-                                <div key={index} style={{ backgroundColor: `#${rede.color}` }} className='rede-button popup-buttons'>{rede.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{rede.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -178,7 +176,7 @@ function Municipio() {
                     <div>
                         {
                             contatos.map((contato, index) => (
-                                <div key={index} style={{ backgroundColor: `#${contato.color}` }} className='rede-button popup-buttons'>{contato.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -187,12 +185,7 @@ function Municipio() {
                     </div>
                 </div>
             )}
-            <motion.section
-                className='motion-section'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
+            <section className='motion-section'>
                 <Header2
                     text1={city.municipio}
                     text2={city.descricao}
@@ -229,12 +222,12 @@ function Municipio() {
                                             redes={redes}
                                             openContatos={() => {
                                                 if (contatos !== undefined) {
-                                                    openPopup('contato');
+                                                    openPopup('contato')
                                                 }
                                             }}
                                             openRedes={() => {
                                                 if (redes !== undefined) {
-                                                    openPopup('rede');
+                                                    openPopup('rede')
                                                 }
                                             }}
                                         />
@@ -265,7 +258,7 @@ function Municipio() {
                         </div>
                     </div>
                 </section>
-            </motion.section >
+            </section >
         </>
     )
 }

@@ -1,23 +1,23 @@
 import './associado.css'
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
-import SliderMenu from "../../components/sliderMenu/sliderMenu";
-import Card from '../../components/card/card';
-import HeaderAssociado from '../../components/headerAssociado/headerAssociado';
-import ImgCarousel from '../../components/imgCarousel/imgCarousel';
-import Buttons from '../../components/buttons/buttons';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { motion } from 'framer-motion';
-import CategoryLabel from '../../components/categoryLabel/categoryLabel';
-import Sobre from '../../components/sobre/sobre';
-import EmptyList from '../../components/emptyList/emptyList';
+import SliderMenu from "../../components/sliderMenu/sliderMenu"
+import Card from '../../components/card/card'
+import HeaderAssociado from '../../components/headerAssociado/headerAssociado'
+import ImgCarousel from '../../components/imgCarousel/imgCarousel'
+import Buttons from '../../components/buttons/buttons'
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../../config/firebase'
+import CategoryLabel from '../../components/categoryLabel/categoryLabel'
+import Sobre from '../../components/sobre/sobre'
+import EmptyList from '../../components/emptyList/emptyList'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Associado() {
 
     const navigate = useNavigate()
-    const { id } = useParams();
+    const { id } = useParams()
     const { navbarState, setNavbarState, categoriesAssociados } = useContext(UserContext)
     const menus = ['Informações', 'Eventos']
     const [menuActive, setMenuActive] = useState(menus[0])
@@ -28,14 +28,17 @@ function Associado() {
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
     const [eventos, setEventos] = useState([])
-
-    const content = useRef(null);
+    const analytics = getAnalytics()
+    const content = useRef(null)
 
     useEffect(() => {
         if (navbarState !== 'associados') {
             setNavbarState('associados')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativos',
+            firebase_screen_class: 'Telas Principais'
+        })
         getAssociado()
     }, [])
 
@@ -43,12 +46,12 @@ function Associado() {
         if (menuActive === menus[0]) {
             if (content.current) {
 
-                content.current.style.transform = 'translateX(0)';
+                content.current.style.transform = 'translateX(0)'
             }
         } else if (menuActive === menus[1]) {
             if (content.current) {
 
-                content.current.style.transform = 'translateX(-50%)';
+                content.current.style.transform = 'translateX(-50%)'
             }
         }
     }, [menuActive])
@@ -61,8 +64,6 @@ function Associado() {
             setAssociado(docSnap.data())
             getEventos(docSnap.data().nome)
 
-            console.log(docSnap.data())
-
             let categoriesTemp = []
 
             docSnap.data().categorias.forEach((category, element) => {
@@ -73,7 +74,7 @@ function Associado() {
                         categoriesTemp.push({ nome: category2.nome, cor: category2.corPrincipal })
                     }
                 })
-            });
+            })
 
             setCategories(categoriesTemp)
 
@@ -81,8 +82,7 @@ function Associado() {
 
             docSnap.data().imgs.forEach((img, index) => {
                 imgArrayTemp.push(img.url)
-                console.log(img)
-            });
+            })
 
             setImgArray(imgArrayTemp)
 
@@ -108,10 +108,10 @@ function Associado() {
 
     const getEventos = async (nome) => {
 
-        const q = query(collection(db, "eventos"), where("realizador", "==", nome));
+        const q = query(collection(db, "eventos"), where("realizador", "==", nome))
         const data = await getDocs(q)
 
-        const eventosData = [];
+        const eventosData = []
 
         data.forEach((doc) => {
             const eventoData = {
@@ -121,60 +121,54 @@ function Associado() {
                 imgCard: doc.data().imgCard,
                 type: 'evento',
                 dates: doc.data().data
-            };
+            }
 
-            eventosData.push(eventoData);
-        });
+            eventosData.push(eventoData)
+        })
 
-        setEventos(eventosData);
+        setEventos(eventosData)
     }
 
-    const background = useRef();
-    const redespopup = useRef();
+    const background = useRef()
+    const redespopup = useRef()
     const contatopopup = useRef()
 
     const closePopup = (type) => {
-        background.current.style.opacity = '0';
+        background.current.style.opacity = '0'
 
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '0';
+            contatopopup.current.style.opacity = '0'
         } else {
-            redespopup.current.style.opacity = '0';
+            redespopup.current.style.opacity = '0'
         }
 
         setTimeout(() => {
-            background.current.style.zIndex = '-1';
+            background.current.style.zIndex = '-1'
 
             if (type == 'contato') {
-                contatopopup.current.style.zIndex = '-1';
+                contatopopup.current.style.zIndex = '-1'
             } else {
-                redespopup.current.style.zIndex = '-1';
+                redespopup.current.style.zIndex = '-1'
             }
-        }, 200);
-    };
+        }, 200)
+    }
 
     const openPopup = (type) => {
-
-        background.current.style.zIndex = '4';
-        background.current.style.opacity = '100%';
+        background.current.style.zIndex = '4'
+        background.current.style.opacity = '100%'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '100%';
-            contatopopup.current.style.zIndex = '5';
+            contatopopup.current.style.opacity = '100%'
+            contatopopup.current.style.zIndex = '5'
         } else {
-            redespopup.current.style.opacity = '100%';
-            redespopup.current.style.zIndex = '5';
+            redespopup.current.style.opacity = '100%'
+            redespopup.current.style.zIndex = '5'
         }
-    };
+    }
 
     return (
-        <motion.section
-            className='motion-section'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
+        <section className='motion-section'>
 
             <div onClick={() => {
                 closePopup('contato')
@@ -185,7 +179,7 @@ function Associado() {
                     <div>
                         {
                             redes.map((rede, index) => (
-                                <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{rede.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -199,7 +193,7 @@ function Associado() {
                     <div>
                         {
                             contatos.map((contato, index) => (
-                                <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -208,7 +202,6 @@ function Associado() {
                     </div>
                 </div>
             )}
-
 
             <HeaderAssociado
                 img={associado.imgCard != undefined ? associado.imgCard.url : undefined}
@@ -223,48 +216,48 @@ function Associado() {
                     setMenuActive={setMenuActive}
                 />
                 <div ref={content} className="all-content-page">
-                    <div>
+                    <div className="content-1">
+                        {Object.keys(associado).length > 0 &&
+                            <>
 
+                                <h2 className='title-associado'>Categorias</h2>
+                                {categories.map((category, index) => (
+                                    <CategoryLabel
+                                        key={index}
+                                        category={category}
+                                        index={index}
+                                    />
+                                ))}
+                                <h2 className='title-associado'>Imagens</h2>
+                                <ImgCarousel
+                                    imgArray={imgArray}
+                                />
+
+                                <h2 className='title-associado'>Sobre Nós</h2>
+                                <Sobre
+                                    sobre={associado.sobre}
+                                />
+
+                                {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                                    <Buttons
+                                        localization={localizacao}
+                                        contatos={contatos}
+                                        redes={redes}
+                                        openContatos={() => {
+                                            if (contatos !== undefined) {
+                                                openPopup('contato')
+                                            }
+                                        }}
+                                        openRedes={() => {
+                                            if (redes !== undefined) {
+                                                openPopup('rede')
+                                            }
+                                        }}
+                                    />
+                                ) : null}
+                            </>}
                     </div>
-                    {Object.keys(associado).length > 0 &&
-                        <div className="content-1">
 
-                            <h2 className='title-associado'>Categorias</h2>
-                            {categories.map((category, index) => (
-                                <CategoryLabel
-                                    key={index}
-                                    category={category}
-                                    index={index}
-                                />
-                            ))}
-                            <h2 className='title-associado'>Imagens</h2>
-                            <ImgCarousel
-                                imgArray={imgArray}
-                            />
-
-                            <h2 className='title-associado'>Sobre Nós</h2>
-                            <Sobre
-                                sobre={associado.sobre}
-                            />
-
-                            {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                                <Buttons
-                                    localization={localizacao}
-                                    contatos={contatos}
-                                    redes={redes}
-                                    openContatos={() => {
-                                        if (contatos !== undefined) {
-                                            openPopup('contato');
-                                        }
-                                    }}
-                                    openRedes={() => {
-                                        if (redes !== undefined) {
-                                            openPopup('rede');
-                                        }
-                                    }}
-                                />
-                            ) : null}
-                        </div>}
                     <div className="content-2">{
                         eventos.length == 0 ?
                             <EmptyList
@@ -283,12 +276,11 @@ function Associado() {
                                 />
                             ))
                     }
-
                     </div>
                 </div>
             </section>
 
-        </motion.section>
+        </section>
 
     )
 }

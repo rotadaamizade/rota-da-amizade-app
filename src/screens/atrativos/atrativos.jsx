@@ -1,32 +1,33 @@
 import { useEffect } from "react"
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../../UserContext';
-import Card from "../../components/card/card";
-import CityFilter from "../../components/cityFilter/cityFilter";
-import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import Search from "../../components/search/search";
-import Categories from "../../components/categories/categories";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import { motion } from "framer-motion";
+import { UserContext } from '../../UserContext'
+import Card from "../../components/card/card"
+import CityFilter from "../../components/cityFilter/cityFilter"
+import SectionTitle from "../../components/sectionTitle/sectionTitle"
+import Search from "../../components/search/search"
+import Categories from "../../components/categories/categories"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../../config/firebase"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Atrativos() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    const [category, setCategory] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
+    const [category, setCategory] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
     const [atrativos, setAtrativos] = useState([])
-    const [titleHeight, setTitleHeight] = useState(0);
-
-
+    const [titleHeight, setTitleHeight] = useState(0)
+    const analytics = getAnalytics();
 
     useEffect(() => {
         if (navbarState != 'atrativos') {
             setNavbarState('atrativos')
         }
-
         getAtrativos()
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativos',
+            firebase_screen_class: 'Telas Primárias'
+        })
     }, [])
 
     useEffect(() => {
@@ -38,8 +39,8 @@ function Atrativos() {
 
     const getAtrativos = async () => {
         try {
-            const data = await getDocs(collection(db, "atrativos"));
-            const atrativosData = [];
+            const data = await getDocs(collection(db, "atrativos"))
+            const atrativosData = []
 
             data.forEach((doc) => {
                 const dataAtrativos = {
@@ -49,30 +50,27 @@ function Atrativos() {
                     imgCard: doc.data().imgCard,
                     type: 'atrativo',
                     ativo: doc.data().ativo,
+                    categorias: doc.data().categorias
                 }
 
                 if (dataAtrativos.ativo) {
-                    atrativosData.push(dataAtrativos);
+                    atrativosData.push(dataAtrativos)
                 }
-            });
+            })
 
-            setAtrativos(atrativosData);
+            setAtrativos(atrativosData)
         } catch (error) {
-            console.error("Erro ao recuperar documentos:", error);
+            console.error("Erro ao recuperar documentos:", error)
         }
     }
 
     const handleSearch = (value) => {
-        setSearchTerm(value);
-    };
+        setSearchTerm(value)
+    }
 
     return (
 
-        <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1, transition: { duration: 0.25 } }}
-            className="section-1">
+        <section className="section-1">
             <SectionTitle
                 text1={globalCity == '' ? 'Atrativos da' : 'Atrativos de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
@@ -85,24 +83,31 @@ function Atrativos() {
                 {
                     <>
                         <Categories category={category} setCategory={setCategory} type={'atrativos'} />
-                        {atrativos.map((card, index) => (
-                            <Card
-                                key={index}
-                                name={card.nome}
-                                city={card.municipio}
-                                svg={card.categorySvg}
-                                img={card.imgCard.url}
-                                type={card.type}
-                                dates={card.dates !== undefined ? card.dates : null}
-                                id={card.id}
-                                index={index}
-                            />
-                        ))}
+                        {atrativos.map((card, index) => {
+                            if (
+                                (card.municipio == globalCity || globalCity == '') &&
+                                (card.nome.toUpperCase().startsWith(searchTerm.toLocaleUpperCase()) || searchTerm == '') &&
+                                (card.categorias.some(cat => cat === category) || category == '')
+                            ) {
+                                return (
+                                    <Card
+                                        key={index}
+                                        name={card.nome}
+                                        city={card.municipio}
+                                        img={card.imgCard.url}
+                                        type={card.type}
+                                        dates={card.dates !== undefined ? card.dates : null}
+                                        id={card.id}
+                                        index={index}
+                                    />
+                                )
+                            }
+                        })}
                     </>
                 }
             </div>
 
-        </motion.section>
+        </section>
     )
 }
 

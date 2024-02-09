@@ -1,31 +1,27 @@
 import { useEffect } from "react"
 import { useContext, useState } from 'react'
-import { UserContext } from '../../UserContext';
-import Card from "../../components/card/card";
-import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import Search from "../../components/search/search";
-import Categories from "../../components/categories/categories";
-import { db } from "../../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { motion } from "framer-motion";
+import { UserContext } from '../../UserContext'
+import Card from "../../components/card/card"
+import SectionTitle from "../../components/sectionTitle/sectionTitle"
+import Search from "../../components/search/search"
+import Categories from "../../components/categories/categories"
+import { db } from "../../config/firebase"
+import { collection, getDocs } from "firebase/firestore"
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Associados() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    const [searchTerm, setSearchTerm] = useState('');
-    const [titleHeight, setTitleHeight] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('')
+    const [titleHeight, setTitleHeight] = useState(0)
     const [category, setCategory] = useState('')
     const [associados, setAssociados] = useState([])
-    const [filteredCards, setFilteredCards] = useState([]);
-
-    useEffect(() => {
-        getAssociados()
-    }, [])
+    const analytics = getAnalytics()
 
     const getAssociados = async () => {
         try {
-            const data = await getDocs(collection(db, "associados"));
-            const associadosData = [];
+            const data = await getDocs(collection(db, "associados"))
+            const associadosData = []
 
             data.forEach((doc) => {
                 const dataAssociado = {
@@ -35,39 +31,28 @@ function Associados() {
                     imgCard: doc.data().imgCard,
                     type: 'associado',
                     categorias: doc.data().categorias,
-                    ativo : doc.data().ativo
-                };
-                if(dataAssociado.ativo){
-                    associadosData.push(dataAssociado);
+                    ativo: doc.data().ativo
                 }
-                
-            });
-            setAssociados(associadosData);
-            setFilteredCards(associadosData)
+                if (dataAssociado.ativo) {
+                    associadosData.push(dataAssociado)
+                }
+
+            })
+            setAssociados(associadosData)
         } catch (error) {
-            console.error("Erro ao recuperar documentos:", error);
+            console.error("Erro ao recuperar documentos:", error)
         }
     }
-
-    useEffect(() => {
-        let newFilteredCards = associados
-        .filter(item =>
-            item.categorias.some(cat => cat === category)
-          );
-
-        if (globalCity == '' && category == '' && searchTerm == '') {
-            setFilteredCards(associados);
-        } else {
-            setFilteredCards(newFilteredCards);
-        }
-
-    }, [globalCity, category, searchTerm]);
 
     useEffect(() => {
         if (navbarState != 'associados') {
             setNavbarState('associados')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Associados',
+            firebase_screen_class: 'Telas Principais'
+        })
+        getAssociados()
     }, [])
 
     useEffect(() => {
@@ -78,15 +63,11 @@ function Associados() {
     }, [globalCity])
 
     const handleSearch = (value) => {
-        setSearchTerm(value);
-    };
+        setSearchTerm(value)
+    }
 
     return (
-        <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1, transition: { duration: 0.25 } }}
-            className="section-1">
+        <section className="section-1">
             <SectionTitle
                 text1={globalCity == '' ? 'Associados da' : 'Associados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
@@ -97,22 +78,29 @@ function Associados() {
             <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
                 <Categories category={category} setCategory={setCategory} type={'associados'} />
                 {
-                    filteredCards.map((associado, index) => (
-                        <Card
-                            key={index}
-                            name={associado.nome}
-                            city={associado.municipio}
-                            svg={associado.categorySvg}
-                            img={associado.imgCard.url}
-                            type={associado.type}
-                            dates={associado.dates != undefined ? associado.dates : null}
-                            id={associado.id}
-                            index={index}
-                        />
-                    ))
+                    associados.map((associado, index) => {
+                        if (
+                            (associado.municipio == globalCity || globalCity == '') &&
+                            (associado.nome.toUpperCase().startsWith(searchTerm.toLocaleUpperCase()) || searchTerm == '') &&
+                            (associado.categorias.some(cat => cat === category) || category == '')
+                        ) {
+                            return (
+                                <Card
+                                    key={index}
+                                    name={associado.nome}
+                                    city={associado.municipio}
+                                    img={associado.imgCard.url}
+                                    type={associado.type}
+                                    dates={associado.dates != undefined ? associado.dates : null}
+                                    id={associado.id}
+                                    index={index}
+                                />
+                            )
+                        }
+                    })
                 }
             </div>
-        </motion.section>
+        </section>
 
     )
 }

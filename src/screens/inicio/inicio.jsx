@@ -1,19 +1,19 @@
 import { useEffect } from "react"
 import { useContext, useState } from 'react'
-import { UserContext } from '../../UserContext';
-import Card from "../../components/card/card";
-import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import { motion } from "framer-motion";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import CityCard from "../../components/cityCard/cityCard";
+import { UserContext } from '../../UserContext'
+import Card from "../../components/card/card"
+import SectionTitle from "../../components/sectionTitle/sectionTitle"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "../../config/firebase"
+import CityCard from "../../components/cityCard/cityCard"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Inicio() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    const [titleHeight, setTitleHeight] = useState(0);
+    const [titleHeight, setTitleHeight] = useState(0)
     const [cards, setCards] = useState([])
-
+    const analytics = getAnalytics();
 
     useEffect(() => {
         const titleDiv = document.getElementById('title-div')
@@ -24,31 +24,34 @@ function Inicio() {
 
     useEffect(() => {
         if (navbarState !== 'inicio') {
-            setNavbarState('inicio');
+            setNavbarState('inicio')
         }
-    
         fetchData()
-    }, []);
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Início', 
+            firebase_screen_class: 'Telas Principais'
+        })
+    }, [])
 
     const fetchData = async () => {
-        const associadosData = await getAssociados();
-        const municipiosData = await getMunicipios();
+        const associadosData = await getAssociados()
+        const municipiosData = await getMunicipios()
 
-        const vetorMesclado = associadosData.concat(municipiosData);
-        const randomSort = () => Math.random() - 0.5;
-        const vetorMescladoAleatorio = vetorMesclado.sort(randomSort);
-        
+        const vetorMesclado = associadosData.concat(municipiosData)
+        const randomSort = () => Math.random() - 0.5
+        const vetorMescladoAleatorio = vetorMesclado.sort(randomSort)
+
         const combinedData = vetorMescladoAleatorio
-        
-        setCards(combinedData);
-    };
-    
+
+        setCards(combinedData)
+    }
+
     const getAssociados = async () => {
-        const q = query(collection(db, "associados"), where("plano", "==", "black"));
-        const data = await getDocs(q);
+        const q = query(collection(db, "associados"), where("plano", "==", "black"))
+        const data = await getDocs(q)
 
         const associados = []
-    
+
         data.forEach((doc) => {
             const associadoData = {
                 id: doc.id,
@@ -62,19 +65,19 @@ function Inicio() {
                 ativo: doc.data().ativo
             }
 
-            if(associadoData.ativo){
+            if (associadoData.ativo) {
                 associados.push(associadoData)
             }
         })
-        return associados;
-    };
-    
+        return associados
+    }
+
     const getMunicipios = async () => {
-        const q = query(collection(db, "municipios"));
-        const data = await getDocs(q);
-    
+        const q = query(collection(db, "municipios"))
+        const data = await getDocs(q)
+
         const municipios = []
-    
+
         data.forEach((doc) => {
             const municipioData = {
                 id: doc.id,
@@ -88,36 +91,33 @@ function Inicio() {
                 ativo: doc.data().ativo
             }
 
-            if(municipioData.ativo){
+            if (municipioData.ativo) {
                 municipios.push(municipioData)
             }
         })
-        return municipios   
+        return municipios
     }
 
     return (
 
-        <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1, transition: { duration: 0.25 } }}
+        <section
             className="section-1">
-                
+
             <SectionTitle
                 text1={globalCity == '' ? 'Recomendados da' : 'Recomendados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
             />
             <div style={{ paddingBottom: `calc(20px + ${titleHeight}px` }} className="card-container">
 
-                 {
+                {
                     cards.map((card, index) => {
-                        if (card.type == 'associado') {
+                        if (card.type == 'associado' &&
+                            (card.municipio == globalCity || globalCity == '')) {
                             return (
                                 <Card
                                     key={index}
                                     name={card.nome}
                                     city={card.municipio}
-                                    svg={card.categorySvg}
                                     img={card.imgCard}
                                     type={card.type}
                                     dates={card.dates != undefined ? card.dates : null}
@@ -125,7 +125,8 @@ function Inicio() {
                                     index={index}
                                 />
                             )
-                        } else if (card.type == 'municipio') {
+                        } else if
+                            (card.type == 'municipio' && (card.nome == globalCity || globalCity == '')) {
                             return (
                                 <CityCard
                                     key={index}
@@ -133,15 +134,14 @@ function Inicio() {
                                     name={card.nome}
                                     slogan={card.descricao}
                                     id={card.id}
-                                    index={index}w
+                                    index={index}
                                 />
                             )
                         }
-                    }) 
+                    })
                 }
-
             </div>
-        </motion.section>
+        </section>
 
     )
 }

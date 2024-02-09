@@ -1,15 +1,15 @@
 import './search.css'
-import { useState } from 'react';
+import { useState } from 'react'
 
 function Search({ onSearch }){
 
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState('')
 
     const handleInputChange = (e) => {
       const value = e.target.value
       setSearchValue(value)
       onSearch(value)
-    };
+    }
 
     return(
         <div className="search-div">

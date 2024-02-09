@@ -1,23 +1,21 @@
 import './App.css'
 
-import Navbar from './components/navbar/navbar';
-
-import { BrowserRouter } from 'react-router-dom'
-import { UserProvider } from './UserContext';
-import AnimatedRoutes from './animatedRoutes';
-import CityFilter from './components/cityFilter/cityFilter';
-import { useEffect, useState } from 'react';
-import SplashScreeen from './screens/splashScreen/splashScreen';
+import Navbar from './components/navbar/navbar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { UserProvider } from './UserContext'
+import CityFilter from './components/cityFilter/cityFilter'
+import Inicio from './screens/inicio/inicio'
+import Associados from './screens/associados/associados'
+import Eventos from './screens/eventos/eventos'
+import Municipios from './screens/municipios/municipios'
+import Atrativos from './screens/atrativos/atrativos'
+import Evento from './screens/evento/evento'
+import Associado from './screens/associado/associado'
+import Municipio from './screens/municipio/municipio'
+import Atrativo from './screens/atrativo/atrativo'
 
 function App() {
 
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 3200);
-  }, [])
 
   const maintenance = false
 
@@ -26,14 +24,6 @@ function App() {
       <div className="App">
         <h1>Site is under maintenance</h1>
         <p>Please come back later</p>
-      </div>
-    )
-  }
-
-  if(loading){
-    return (
-      <div className="App">
-        <SplashScreeen/>
       </div>
     )
   }
@@ -47,7 +37,18 @@ function App() {
           <Navbar />
           <main>
           <CityFilter />
-            <AnimatedRoutes />
+          <Routes location={location} key={location.pathname}>
+            <Route path='/' element={<Inicio />} />
+            <Route path='/inicio' element={<Inicio />} />
+            <Route path='/associados' element={<Associados />} />
+            <Route path='/eventos' element={<Eventos />} />
+            <Route path='/municipios' element={<Municipios />} />
+            <Route path='/atrativos' element={<Atrativos />} />
+            <Route path='/evento/:id' element={<Evento />} />
+            <Route path='/associado/:id' element={<Associado />} />
+            <Route path='/municipio/:id' element={<Municipio />} />
+            <Route path='/atrativo/:id' element={<Atrativo />} />
+        </Routes>
           </main>
         </UserProvider>
       </BrowserRouter>

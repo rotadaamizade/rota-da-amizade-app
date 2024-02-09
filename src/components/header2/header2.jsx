@@ -1,25 +1,25 @@
 import './header2.css'
-import { useSpring, animated } from 'react-spring';
-import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from 'react-spring'
+import { useInView } from 'react-intersection-observer'
 
 function Header2(props) {
 
     const [ref, inView] = useInView({
         triggerOnce: true,
-    });
+    })
 
     const animation1 = useSpring({
         opacity: inView ? 1 : 0,
         transform: inView ? 'opacity(0)' : 'opacity(100%)',
         config: { duration: 200 },
         delay: inView ? 300 : 0,
-    });
+    })
 
     const animation2 = useSpring({
         opacity: inView ? 1 : 0,
         transform: inView ? 'opacity(0)' : 'opacity(100%)',
         config: { duration: 200 }
-    });
+    })
 
     return (
         <div className='header2-div'>
