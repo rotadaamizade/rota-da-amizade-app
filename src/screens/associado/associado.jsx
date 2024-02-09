@@ -64,6 +64,11 @@ function Associado() {
             setAssociado(docSnap.data())
             getEventos(docSnap.data().nome)
 
+            logEvent(analytics, 'screen_view', {
+                firebase_screen: 'Associado: ' + docSnap.data().nome,
+                firebase_screen_class: 'Associados'
+            })
+
             let categoriesTemp = []
 
             docSnap.data().categorias.forEach((category, element) => {
