@@ -33,9 +33,9 @@ function Municipio() {
             setNavbarState('municipios')
         }
         logEvent(analytics, 'screen_view', {
-            firebase_screen: 'Município', 
+            firebase_screen: 'Município',
             firebase_screen_class: 'Telas Secundárias'
-            });
+        });
         getCity()
     }, [])
 
@@ -64,8 +64,12 @@ function Municipio() {
                 imgArrayTemp.push(img.url)
             })
 
-            setImgArray(imgArrayTemp)
+            logEvent(analytics, 'screen_view', {
+                firebase_screen: 'Município: ' + docSnap.data().municipio,
+                firebase_screen_class: 'Municípios'
+            })
 
+            setImgArray(imgArrayTemp)
             getAtrativos(docSnap.data().municipio)
 
             if (docSnap.data().redesSociais != undefined) {
@@ -236,11 +240,11 @@ function Municipio() {
                             }
                         </div>
 
-                        <div className="content-2">{atrativos.length == 0 ? 
+                        <div className="content-2">{atrativos.length == 0 ?
                             <EmptyList
-                                type = {'Atrativos'}
+                                type={'Atrativos'}
                             />
-                        : 
+                            :
                             atrativos.map((card, index) => (
                                 <Card
                                     key={index}
