@@ -185,3 +185,7 @@ section{
 .motion-section{
     padding: 0;
 }
+
+a{
+    text-decoration: none;
+}
