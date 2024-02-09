@@ -1,28 +1,19 @@
 import { useEffect } from "react"
 import { useContext, useState } from 'react'
-import { UserContext } from '../../UserContext';
-import Card from "../../components/card/card";
-import SectionTitle from "../../components/sectionTitle/sectionTitle";
-import Search from "../../components/search/search";
-import { motion } from "framer-motion";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import CityCard from "../../components/cityCard/cityCard";
+import { UserContext } from '../../UserContext'
+import Card from "../../components/card/card"
+import SectionTitle from "../../components/sectionTitle/sectionTitle"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "../../config/firebase"
+import CityCard from "../../components/cityCard/cityCard"
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 function Inicio() {
 
     const { navbarState, setNavbarState, globalCity } = useContext(UserContext)
-    const [searchTerm, setSearchTerm] = useState('');
-    const [titleHeight, setTitleHeight] = useState(0);
-    const [municipiosRef, setMunicipiosRef] = useState([])
-    const [atrativos, setAtrativos] = useState([])
-    const [eventosAssociados, setEventosAssociados] = useState([])
-    const [eventosMunicipios, setEventosMunicipios] = useState([])
-    const [associados, setAssociados] = useState([])
-    const [municipios, setMunicipios] = useState([])
+    const [titleHeight, setTitleHeight] = useState(0)
     const [cards, setCards] = useState([])
-
-    let tempCards = []
+    const analytics = getAnalytics();
 
     useEffect(() => {
         const titleDiv = document.getElementById('title-div')
@@ -32,22 +23,34 @@ function Inicio() {
     }, [globalCity])
 
     useEffect(() => {
-        if (navbarState != 'inicio') {
+        if (navbarState !== 'inicio') {
             setNavbarState('inicio')
         }
-
-        getAssociados()
-        getMunicipios()
-        console.log(tempCards)
-        
+        fetchData()
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Início', 
+            firebase_screen_class: 'Telas Principais'
+        })
     }, [])
 
-    const getAssociados = async () => {
+    const fetchData = async () => {
+        const associadosData = await getAssociados()
+        const municipiosData = await getMunicipios()
 
-        const q = query(collection(db, "associados"), where("plano", "==", "black"));
+        const vetorMesclado = associadosData.concat(municipiosData)
+        const randomSort = () => Math.random() - 0.5
+        const vetorMescladoAleatorio = vetorMesclado.sort(randomSort)
+
+        const combinedData = vetorMescladoAleatorio
+
+        setCards(combinedData)
+    }
+
+    const getAssociados = async () => {
+        const q = query(collection(db, "associados"), where("plano", "==", "black"))
         const data = await getDocs(q)
 
-        const associadosData = [];
+        const associados = []
 
         data.forEach((doc) => {
             const associadoData = {
@@ -58,20 +61,22 @@ function Inicio() {
                 type: 'associado',
                 dates: [],
                 municipio: doc.data().municipio,
-                realizador: ''
-            };
-            associadosData.push(associadoData);
-        });
-        tempCards.push(associadosData)
-        getEventos(associadosData, 'associados')
+                realizador: '',
+                ativo: doc.data().ativo
+            }
+
+            if (associadoData.ativo) {
+                associados.push(associadoData)
+            }
+        })
+        return associados
     }
 
     const getMunicipios = async () => {
-
-        const q = query(collection(db, "municipios"), where("plano", "==", "black"));
+        const q = query(collection(db, "municipios"))
         const data = await getDocs(q)
 
-        const municipiosData = [];
+        const municipios = []
 
         data.forEach((doc) => {
             const municipioData = {
@@ -82,84 +87,61 @@ function Inicio() {
                 type: 'municipio',
                 dates: [],
                 municipio: '',
-                realizador: ''
-            };
-            municipiosData.push(municipioData)
-        });
+                realizador: '',
+                ativo: doc.data().ativo
+            }
 
-        tempCards.push(municipiosData)
-        getAtrativos(municipiosData)
-        getEventos(municipiosData, 'municipios')
-    }
-
-    const getEventos = async (refs, type) => {
-
-        const eventosData = [];
-
-        for (const ref of refs) {
-            const q = query(collection(db, "eventos"), where("realizador", "==", ref.nome));
-            const data = await getDocs(q)
-            data.forEach((doc) => {
-                const eventoData = {
-                    id: doc.id,
-                    descricao: doc.data().realizador,
-                    nome: doc.data().nome,
-                    imgCard: doc.data().imgCard.url,
-                    type: 'evento',
-                    dates: doc.data().data,
-                    municipio: doc.data().municipio,
-                    realizador: ''
-                };
-
-                eventosData.push(eventoData);
-            });
-        }
-
-        tempCards.push(eventosData)
-    }
-
-    const getAtrativos = async (refs) => {
-
-        const atrativosData = [];
-
-        for (const ref of refs) {
-            const q = query(collection(db, "atrativos"), where("municipio", "==", ref.nome));
-            const data = await getDocs(q)
-            data.forEach((doc) => {
-                const atrativoData = {
-                    id: doc.id,
-                    descricao: doc.data().realizador,
-                    nome: doc.data().nome,
-                    imgCard: doc.data().imgCard.url,
-                    type: 'evento',
-                    dates: [],
-                    municipio: doc.data().municipio,
-                    realizador: ''
-                };
-
-                atrativosData.push(atrativoData);
-            });
-        }
-        tempCards.push(atrativosData)
+            if (municipioData.ativo) {
+                municipios.push(municipioData)
+            }
+        })
+        return municipios
     }
 
     return (
 
-        <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1, transition: { duration: 0.25 } }}
+        <section
             className="section-1">
+
             <SectionTitle
                 text1={globalCity == '' ? 'Recomendados da' : 'Recomendados de'}
                 text2={globalCity == '' ? 'Rota da Amizade' : globalCity}
             />
-            <div style={{ paddingBottom: `calc(75px + ${titleHeight}px` }} className="card-container">
+            <div style={{ paddingBottom: `calc(20px + ${titleHeight}px` }} className="card-container">
 
-                <h1>TESTE ANALYTICS</h1>
-
+                {
+                    cards.map((card, index) => {
+                        if (card.type == 'associado' &&
+                            (card.municipio == globalCity || globalCity == '')) {
+                            return (
+                                <Card
+                                    key={index}
+                                    name={card.nome}
+                                    city={card.municipio}
+                                    img={card.imgCard}
+                                    type={card.type}
+                                    dates={card.dates != undefined ? card.dates : null}
+                                    id={card.id}
+                                    index={index}
+                                />
+                            )
+                        } else if
+                            (card.type == 'municipio' && (card.nome == globalCity || globalCity == '')) {
+                            return (
+                                <CityCard
+                                    key={index}
+                                    img={card.imgCard}
+                                    name={card.nome}
+                                    slogan={card.descricao}
+                                    id={card.id}
+                                    index={index}
+                                />
+                            )
+                        }
+                    })
+                }
             </div>
-        </motion.section>
+        </section>
 
     )
 }

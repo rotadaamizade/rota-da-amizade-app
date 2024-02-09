@@ -1,15 +1,17 @@
-import './atrativo.css'
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../UserContext"
-import Header2 from '../../components/header2/header2';
-import ImgCarousel from '../../components/imgCarousel/imgCarousel';
-import Buttons from '../../components/buttons/buttons';
-import { db } from '../../config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import Header2 from '../../components/header2/header2'
+import ImgCarousel from '../../components/imgCarousel/imgCarousel'
+import Buttons from '../../components/buttons/buttons'
+import { db } from '../../config/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+import CategoryLabel from '../../components/categoryLabel/categoryLabel'
+import Sobre from '../../components/sobre/sobre'
+import { getAnalytics, logEvent } from "firebase/analytics"
 
 function Atrativo() {
-    const { id } = useParams();
+    const { id } = useParams()
     const { navbarState, setNavbarState, categoriesAtrativos } = useContext(UserContext)
     const [popup, setPopup] = useState('')
     const [atrativo, setAtrativo] = useState({})
@@ -19,16 +21,17 @@ function Atrativo() {
     const navigate = useNavigate()
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
-
+    const analytics = getAnalytics()
 
     useEffect(() => {
         if (navbarState !== 'atrativos') {
             setNavbarState('atrativos')
         }
-
+        logEvent(analytics, 'screen_view', {
+            firebase_screen: 'Atrativo',
+            firebase_screen_class: 'Telas Secundárias'
+        })
         getAtrativo()
-
-
     }, [])
 
     const getAtrativo = async () => {
@@ -48,7 +51,7 @@ function Atrativo() {
                         categoriesTemp.push({ nome: category2.nome, cor: category2.corPrincipal })
                     }
                 })
-            });
+            })
 
             setCategories(categoriesTemp)
 
@@ -56,7 +59,7 @@ function Atrativo() {
 
             docSnap.data().imgs.forEach((img, index) => {
                 imgArrayTemp.push(img.url)
-            });
+            })
 
             setImgArray(imgArrayTemp)
 
@@ -80,60 +83,58 @@ function Atrativo() {
         }
     }
 
-    const background = useRef();
-    const redespopup = useRef();
+    const background = useRef()
+    const redespopup = useRef()
     const contatopopup = useRef()
 
     const closePopup = (type) => {
 
         setPopup('')
 
-        background.current.style.opacity = '0';
+        background.current.style.opacity = '0'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '0';
+            contatopopup.current.style.opacity = '0'
         } else {
-            redespopup.current.style.opacity = '0';
+            redespopup.current.style.opacity = '0'
         }
 
         setTimeout(() => {
-            background.current.style.zIndex = '-1';
+            background.current.style.zIndex = '-1'
 
             if (type == 'contato') {
-                contatopopup.current.style.zIndex = '-1';
+                contatopopup.current.style.zIndex = '-1'
             } else {
-                redespopup.current.style.zIndex = '-1';
+                redespopup.current.style.zIndex = '-1'
             }
-        }, 200);
-    };
+        }, 200)
+    }
 
     const openPopup = (type) => {
 
         setPopup(type)
 
-        background.current.style.zIndex = '4';
-        background.current.style.opacity = '100%';
+        background.current.style.zIndex = '4'
+        background.current.style.opacity = '100%'
 
         if (type == 'contato') {
-            contatopopup.current.style.opacity = '100%';
-            contatopopup.current.style.zIndex = '5';
+            contatopopup.current.style.opacity = '100%'
+            contatopopup.current.style.zIndex = '5'
         } else {
-            redespopup.current.style.opacity = '100%';
-            redespopup.current.style.zIndex = '5';
+            redespopup.current.style.opacity = '100%'
+            redespopup.current.style.zIndex = '5'
         }
     }
 
-    console.log(categories)
-
     return (
-        <>
+        <section className='motion-section'>
             <div onClick={() => closePopup(popup)} ref={background} className='popup-background'></div>
             {redes.length > 0 && (
                 <div ref={redespopup} className='redes-popup' >
                     <div>
                         {
                             redes.map((rede, index) => (
-                                <div key={index} style={{ backgroundColor: rede.color }} className='rede-button popup-buttons'>{rede.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{rede.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -147,7 +148,7 @@ function Atrativo() {
                     <div>
                         {
                             contatos.map((contato, index) => (
-                                <div key={index} style={{ backgroundColor: contato.color }} className='rede-button popup-buttons'>{contato.name}</div>
+                                <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
                             ))
                         }
                         <div className='close-button-container'>
@@ -163,43 +164,51 @@ function Atrativo() {
             />
             <section className="section-4">
                 <div className='content-3'>
+                    {Object.keys(atrativo).length > 0 &&
+                        <>
 
-                    <h2 className='title-associado-2'>Categorias</h2>
-                    {categories.map((category, index) => (
-                        <div key={index} style={{ backgroundColor: `#${category.cor}` }} className='category-button'>
-                            <p>{category.nome}</p>
-                        </div>
-                    ))}
+                            <h2 className='title-associado-2'>Categorias</h2>
+                            {categories.map((category, index) => (
+                                <CategoryLabel
+                                    key={index}
+                                    category={category}
+                                    index={index}
+                                />
+                            ))}
 
-                    <h2 className='title-associado'>Sobre Nós</h2>
-                    <p className='sobre-nos'>{atrativo.sobre}</p>
+                            <h2 className='title-associado'>Sobre Nós</h2>
+                            <Sobre
+                                sobre={atrativo.sobre}
+                            />
 
-                    <h2 className='title-associado'>Imagens</h2>
-                    <ImgCarousel
-                        imgArray={imgArray}
-                    />
-                    {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
-                        <Buttons
-                            localization={localizacao}
-                            contatos={contatos}
-                            redes={redes}
-                            openContatos={() => {
-                                if (contatos !== undefined) {
-                                    openPopup('contato');
-                                }
-                            }}
-                            openRedes={() => {
-                                if (redes !== undefined) {
-                                    openPopup('rede');
-                                }
-                            }}
-                        />
-                    ) : null}
+                            <h2 className='title-associado'>Imagens</h2>
+                            <ImgCarousel
+                                imgArray={imgArray}
+                            />
+                            {contatos.length > 0 || redes.length > 0 || localizacao !== '' ? (
+                                <Buttons
+                                    localization={localizacao}
+                                    contatos={contatos}
+                                    redes={redes}
+                                    openContatos={() => {
+                                        if (contatos !== undefined) {
+                                            openPopup('contato')
+                                        }
+                                    }}
+                                    openRedes={() => {
+                                        if (redes !== undefined) {
+                                            openPopup('rede')
+                                        }
+                                    }}
+                                />
+                            ) : null}
 
+                        </>
+                    }
                 </div>
             </section>
-        </>
+        </section>
     )
 }
 
-export default Atrativo;
+export default Atrativo

@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import './card.css';
-import { animated, useSpring } from 'react-spring';
-import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom'
+import './card.css'
+import { animated, useSpring } from 'react-spring'
+import { useInView } from 'react-intersection-observer'
 
 
 function Card(props) {
@@ -12,9 +12,9 @@ function Card(props) {
 
   const animation = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateX(0)' : 'translateX(100%)',
+    transform: inView ? 'opacity(0)' : 'opacity(100%)',
     config: { duration: 350 },
-    delay: inView ? props.index * 50 : 0,
+    delay: inView ? props.index * 100 : 0,
   })
 
   const navigate = useNavigate()
@@ -72,10 +72,9 @@ function Card(props) {
           <h1>{props.name}</h1>
           <h2>{props.city}</h2>
         </div>
-        <div className='card-svg'>{props.svg}</div>
       </div>
     </animated.div>
-  );
+  )
 }
 
-export default Card;
+export default Card

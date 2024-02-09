@@ -2,9 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import './categories.css'
 import { UserContext } from '../../UserContext'
 import { useNavigate } from 'react-router-dom'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../config/firebase'
-import StringToHtml from '../stringToHtml/stringToHtml'
 import CategoryButton from '../categoryButton/categoryButton'
 
 function Categories({category, setCategory, type}){
@@ -27,8 +24,6 @@ function Categories({category, setCategory, type}){
             setCategories(categoriesAtrativos)
         }
     }
-
-    console.log(categories)
 
     return (
         <div className='categorie-div'>
