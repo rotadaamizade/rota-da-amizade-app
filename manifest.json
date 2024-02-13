@@ -1,6 +1,4 @@
 {
-    "id": "/",
-    "scope": "/",
     "name": "Rota da Amizade APP",
     "display": "standalone",
     "start_url": "https://rotadaamizadeapp.netlify.app/",
