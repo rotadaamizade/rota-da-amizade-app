@@ -1,6 +1,6 @@
 {
-    "name": "Rota da Amizade PWA",
-    "short_name": "PWA",
+    "name": "Rota da Amizade App",
+    "short_name": "Rota da Amizade",
     "description": "Rota da Amizade é um aplicativo que indica os melhores pontos turísticos da região Sul do Brasil",
     "launch_handler": {
         "client_mode": "focus-existing"
@@ -12,6 +12,12 @@
     "lang": "pt-BR",
     "icons": [
         {
+            "src": "public/icons/rota-icon.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        },
+        {
             "src": "public/icons/rota-icon.svg",
             "type": "image/svg+xml",
             "sizes": "any",
@@ -22,14 +28,8 @@
             "type": "image/svg+xml",
             "sizes": "any",
             "purpose": "maskable"
-        },
-        {
-            "src": "public/icons/rota-icon.png",
-            "type": "image/png",
-            "sizes": "512x512"
         }
-
-    ],
+    ],    
     "background_color": "#1B8296",
     "display": "standalone",
     "theme_color": "#1B8296"
