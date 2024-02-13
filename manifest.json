@@ -1,13 +1,13 @@
 {
-    "name": "Rota da Amizade PWA",
-    "short_name": "PWA",
+    "name": "Rota da Amizade App",
+    "short_name": "Rota da Amizade",
     "description": "Rota da Amizade é um aplicativo que indica os melhores pontos turísticos da região Sul do Brasil",
     "launch_handler": {
         "client_mode": "focus-existing"
     },
     "categories": [ "travel", "utilities" ],
     "dir": "auto",
-    "start_url": "",
+    "start_url": "https://rodadaamizadeapp.netlify.app/",
     "orientation": "portrait",
     "lang": "pt-BR",
     "icons": [
