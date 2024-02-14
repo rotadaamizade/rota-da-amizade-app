@@ -1,7 +1,7 @@
 {
     "name": "Rota da Amizade APP",
     "display": "standalone",
-    "start_url": "https://rotadaamizadeapp.netlify.app/",
+    "start_url": "/",
     "short_name": "Rota da Amizade",
     "theme_color": "#E1477E",
     "description": "Teste Rota da Amizade",
