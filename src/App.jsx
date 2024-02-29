@@ -14,10 +14,14 @@ import Associado from './screens/associado/associado'
 import Municipio from './screens/municipio/municipio'
 import Atrativo from './screens/atrativo/atrativo'
 
+import { useState } from 'react'
+import SplashScreen from './components/splashScreen/splashScreen'
+
 function App() {
 
 
   const maintenance = false
+  const [splashScreenBool, setSplashScreenBool] = useState(true)
 
   if (maintenance) {
     return (
@@ -28,33 +32,37 @@ function App() {
     )
   }
 
-  return (
-    <div className="App">
-
-
-      <BrowserRouter>
-        <UserProvider>
-          <Navbar />
-          <main>
-          <CityFilter />
-          <Routes location={location} key={location.pathname}>
-            <Route path='/' element={<Inicio />} />
-            <Route path='/inicio' element={<Inicio />} />
-            <Route path='/associados' element={<Associados />} />
-            <Route path='/eventos' element={<Eventos />} />
-            <Route path='/municipios' element={<Municipios />} />
-            <Route path='/atrativos' element={<Atrativos />} />
-            <Route path='/evento/:id' element={<Evento />} />
-            <Route path='/associado/:id' element={<Associado />} />
-            <Route path='/municipio/:id' element={<Municipio />} />
-            <Route path='/atrativo/:id' element={<Atrativo />} />
-        </Routes>
-          </main>
-        </UserProvider>
-      </BrowserRouter>
-
-    </div>
-  )
+  if (splashScreenBool) {
+    setTimeout(() => {
+      setSplashScreenBool(false)
+    }, 2000);
+    return <SplashScreen/>
+  } else {
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <UserProvider>
+            <Navbar />
+            <main>
+              <CityFilter />
+              <Routes location={location} key={location.pathname}>
+                <Route path='/' element={<Inicio />} />
+                <Route path='/inicio' element={<Inicio />} />
+                <Route path='/associados' element={<Associados />} />
+                <Route path='/eventos' element={<Eventos />} />
+                <Route path='/municipios' element={<Municipios />} />
+                <Route path='/atrativos' element={<Atrativos />} />
+                <Route path='/evento/:id' element={<Evento />} />
+                <Route path='/associado/:id' element={<Associado />} />
+                <Route path='/municipio/:id' element={<Municipio />} />
+                <Route path='/atrativo/:id' element={<Atrativo />} />
+              </Routes>
+            </main>
+          </UserProvider>
+        </BrowserRouter>
+      </div>
+    )
+  }
 }
 
 export default App
