@@ -28,4 +28,6 @@
 .splashScreen_background img{
     width: 75%;
     height: auto;
-}
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}   
