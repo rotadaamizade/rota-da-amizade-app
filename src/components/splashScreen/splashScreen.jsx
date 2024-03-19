@@ -1,23 +1,31 @@
-import './splashScreen.css'
+import { useEffect, useState } from 'react';
+import './splashScreen.css';
 
-function SplashScreen(){
+function SplashScreen() {
+  const [show, setShow] = useState(true);
+  const [randomImage, setRandomImage] = useState('');
 
+  useEffect(() => {
     const images = [
-        '../../../realizadores/HotelRenar.svg',
-        '../../../realizadores/MatoSanto.svg',
-        '../../../realizadores/Natikos.png',
-        '../../../realizadores/RotaDaAmizade.svg',
-      ];
-    
-      const randomImage = images[Math.floor(Math.random() * images.length)];
+      '../../../realizadores/HotelRenar.png',
+      '../../../realizadores/MatoSanto.png',
+      '../../../realizadores/Natikos.png',
+      '../../../realizadores/RotaDaAmizade.png',
+    ];
+    const selectedImage = images[Math.floor(Math.random() * images.length)];
+    setRandomImage(selectedImage);
 
+    const timer = setTimeout(() => setShow(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
-    return <div className='splashScreen_background'>
-        <div>
-            <p>Realização</p>
-            <img src={randomImage} alt="Imagem Aleatória" />
-        </div>
+  return (
+    <div className={`splash-screen ${show ? '' : 'splash-screen-hide'}`}>
+      <div>
+        <img src={randomImage} alt="Imagem Aleatória" />
+      </div>
     </div>
+  );
 }
 
 export default SplashScreen;

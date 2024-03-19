@@ -1,4 +1,4 @@
-.splashScreen_background{
+.splash-screen{
     background-color: #E3121D;
     display: flex;
     height: 100vh;
@@ -6,28 +6,44 @@
     align-items: center;
     position: absolute;
     z-index: 4;
+    padding: 15%;
+    box-sizing: border-box;
 }
 
-.splashScreen_background div{
+.splash-screen div{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
-.splashScreen_background p{
+.splash-screen p{
     color: white;
-    font-size: 25px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 400;
     width: 100%;
     text-align: center;
     margin: 0;
-    margin-bottom: 15px;
+    border-bottom: 1px solid white;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
 }
 
-.splashScreen_background img{
-    width: 75%;
+.splash-screen img{
+    width: 100%;
     height: auto;
-    aspect-ratio: 1/1;
     object-fit: contain;
 }   
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
+  .splash-screen-hide {
+    animation: fadeOut .5s ease-in-out forwards;
+  }
