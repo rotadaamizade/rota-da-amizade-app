@@ -126,8 +126,19 @@ function Atrativo() {
         }
     }
 
+    const handleCopyToClipboard = (textToCopy) => {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                console.log('Texto copiado com sucesso!');
+            })
+            .catch((error) => {
+                console.error('Erro ao copiar texto:', error);
+            });
+    };
+
     return (
         <section className='motion-section'>
+
             <div onClick={() => {
                 closePopup('contato')
                 closePopup('redes')
@@ -145,14 +156,20 @@ function Atrativo() {
                                     )
                                 } else if (contato.name == 'Twitter') {
                                     return (
-                                        <a href={contato.url}  target='_blank'>
+                                        <a href={contato.url} target='_blank'>
                                             <div key={index} style={{ backgroundColor: '#00aced' }} className='rede-button popup-buttons'>{contato.name}</div>
                                         </a>
                                     )
                                 } else if (contato.name == 'Instagram') {
                                     return (
-                                        <a href={contato.url}  target='_blank'>
+                                        <a href={contato.url} target='_blank'>
                                             <div key={index} style={{ backgroundColor: '#FD1D1D' }} className='rede-button popup-buttons'>{contato.name}</div>
+                                        </a>
+                                    )
+                                } else if (contato.name == 'Site') {
+                                    return (
+                                        <a href={contato.url} target='_blank'>
+                                            <div key={index} style={{ backgroundColor: '#000' }} className='rede-button popup-buttons'>{contato.name}</div>
                                         </a>
                                     )
                                 } else {
@@ -180,27 +197,29 @@ function Atrativo() {
                             contatos.map((contato, index) => {
                                 if (contato.name == 'Whatsapp') {
                                     return (
-                                        <a href={`https://wa.me/${contato.url}?text=Olá`} target='_blank'>
+                                        <a href={`https://wa.me/${contato.url}`} target='_blank'>
                                             <div key={index} style={{ backgroundColor: '#25d366' }} className='rede-button popup-buttons'>{contato.name}</div>
                                         </a>
                                     )
                                 } else if (contato.name == 'Email') {
                                     return (
-                                        <a href="" target='_blank'>
-                                            <div key={index} style={{ backgroundColor: '#ca3625' }} className='rede-button popup-buttons'>{contato.name}</div>
-                                        </a>
+
+                                        <div onClick={() => {
+                                            handleCopyToClipboard(contato.url)
+                                        }} key={index} style={{ backgroundColor: '#ca3625' }} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 } else if (contato.name == 'Telefone') {
                                     return (
-                                        <a href="" target='_blank'>
-                                            <div key={index} style={{ backgroundColor: '#000' }} className='rede-button popup-buttons'>{contato.name}</div>
-                                        </a>
+
+                                        <div onClick={() => {
+                                            handleCopyToClipboard(contato.url)
+                                        }} key={index} style={{ backgroundColor: '#000' }} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 } else {
                                     return (
-                                        <a href={contato.url} target='_blank'>
-                                            <div key={index} className='rede-button popup-buttons'>{contato.name}</div>
-                                        </a>
+                                        <div onClick={() => {
+                                            handleCopyToClipboard(contato.url)
+                                        }} key={index} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 }
 
