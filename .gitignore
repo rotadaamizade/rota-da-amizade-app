@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 .env
-manifest.json
 
 # Editor directories and files
 .vscode/*
