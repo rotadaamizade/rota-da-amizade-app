@@ -15,14 +15,29 @@ import Municipio from './screens/municipio/municipio';
 import Atrativo from './screens/atrativo/atrativo';
 import SplashScreen from './components/splashScreen/splashScreen';
 import './App.css';
+import OfflineScreen from './components/offlineScreen/offlineScreen';
 
 function App() {
   const maintenance = false;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSplashScreen(false), 2000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []);
 
   if (maintenance) {
@@ -32,6 +47,10 @@ function App() {
         <p>Please come back later</p>
       </div>
     );
+  }
+
+  if(!isOnline){
+    return <OfflineScreen/>
   }
 
   return (
