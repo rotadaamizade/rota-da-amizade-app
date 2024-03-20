@@ -1,0 +1,52 @@
+.offlineScreen {
+    background-color: #E3121D;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 4;
+    padding: 15%;
+    box-sizing: border-box;
+    max-width: 700px;
+    width: 100%;
+}
+
+
+.offlineScreen div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.offlineScreen img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}   
+
+.popup-reload{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.offlineScreen h3{
+    color: white;
+    margin-top: 70px;
+    margin-bottom: 13px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    text-align: center;
+}
+
+.popup-reload button{
+    width: 100%;
+    border: none;
+    padding: 10px;
+    border-radius: 9px;
+    background-color: white;
+    color: #c5111a;
+    font-weight: 800;
+}
