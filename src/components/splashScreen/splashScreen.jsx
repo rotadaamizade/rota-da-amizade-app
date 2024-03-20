@@ -7,10 +7,10 @@ function SplashScreen() {
 
   useEffect(() => {
     const images = [
-      '../../../realizadores/HotelRenar.png',
-      '../../../realizadores/MatoSanto.png',
-      '../../../realizadores/Natikos.png',
-      '../../../realizadores/RotaDaAmizade.png',
+      '../../../HotelRenar.png',
+      '../../../MatoSanto.png',
+      '../../../Natikos.png',
+      '../../../RotaDaAmizade.png',
     ];
     const selectedImage = images[Math.floor(Math.random() * images.length)];
     setRandomImage(selectedImage);
@@ -22,7 +22,7 @@ function SplashScreen() {
   return (
     <div className={`splash-screen ${show ? '' : 'splash-screen-hide'}`}>
       <div>
-        <img src={randomImage} alt="Imagem Aleatória" />
+        <img src={randomImage} alt="" />
       </div>
     </div>
   );
