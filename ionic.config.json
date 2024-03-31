@@ -1,0 +1,7 @@
+{
+  "name": "rota-da-amizade-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

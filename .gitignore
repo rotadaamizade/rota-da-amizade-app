@@ -13,6 +13,11 @@ dist-ssr
 *.local
 .env
 
+android/*
+dist/*
+resources/*
+ios/*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

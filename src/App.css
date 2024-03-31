@@ -189,3 +189,29 @@ section{
 a{
     text-decoration: none;
 }
+
+.copied-popup{
+    background-color: white;
+    z-index: 4;
+    margin: 20px;
+    width: fit-content;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.copied-popup p{
+    margin: 0;
+    margin-right: 10px;
+}
+
+.copier-popup-container{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    opacity: 0;
+    transition: .4s;
+}

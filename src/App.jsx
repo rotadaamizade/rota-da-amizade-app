@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import { Network } from '@capacitor/network';
 import Navbar from './components/navbar/navbar';
 import CityFilter from './components/cityFilter/cityFilter';
 import Inicio from './screens/inicio/inicio';
@@ -27,17 +28,13 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const logCurrentNetworkStatus = async () => {
+    const status = await Network.getStatus();
+    setIsOnline(status.connected);
+  };
+
   useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
+    logCurrentNetworkStatus()
   }, []);
 
   if (maintenance) {

@@ -21,6 +21,8 @@ function Atrativo() {
     const navigate = useNavigate()
     const [imgArray, setImgArray] = useState([])
     const [categories, setCategories] = useState([])
+    const [copied, setCopied] = useState(false)
+    const [copiedType, setCopiedType] = useState('')
     const analytics = getAnalytics()
 
     useEffect(() => {
@@ -108,6 +110,7 @@ function Atrativo() {
                 redespopup.current.style.zIndex = '-1'
             }
         }, 200)
+        setCopied(false)
     }
 
     const openPopup = (type) => {
@@ -126,23 +129,59 @@ function Atrativo() {
         }
     }
 
-    const handleCopyToClipboard = (textToCopy) => {
+    const handleCopyToClipboard = (textToCopy, type) => {
         navigator.clipboard.writeText(textToCopy)
             .then(() => {
-                console.log('Texto copiado com sucesso!');
+                setCopiedType(type)
+                if(!copied){
+                    setCopied(true)
+                    setTimeout(() => {
+                        setCopied(false)
+                    }, 2000);
+                }
             })
-            .catch((error) => {
-                console.error('Erro ao copiar texto:', error);
-            });
     };
+
+    const copiedPopup = useRef()
+
+    useEffect(() => {
+        if(copied == true){
+            copiedPopup.current.style.opacity = '100%'
+            copiedPopup.current.style.zIndex = '5'
+        } else if(copied == false){
+            copiedPopup.current.style.opacity = '0'
+            setTimeout(() => {
+                    copiedPopup.current.style.zIndex = '-1'
+            }, 200)
+        }
+    }, [copied])
 
     return (
         <section className='motion-section'>
 
-            <div onClick={() => {
+<div onClick={() => {
                 closePopup('contato')
                 closePopup('redes')
-            }} ref={background} className='popup-background'></div>
+            }} ref={background} className='popup-background'>
+                <div ref={copiedPopup} className='copier-popup-container'>
+                        <div className='copied-popup'>
+                            <p>{copiedType} Copiado</p>
+                            <svg fill="#00FF00" height="20px" width="20px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 0 492 492" xml:space="preserve">
+                                <g>
+                                    <g>
+                                        <path d="M484.128,104.478l-16.116-16.116c-5.064-5.068-11.816-7.856-19.024-7.856c-7.208,0-13.964,2.788-19.028,7.856
+        L203.508,314.81L62.024,173.322c-5.064-5.06-11.82-7.852-19.028-7.852c-7.204,0-13.956,2.792-19.024,7.852l-16.12,16.112
+        C2.784,194.51,0,201.27,0,208.47c0,7.204,2.784,13.96,7.852,19.028l159.744,159.736c0.212,0.3,0.436,0.58,0.696,0.836
+        l16.12,15.852c5.064,5.048,11.82,7.572,19.084,7.572h0.084c7.212,0,13.968-2.524,19.024-7.572l16.124-15.992
+        c0.26-0.256,0.48-0.468,0.612-0.684l244.784-244.76C494.624,132.01,494.624,114.966,484.128,104.478z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                </div>
+
+            </div>
             {redes !== undefined && (
                 <div ref={redespopup} className='redes-popup' >
                     <div>
@@ -189,7 +228,6 @@ function Atrativo() {
                     </div>
                 </div>
             )}
-
             {contatos !== undefined && (
                 <div ref={contatopopup} className='redes-popup' >
                     <div>
@@ -205,20 +243,20 @@ function Atrativo() {
                                     return (
 
                                         <div onClick={() => {
-                                            handleCopyToClipboard(contato.url)
+                                            handleCopyToClipboard(contato.url, contato.name)
                                         }} key={index} style={{ backgroundColor: '#ca3625' }} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 } else if (contato.name == 'Telefone') {
                                     return (
 
                                         <div onClick={() => {
-                                            handleCopyToClipboard(contato.url)
+                                            handleCopyToClipboard(contato.url, contato.name)
                                         }} key={index} style={{ backgroundColor: '#000' }} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 } else {
                                     return (
                                         <div onClick={() => {
-                                            handleCopyToClipboard(contato.url)
+                                            handleCopyToClipboard(contato.url, contato.name)
                                         }} key={index} className='rede-button popup-buttons'>{contato.name}</div>
                                     )
                                 }
