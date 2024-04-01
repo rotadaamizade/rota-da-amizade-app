@@ -1,6 +1,6 @@
 {
   "appId": "rota.da.amizade.app",
-  "appName": "rota-da-amizade-app",
+  "appName": "Rota da Amizade",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"
