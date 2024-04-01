@@ -38,10 +38,19 @@ function Associados() {
                 }
 
             })
-            setAssociados(associadosData)
+            return associadosData
         } catch (error) {
             console.error("Erro ao recuperar documentos:", error)
         }
+    }
+
+    const fetchData = async () => {
+        const associadosData = await getAssociados()
+        
+        const randomSort = () => Math.random() - 0.5
+        const ramdomData = associadosData.sort(randomSort)
+
+        setAssociados(ramdomData)
     }
 
     useEffect(() => {
@@ -52,7 +61,7 @@ function Associados() {
             firebase_screen: 'Associados',
             firebase_screen_class: 'Telas Principais'
         })
-        getAssociados()
+        fetchData()
     }, [])
 
     useEffect(() => {

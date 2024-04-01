@@ -26,7 +26,7 @@ function Eventos() {
             firebase_screen: 'Eventos',
             firebase_screen_class: 'Telas Principais'
         })
-        getEventos()
+        fetchData()
     }, [])
 
     useEffect(() => {
@@ -64,10 +64,19 @@ function Eventos() {
                 }
             })
 
-            setEvents(eventsData)
+            return eventsData
         } catch (error) {
             console.error("Erro ao recuperar documentos:", error)
         }
+    }
+
+    const fetchData = async () => {
+        const eventosData = await getEventos()
+        
+        const randomSort = () => Math.random() - 0.5
+        const ramdomData = eventosData.sort(randomSort)
+
+        setEvents(ramdomData)
     }
 
     return (

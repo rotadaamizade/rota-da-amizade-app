@@ -23,7 +23,7 @@ function Atrativos() {
         if (navbarState != 'atrativos') {
             setNavbarState('atrativos')
         }
-        getAtrativos()
+        fetchData()
         logEvent(analytics, 'screen_view', {
             firebase_screen: 'Atrativos',
             firebase_screen_class: 'Telas Primárias'
@@ -58,10 +58,19 @@ function Atrativos() {
                 }
             })
 
-            setAtrativos(atrativosData)
+            return atrativosData
         } catch (error) {
             console.error("Erro ao recuperar documentos:", error)
         }
+    }
+
+    const fetchData = async () => {
+        const atrativosData = await getAtrativos()
+        
+        const randomSort = () => Math.random() - 0.5
+        const ramdomData = atrativosData.sort(randomSort)
+
+        setAtrativos(ramdomData)
     }
 
     const handleSearch = (value) => {

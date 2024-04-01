@@ -20,7 +20,7 @@ function Municipios() {
         if (navbarState != 'municipios') {
             setNavbarState('municipios')
         }
-        getCities()
+        fetchData()
 
         const titleDiv = document.getElementById('title-div')
         let height = titleDiv.offsetHeight
@@ -51,10 +51,19 @@ function Municipios() {
                 }
             })
 
-            setCities(citiesData)
+            return citiesData
         } catch (error) {
             console.error("Erro ao recuperar documentos:", error)
         }
+    }
+
+    const fetchData = async () => {
+        const municipiosData = await getCities()
+        
+        const randomSort = () => Math.random() - 0.5
+        const ramdomData = municipiosData.sort(randomSort)
+
+        setCities(ramdomData)
     }
 
     const handleSearch = (value) => {

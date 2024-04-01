@@ -41,9 +41,7 @@ function Inicio() {
         const randomSort = () => Math.random() - 0.5
         const vetorMescladoAleatorio = vetorMesclado.sort(randomSort)
 
-        const combinedData = vetorMescladoAleatorio
-
-        setCards(combinedData)
+        setCards(vetorMescladoAleatorio)
     }
 
     const getAssociados = async () => {
